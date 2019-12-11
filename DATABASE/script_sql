@@ -1,0 +1,118 @@
+DROP TABLE IF EXISTS USER ;
+CREATE TABLE USER (ID_USER INTEGER AUTO_INCREMENT NOT NULL,
+PASSWORD_USER VARCHAR(30),
+PSEUDO_USER VARCHAR(30),
+EMAIL_USER VARCHAR(30),
+id_type_user INT(50),
+PRIMARY KEY (ID_USER)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS projet ;
+CREATE TABLE projet (id_projet INTEGER AUTO_INCREMENT NOT NULL,
+nom_projet VARCHAR(100),
+desc_projet VARCHAR(5000),
+img_projet VARCHAR(1000),
+id_type_projet INT(50),
+id_statut_projet INT(50),
+PRIMARY KEY (id_projet)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS personnages ;
+CREATE TABLE personnages (id_perso INTEGER AUTO_INCREMENT NOT NULL,
+nom_perso VARCHAR(100),
+desc_perso VARCHAR(1000),
+id_projet INT(50),
+PRIMARY KEY (id_perso)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS chapitre ;
+CREATE TABLE chapitre (id_chap INTEGER AUTO_INCREMENT NOT NULL,
+nom_chap INTEGER,
+id_tome INT(50),
+PRIMARY KEY (id_chap)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS tome ;
+CREATE TABLE tome (id_tome INTEGER AUTO_INCREMENT NOT NULL,
+nom_tome VARCHAR(100),
+desc_tome VARCHAR(5000),
+num_tome INTEGER,
+couverture_tome VARCHAR(100),
+id_projet INT(50),
+PRIMARY KEY (id_tome)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS lieu ;
+CREATE TABLE lieu (id_lieu INTEGER AUTO_INCREMENT NOT NULL,
+nom_lieu VARCHAR(100),
+desc_lieu VARCHAR(5000),
+img_lieu VARCHAR(1000),
+id_projet INT(50),
+PRIMARY KEY (id_lieu)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS image_perso ;
+CREATE TABLE image_perso (id_img_perso INTEGER AUTO_INCREMENT NOT NULL,
+img_perso VARCHAR(1000),
+desc_img_perso VARCHAR(1000),
+id_perso INT(50),
+PRIMARY KEY (id_img_perso)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS image_lieu ;
+CREATE TABLE image_lieu (id_img_lieu INTEGER AUTO_INCREMENT NOT NULL,
+img_lieu VARCHAR(1000),
+desc_img_lieu VARCHAR(5000),
+id_lieu INT(50),
+PRIMARY KEY (id_img_lieu)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS type_projet ;
+CREATE TABLE type_projet (id_type_projet INTEGER AUTO_INCREMENT NOT NULL,
+type_projet VARCHAR(500),
+PRIMARY KEY (id_type_projet)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS statut_projet ;
+CREATE TABLE statut_projet (id_statut_projet INTEGER AUTO_INCREMENT NOT NULL,
+statut_projet VARCHAR(500),
+PRIMARY KEY (id_statut_projet)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS type_user ;
+CREATE TABLE type_user (id_type_user INTEGER AUTO_INCREMENT NOT NULL,
+type_user VARCHAR(500),
+PRIMARY KEY (id_type_user)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS planche ;
+CREATE TABLE planche (id_planche INTEGER AUTO_INCREMENT NOT NULL,
+img_planche VARCHAR(1000),
+id_chap INT(50),
+PRIMARY KEY (id_planche)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS lexique ;
+CREATE TABLE lexique (id_lexique INTEGER AUTO_INCREMENT NOT NULL,
+mot_cle_lexique VARCHAR(1000),
+id_projet INT(50),
+PRIMARY KEY (id_lexique)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS creer_projet ;
+CREATE TABLE creer_projet (ID_USER INTEGER AUTO_INCREMENT NOT NULL,
+id_projet INT(50) NOT NULL,
+PRIMARY KEY (ID_USER,
+ id_projet)) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS commenter ;
+CREATE TABLE commenter (ID_USER INTEGER AUTO_INCREMENT NOT NULL,
+id_projet INT(50) NOT NULL,
+comm_projet VARCHAR(5000),
+date_comm DATETIME,
+PRIMARY KEY (ID_USER,
+ id_projet)) ENGINE=InnoDB;
+
+ALTER TABLE USER ADD CONSTRAINT FK_USER_id_type_user FOREIGN KEY (id_type_user) REFERENCES type_user (id_type_user);
+
+ALTER TABLE projet ADD CONSTRAINT FK_projet_id_type_projet FOREIGN KEY (id_type_projet) REFERENCES type_projet (id_type_projet);
+ALTER TABLE projet ADD CONSTRAINT FK_projet_id_statut_projet FOREIGN KEY (id_statut_projet) REFERENCES statut_projet (id_statut_projet);
+ALTER TABLE personnages ADD CONSTRAINT FK_personnages_id_projet FOREIGN KEY (id_projet) REFERENCES projet (id_projet);
+ALTER TABLE chapitre ADD CONSTRAINT FK_chapitre_id_tome FOREIGN KEY (id_tome) REFERENCES tome (id_tome);
+ALTER TABLE tome ADD CONSTRAINT FK_tome_id_projet FOREIGN KEY (id_projet) REFERENCES projet (id_projet);
+ALTER TABLE lieu ADD CONSTRAINT FK_lieu_id_projet FOREIGN KEY (id_projet) REFERENCES projet (id_projet);
+ALTER TABLE image_perso ADD CONSTRAINT FK_image_perso_id_perso FOREIGN KEY (id_perso) REFERENCES personnages (id_perso);
+ALTER TABLE image_lieu ADD CONSTRAINT FK_image_lieu_id_lieu FOREIGN KEY (id_lieu) REFERENCES lieu (id_lieu);
+ALTER TABLE planche ADD CONSTRAINT FK_planche_id_chap FOREIGN KEY (id_chap) REFERENCES chapitre (id_chap);
+ALTER TABLE lexique ADD CONSTRAINT FK_lexique_id_projet FOREIGN KEY (id_projet) REFERENCES projet (id_projet);
+ALTER TABLE creer_projet ADD CONSTRAINT FK_creer_projet_ID_USER FOREIGN KEY (ID_USER) REFERENCES USER (ID_USER);
+ALTER TABLE creer_projet ADD CONSTRAINT FK_creer_projet_id_projet FOREIGN KEY (id_projet) REFERENCES projet (id_projet);
+ALTER TABLE commenter ADD CONSTRAINT FK_commenter_ID_USER FOREIGN KEY (ID_USER) REFERENCES USER (ID_USER);
+ALTER TABLE commenter ADD CONSTRAINT FK_commenter_id_projet FOREIGN KEY (id_projet) REFERENCES projet (id_projet);
