@@ -17,20 +17,20 @@
 				die('Erreur : '.$e->getMessage());
 			}
 			
-			$requete = $bdd->query('SELECT * FROM utilisateurs');
+			$requete = $bdd->query('SELECT * FROM user');
 			
 			while($donnee = $requete->fetch())
 			{
-				if($donnee['email'] == $email && $donnee['password'] == $password)
+				if($donnee['EMAIL_USER'] == $email && $donnee['PASSWORD_USER'] == $password)
 				{
-					$_SESSION['pseudo'] = $donnee['pseudo'];
-					$_SESSION['email'] = $donnee['email'];
-					$_SESSION['password'] = $donnee['password'];
-					$_SESSION['domaine'] = $donnee['domaine'];
-					$_SESSION['partages'] = $donnee['nb_partages'];
-					$_SESSION['likes'] = $donnee['nb_likes'];
-					$_SESSION['projets'] = $donnee['nb_projets'];
-					$_SESSION['followers'] = $donnee['nb_followers'];
+					$_SESSION['pseudo'] = $donnee['PSEUDO_USER'];
+					$_SESSION['email'] = $donnee['EMAIL_USER'];
+					$_SESSION['password'] = $donnee['PASSWORD_USER'];
+					$_SESSION['domaine'] = $donnee['ID_TYPE_USER'];
+					//$_SESSION['partages'] = $donnee['nb_partages'];
+					//$_SESSION['likes'] = $donnee['nb_likes'];
+					//$_SESSION['projets'] = $donnee['nb_projets'];
+					//$_SESSION['followers'] = $donnee['nb_followers'];
 					$requete->closeCursor();
 					header('Location: ../index.php');
 				}
@@ -55,23 +55,20 @@
 				die('Erreur : '.$e->getMessage());
 			}
 			
-			$requete = $bdd->query('SELECT email FROM utilisateurs');
+			$requete = $bdd->query('SELECT EMAIL_USER FROM user');
 			
-			/*if($requete->fetch() != null)
+			while($donnee = $requete->fetch())
 			{
-				while($donnee = $requete->fetch())
+				if($donnee['EMAIL_USER'] == $email)
 				{
-					if($donnee['email'] == $email)
-					{
-						echo "l'email entre est deja utilise";
-						$existe = true;
-					}
+					echo "l'email entre est deja utilise";
+					$existe = true;
 				}
-			}*/
+			}
 			
 			if($existe == false)
 			{
-				$requete = $bdd->prepare('INSERT INTO `utilisateurs` (`id`, `pseudo`, `email`, `password`)VALUES(NULL, :pseudo, :email, :password)');
+				$requete = $bdd->prepare('INSERT INTO `user` (`ID_USER`, `PSEUDO_USER`, `EMAIL_USER`, `PASSWORD_USER`)VALUES(NULL, :pseudo, :email, :password)');
 				
 				$requete->execute(array('pseudo' => $pseudo, 'email' => $email, 'password' => $password));
 				
@@ -103,7 +100,7 @@
 			}
 			else
 			{
-				$requete = $bdd->prepare('UPDATE `utilisateurs` SET pseudo = :pseudo, email = :email, password = :password, domaine = :domaine WHERE pseudo = :user');
+				$requete = $bdd->prepare('UPDATE `user` SET PSEUDO_USER = :pseudo, EMAIL_USER = :email, PASSWORD_USER = :password, id_type_user = :domaine WHERE PSEUDO_USER = :user');
 			
 				$requete->execute(array('pseudo' => $pseudo, 'email' => $email, 'password' => $password, 'domaine' => $domaine, 'user' => $_SESSION['pseudo']));
 				

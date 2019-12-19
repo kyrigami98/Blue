@@ -30,10 +30,10 @@
 								<div class="profile-work">
 								  <ul class="list-group">
 									<li class="list-group-item text-muted">Activité <i class="fa fa-dashboard fa-1x"></i></li>
-									<li class="list-group-item text-right"><span class="pull-left"><strong>Partage</strong></span><?php if(isset($_SESSION['partages'])){echo$_SESSION['partages'];} ?></li>
-									<li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span><?php if(isset($_SESSION['likes'])){echo$_SESSION['likes'];} ?></li>
-									<li class="list-group-item text-right"><span class="pull-left"><strong>Nombre de Projet</strong></span><?php if(isset($_SESSION['projets'])){echo$_SESSION['projets'];} ?></li>
-									<li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span><?php if(isset($_SESSION['followers'])){echo$_SESSION['followers'];} ?></li>
+									<li class="list-group-item text-right"><span class="pull-left"><strong>Partage</strong></span><?php if(isset($_SESSION['partages'])){echo$_SESSION['partages'];}else{echo"0";} ?></li>
+									<li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span><?php if(isset($_SESSION['likes'])){echo$_SESSION['likes'];}else{echo"0";} ?></li>
+									<li class="list-group-item text-right"><span class="pull-left"><strong>Nombre de Projet</strong></span><?php if(isset($_SESSION['projets'])){echo$_SESSION['projets'];}else{echo"0";} ?></li>
+									<li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span><?php if(isset($_SESSION['followers'])){echo$_SESSION['followers'];}else{echo"0";} ?></li>
 								  </ul> 
 									
 								</div>
