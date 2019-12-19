@@ -57,7 +57,7 @@
 			
 			$requete = $bdd->query('SELECT email FROM utilisateurs');
 			
-			if($requete->fetch() != null)
+			/*if($requete->fetch() != null)
 			{
 				while($donnee = $requete->fetch())
 				{
@@ -67,7 +67,7 @@
 						$existe = true;
 					}
 				}
-			}
+			}*/
 			
 			if($existe == false)
 			{
