@@ -1,6 +1,7 @@
-
+﻿
 <?php
-include "INCLUSION/header.php";
+	include "INCLUSION/header.php";
+	
 ?>
 
 <div class="container">
@@ -8,12 +9,12 @@ include "INCLUSION/header.php";
     <div class="card-body p-5">
 
 
-  <form method="post">
-
+  
+<form action="DATABASE/systeme.php" method="POST">
       <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
-							<h4>Kyrigami</h4><h6 class="text-muted">Dessinateur</h6>
+							<h4><?php if(isset($_SESSION['pseudo'])){echo$_SESSION['pseudo'];} ?></h4><h6 class="text-muted"><?php if(isset($_SESSION['domaine'])){echo$_SESSION['domaine'];}else{echo "...";} ?></h6>
 						
                             <img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
                             <div class="file btn btn-lg btn-primary">
@@ -29,10 +30,10 @@ include "INCLUSION/header.php";
 								<div class="profile-work">
 								  <ul class="list-group">
 									<li class="list-group-item text-muted">Activité <i class="fa fa-dashboard fa-1x"></i></li>
-									<li class="list-group-item text-right"><span class="pull-left"><strong>Partage</strong></span> 125</li>
-									<li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
-									<li class="list-group-item text-right"><span class="pull-left"><strong>Nombre de Projet</strong></span> 2</li>
-									<li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
+									<li class="list-group-item text-right"><span class="pull-left"><strong>Partage</strong></span><?php if(isset($_SESSION['partages'])){echo$_SESSION['partages'];} ?></li>
+									<li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span><?php if(isset($_SESSION['likes'])){echo$_SESSION['likes'];} ?></li>
+									<li class="list-group-item text-right"><span class="pull-left"><strong>Nombre de Projet</strong></span><?php if(isset($_SESSION['projets'])){echo$_SESSION['projets'];} ?></li>
+									<li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span><?php if(isset($_SESSION['followers'])){echo$_SESSION['followers'];} ?></li>
 								  </ul> 
 									
 								</div>
@@ -47,7 +48,7 @@ include "INCLUSION/header.php";
                         <div class="profile-head">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Information</a>
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Informations</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Projets</a>
@@ -92,10 +93,10 @@ include "INCLUSION/header.php";
 									  <div class="form-label-group">
 										<div class="form-group">
 										  <label for="Titre">Titre</label>
-										  <select class="form-control" id="Titre">
-											<option>Déssinateur</option>
-											<option>Sénariste</option>
-											<option>Déssinateur & Sénariste</option>
+										  <select class="form-control" id="Titre" name="domaine">
+											<option value="Dessinateur">Déssinateur</option>
+											<option value="Scenariste">Scénariste</option>
+											<option value="Scenariste & Dessinateur">Déssinateur & Scénariste</option>
 										  </select>
 										</div>
 									  </div>
@@ -103,24 +104,24 @@ include "INCLUSION/header.php";
 									<hr>
 							   
 									<div class="form-label-group">
-										<input type="text" id="inputUserame" class="form-control" placeholder="Username" required autofocus>
+										<input type="text" id="inputUserame" class="form-control" placeholder="Username" name="pseudo" value="<?php echo $_SESSION['pseudo'];?>" required autofocus>
 										<label for="inputUserame">Pseudo</label>
 									  </div>
 									  
 									<div class="form-label-group">
-										<input type="email" id="inputEmail2" class="form-control" placeholder="Email address" required>
+										<input type="email" id="inputEmail2" class="form-control" placeholder="Email address" name="email" value="<?php echo $_SESSION['email'];?>" required>
 										<label for="inputEmail2">Email</label>
 									  </div>
 									 
 									 <hr>
 
 									  <div class="form-label-group">
-										<input type="password" id="inputPassword2" class="form-control" placeholder="Password" required>
+										<input type="password" id="inputPassword2" class="form-control" placeholder="Password" name="password" required>
 										<label for="inputPassword2">Ancien Mot de passe</label>
 									  </div>
 									  
 									<div class="form-label-group">
-										<input type="password" id="inputPassword3" class="form-control" placeholder="Password" required>
+										<input type="password" id="inputPassword3" class="form-control" placeholder="Password" name="newpassword" required>
 										<label for="inputPassword3">Nouveau Mot de passe</label>
 									  </div>
 											
@@ -136,6 +137,7 @@ include "INCLUSION/header.php";
 										<div class="form-group">
 											<div class="col-xs-12">
 											<br>
+											<input type="hidden" name="formulaire" value="profil" />
 											<button class="btn btn-lg btn-success pull-right" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
 											<button class="btn btn-lg  pull-left" type="reset"><i class="fa fa-repeat"></i> Reset</button>
 											</div>
@@ -153,7 +155,7 @@ include "INCLUSION/header.php";
             
        </div>
 			
-            </form>           
+        </form>  
 	
     </div>
 

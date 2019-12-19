@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +23,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="#">BLUE</a>
+    <a class="navbar-brand" href="index.php">BLUE</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -33,40 +36,44 @@
         <li class="nav-item">
           	<button class="btn" type="submit"><i class="fa fa-search"></i></button>
         </li>
-        
-		<li class="nav-item">
-		 <a class="" href="#inscription">
-			<button class="btn text-uppercase" type="submit">Inscription</button>
+		<?php
+			if(!isset($_SESSION['pseudo']))
+			{
+		echo "<li class=\"nav-item\">
+		 <a class=\"\" href=\"#inscription\">
+			<button class=\"btn text-uppercase\" type=\"submit\">Inscription</button>
         </a>
 		</li>
-        <li class="nav-item">    
-			<button class="btn btn-primary text-uppercase" data-toggle="modal" data-target=".bd-example-modal-lg">Connexion</button>
-        </li>
-		
-		<li class="nav-item active">
+        <li class=\"nav-item\">    
+			<button class=\"btn btn-primary text-uppercase\" data-toggle=\"modal\" data-target=\".bd-example-modal-lg\">Connexion</button>
+        </li>";
+			}
+			else
+			{
+		echo "<li class=\"nav-item active\">
 		  
-		      <li class="dropdown"> 
+		      <li class=\"dropdown\"> 
 
-                    <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false"> 
-                            Salut, Kyrigami <b class="caret"></b>
+                    <a href=\"#\" class=\"nav-link dropdown-toggle\" id=\"navbarDropdown\" data-toggle=\"dropdown\" aria-expanded=\"false\"> 
+                            Bienvenue, <strong>".$_SESSION['pseudo']."</strong><b class=\"caret\"></b>
                         </a>
 
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<img class="card-img-top" src="IMAGES/One-Piece.jpg" alt="">
-                                <a class="dropdown-item" href="profil.php">Mon profil</a>
-                                <a class="dropdown-item" href="atelier.php">Mon atelier</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">
-								<button class="btn btn-danger text-uppercase">Deconnexion</button>
+                        <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
+						<img class=\"card-img-top\" src=\"IMAGES/One-Piece.jpg\" alt=\"\">
+                                <a class=\"dropdown-item\" href=\"profil.php\">Mon profil</a>
+                                <a class=\"dropdown-item\" href=\"atelier.php\">Mon atelier</a>
+                                <div class=\"dropdown-divider\"></div>
+                                <a class=\"dropdown-item\" href=\"#\">
+								<a href=\"DATABASE/systeme.php\"><button class=\"btn btn-danger text-uppercase\" style=\"margin-left:5%;\">Deconnexion</button></a>
 								</a>
                         </div>
 
                 </li> 
 		  
-                <span class="sr-only">(current)</span>
+                <span class=\"sr-only\">(current)</span>
              
-        </li>
-		 
+        </li>";
+			}?>
       </ul>
     </div>
   </div>
