@@ -27,6 +27,7 @@
 					$_SESSION['email'] = $donnee['EMAIL_USER'];
 					$_SESSION['password'] = $donnee['PASSWORD_USER'];
 					$_SESSION['domaine'] = $donnee['ID_TYPE_USER'];
+					if($donnee['extension'] != ""){$_SESSION['image'] = $donnee['PSEUDO_USER'].".".$donnee['extension'];}else{$_SESSION['image'] = "base";}
 					//$_SESSION['partages'] = $donnee['nb_partages'];
 					//$_SESSION['likes'] = $donnee['nb_likes'];
 					//$_SESSION['projets'] = $donnee['nb_projets'];
@@ -85,6 +86,24 @@
 			$oldpassword = $_POST['password'];
 			$password = $_POST['newpassword'];
 			
+			$extension_autorisees = array('jpg', 'jpeg', 'gif', 'png');
+			
+			if(isset($_FILES['profil']) AND $_FILES['profil']['error'] == 0)
+			{
+				if($_FILES['profil']['size'] <= 1000000)
+				{
+					
+					$image = pathinfo($_FILES['profil']['name']);
+					$extension = $image['extension'];
+					
+					if(in_array($extension, $extension_autorisees))
+					{
+						$image = $_SESSION['pseudo'].".".$extension;
+						move_uploaded_file($_FILES['profil']['tmp_name'], '../IMAGES/PROFILS/'.$image);
+					}
+				}
+			}
+			
 			try
 			{
 				$bdd = new PDO('mysql:host=localhost;dbname=blue;charset=utf8','root','');
@@ -100,15 +119,16 @@
 			}
 			else
 			{
-				$requete = $bdd->prepare('UPDATE `user` SET PSEUDO_USER = :pseudo, EMAIL_USER = :email, PASSWORD_USER = :password, id_type_user = :domaine WHERE PSEUDO_USER = :user');
+				$requete = $bdd->prepare('UPDATE `user` SET PASSWORD_USER = :password, PSEUDO_USER = :pseudo, EMAIL_USER = :email, extension = :extension WHERE PSEUDO_USER = :user');
 			
-				$requete->execute(array('pseudo' => $pseudo, 'email' => $email, 'password' => $password, 'domaine' => $domaine, 'user' => $_SESSION['pseudo']));
+				$requete->execute(array('password' => $password,'pseudo' => $pseudo, 'email' => $email, 'extension' => $extension, 'user' => $_SESSION['pseudo']));
 				
 				$_SESSION['pseudo'] = $pseudo;
 				$_SESSION['password'] = $password;
 				$_SESSION['domaine'] = $domaine;
+				$_SESSION['image'] = $image;
 				
-				echo "mise a jour effectuee avec succes";
+				header('Location: ../profil.php');
 			}
 		}
 	}

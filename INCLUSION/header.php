@@ -59,7 +59,7 @@
                         </a>
 
                         <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
-						<img class=\"card-img-top\" src=\"IMAGES/One-Piece.jpg\" alt=\"\">
+						<img class=\"card-img-top\" src=\"IMAGES/PROFILS/".$_SESSION['image']."\" alt=\"\">
                                 <a class=\"dropdown-item\" href=\"profil.php\">Mon profil</a>
                                 <a class=\"dropdown-item\" href=\"atelier.php\">Mon atelier</a>
                                 <div class=\"dropdown-divider\"></div>

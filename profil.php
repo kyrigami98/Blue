@@ -1,4 +1,4 @@
-﻿
+
 <?php
 	include "INCLUSION/header.php";
 	
@@ -10,19 +10,29 @@
 
 
   
-<form action="DATABASE/systeme.php" method="POST">
+<form action="DATABASE/systeme.php" method="POST" enctype="multipart/form-data">
       <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
 							<h4><?php if(isset($_SESSION['pseudo'])){echo$_SESSION['pseudo'];} ?></h4><h6 class="text-muted"><?php if(isset($_SESSION['domaine'])){echo$_SESSION['domaine'];}else{echo "...";} ?></h6>
-						
-                            <img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
-                            <div class="file btn btn-lg btn-primary">
-                                Change Photo
-                                <input type="file" name="file"  class="file-upload"/>
-                            </div>
-							
-							
+                            <?php
+								if($_SESSION['image'] == "base")
+								{
+									echo "<img class=\"avatar rounded img-fluid\" src=\"http://ssl.gstatic.com/accounts/ui/avatar_2x.png\"/>
+										<div class=\"file btn btn-lg btn-primary\">
+											Photo de Profil
+											<input type=\"file\" name=\"profil\"  class=\"file-upload\"/>
+										</div>";
+								}
+								else
+								{
+									echo "<img class=\"avatar rounded img-fluid\" src=\"IMAGES/PROFILS/".$_SESSION['image']."\" alt=\"".$_SESSION['image']."\"/>
+										<div class=\"file btn btn-lg btn-primary\">
+											Photo de Profil
+											<input type=\"file\" name=\"profil\"  class=\"file-upload\"/>
+										</div>";
+								}
+							?>
                         </div>
 							
 						<div class="row">
