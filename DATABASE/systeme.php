@@ -57,12 +57,15 @@
 			
 			$requete = $bdd->query('SELECT email FROM utilisateurs');
 			
-			while($donnee = $requete->fetch())
+			if($requete->fetch() != null)
 			{
-				if($donnee['email'] == $email)
+				while($donnee = $requete->fetch())
 				{
-					echo "l'email entre est deja utilise";
-					$existe = true;
+					if($donnee['email'] == $email)
+					{
+						echo "l'email entre est deja utilise";
+						$existe = true;
+					}
 				}
 			}
 			
