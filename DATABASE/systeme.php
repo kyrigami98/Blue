@@ -27,7 +27,7 @@
 					$_SESSION['email'] = $donnee['EMAIL_USER'];
 					$_SESSION['password'] = $donnee['PASSWORD_USER'];
 					$_SESSION['domaine'] = $donnee['ID_TYPE_USER'];
-					if($donnee['extension'] != ""){$_SESSION['image'] = $donnee['PSEUDO_USER'].".".$donnee['extension'];}else{$_SESSION['image'] = "base";}
+					$_SESSION['image'] = $donnee['IMAGE_USER'];
 					//$_SESSION['partages'] = $donnee['nb_partages'];
 					//$_SESSION['likes'] = $donnee['nb_likes'];
 					//$_SESSION['projets'] = $donnee['nb_projets'];
@@ -98,7 +98,7 @@
 					
 					if(in_array($extension, $extension_autorisees))
 					{
-						$image = $_SESSION['pseudo'].".".$extension;
+						$image = basename($_FILES['profil']['name']);
 						move_uploaded_file($_FILES['profil']['tmp_name'], '../IMAGES/PROFILS/'.$image);
 					}
 				}
@@ -119,9 +119,9 @@
 			}
 			else
 			{
-				$requete = $bdd->prepare('UPDATE `user` SET PASSWORD_USER = :password, PSEUDO_USER = :pseudo, EMAIL_USER = :email, extension = :extension WHERE PSEUDO_USER = :user');
+				$requete = $bdd->prepare('UPDATE `user` SET PASSWORD_USER = :password, PSEUDO_USER = :pseudo, EMAIL_USER = :email, IMAGE_USER = :image WHERE PSEUDO_USER = :user');
 			
-				$requete->execute(array('password' => $password,'pseudo' => $pseudo, 'email' => $email, 'extension' => $extension, 'user' => $_SESSION['pseudo']));
+				$requete->execute(array('password' => $password,'pseudo' => $pseudo, 'email' => $email, 'image' => $image, 'user' => $_SESSION['pseudo']));
 				
 				$_SESSION['pseudo'] = $pseudo;
 				$_SESSION['password'] = $password;

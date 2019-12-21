@@ -16,7 +16,7 @@
                         <div class="profile-img">
 							<h4><?php if(isset($_SESSION['pseudo'])){echo$_SESSION['pseudo'];} ?></h4><h6 class="text-muted"><?php if(isset($_SESSION['domaine'])){echo$_SESSION['domaine'];}else{echo "...";} ?></h6>
                             <?php
-								if($_SESSION['image'] == "base")
+								if($_SESSION['image'] == "")
 								{
 									echo "<img class=\"avatar rounded img-fluid\" src=\"http://ssl.gstatic.com/accounts/ui/avatar_2x.png\"/>
 										<div class=\"file btn btn-lg btn-primary\">
