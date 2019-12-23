@@ -131,7 +131,7 @@ include "INCLUSION/header.php";
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content-wrapper" class="d-flex flex-column" style="background-color: white">
 
       <!-- Main Content -->
       <div id="content">
@@ -141,14 +141,13 @@ include "INCLUSION/header.php";
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            
-      <h1 class="font-weight-light">Symfonia</h1>
+			<h1 class="font-weight-light">Symfonia</h1>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>Télécharger le projet en pdf</a>
           </div>
 
           <!-- Content Row -->
         
-          <div class="row">
+          <div class="row text-center">
 
                         <div class="profile-head">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
