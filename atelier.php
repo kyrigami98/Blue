@@ -175,66 +175,248 @@ include "INCLUSION/header.php";
                         <div class="tab-content profile-tab" id="myTabContent">
 					
 							 <div class="tab-pane fade show active" id="histoire" role="tabpanel" aria-labelledby="histoire-tab">
-							   
-							 Histoire
+							
+							 		 
+								<br>  
+								
+								<div class="row">
+								<div class="col-xl-3 col-md-6 mb-4">
+								  <div class="card border-left-info shadow h-100 py-2">
+									<div class="card-body">
+									  <div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+										  <div class="font-weight-bold text-info text-uppercase mb-1">Tome 1</div>
+										  <div class="text-xs text-muted font-weight-bold text-info text-uppercase mb-1">Sorcier</div>
+										  <div class="row no-gutters align-items-center">
+											<div class="col">
+											  <a href="#"><img class="card-img-top" src="IMAGES/radiant.jpg" alt=""></a>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								  </div>
+								</div>
+									<div class="col-xl-3 col-md-6 mb-4">
+								  <div class="card border-left-info shadow h-100 py-2">
+									<div class="card-body">
+									  <div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+										  <div class="font-weight-bold text-info text-uppercase mb-1">Tome 2</div>
+										  <div class="text-xs text-muted font-weight-bold text-info text-uppercase mb-1">Sorcier</div>
+										  <div class="row no-gutters align-items-center">
+											<div class="col">
+											  <a href="#"><img class="card-img-top" src="IMAGES/Hammer.jpg" alt=""></a>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							 </div>
                             </div>
 						
 						    <div class="tab-pane fade" id="Personnages" role="tabpanel" aria-labelledby="Personnages-tab">
                                <br>  
 							   
-								<div class="col-lg-8 col-sm-8 mb-4">
+							   <div class="row">
+							   
+								<div class="col-lg-4 col-sm-8 mb-4">
 								  <div class="card h-100">
 									<a href="#"><img class="card-img-top" src="IMAGES/giphy1.gif" alt=""></a>
 									 <div class="card-body">
 									  <h4 class="card-title">
 										<a href="#">Creve</a>
 									  </h4>
+									  
+								  <p>Add some quality, svg illustrations to your project courtesy of,
+								  a constantly updated collection of beautiful svg 
+								  images that you can use completely free and without attribution!</p>
+								  <a target="_blank" rel="nofollow" href="#">Details sur l'illustration &rarr;</a>
 									</div>
 								  </div>
 								</div>
 								
-								<div class="col-lg-8 col-sm-8 mb-4">
+								<div class="col-lg-4 col-sm-8 mb-4">
 								  <div class="card h-100">
-									<a href="#"><img class="card-img-top" src="IMAGES/dragon-ball-z.jpg" alt=""></a>
+									<a href="#"><img class="card-img-top" src="IMAGES/connect.gif" alt=""></a>
 									 <div class="card-body">
 									  <h4 class="card-title">
 										<a href="#">Shine</a>
 									  </h4>
+									  
+								  <p>Add some quality, svg illustrations to your project courtesy of,
+								  a constantly updated collection of beautiful svg 
+								  images that you can use completely free and without attribution!</p>
+								  <a target="_blank" rel="nofollow" href="#">Details sur l'illustration &rarr;</a>
+								  
 									</div>
 								  </div>
+								</div>
+								
 								</div>
 								
                             </div>
 						
                             <div class="tab-pane fade show" id="Bestiaire" role="tabpanel" aria-labelledby="Bestiaire-tab">
-								   
-							 Bestiaire
+						 
+								<br> 
+
+							 
+							   <div class="row">
+							   
+								
+								<div class="col-lg-4 col-sm-8 mb-4">
+								  <div class="card h-100">
+									<a href="#"><img class="card-img-top" src="IMAGES/connect.gif" alt=""></a>
+									 <div class="card-body">
+									  <h4 class="card-title">
+										<a href="#">Shine</a>
+									  </h4>
+									 
+								  <p>Add some quality, svg illustrations to your project courtesy of,
+								  a constantly updated collection of beautiful svg 
+								  images that you can use completely free and without attribution!</p>
+								  <a target="_blank" rel="nofollow" href="#">Details sur l'illustration &rarr;</a>
+								
+									
+									</div>
+								  </div>
+								</div>
+								
+                            </div>
                             </div>
 							
 							  <div class="tab-pane fade show" id="Lieux" role="tabpanel" aria-labelledby="Lieux-tab">
 								   
-							  <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-                </div>
-                <div class="card-body">
-                  <div class="text-center">
-                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="IMAGES/giphy.gif" alt="">
-                  </div>
-                  <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
-                  <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on unDraw &rarr;</a>
-                </div>
-              </div>
+									<br> 
+									
+									
+							   <div class="row">
+							   
+							  <div class="card shadow mb-4 col-lg-4 col-sm-8 mb-4">
+								<div class="card-header py-3">
+								  <h6 class="m-0 font-weight-bold text-primary">L'entre de BabaYaga</h6>
+								</div>
+								<div class="card-body">
+								  <div class="text-center">
+									<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="IMAGES/giphy.gif" alt="">
+								  </div>
+								  <p>Add some quality, svg illustrations to your project courtesy of,
+								  a constantly updated collection of beautiful svg 
+								  images that you can use completely free and without attribution!</p>
+								  <a target="_blank" rel="nofollow" href="#">Details sur l'illustration &rarr;</a>
+								</div>
+							  </div>
+							  
+							  	<div class="card shadow mb-4 col-lg-4 col-sm-8 mb-4">
+								<div class="card-header py-3">
+								  <h6 class="m-0 font-weight-bold text-primary">L'Atelier des OTAKUS</h6>
+								</div>
+								<div class="card-body">
+								  <div class="text-center">
+									<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="IMAGES/mangaka.png" alt="">
+								  </div>
+								  <p>Add some quality, svg illustrations to your project courtesy of,
+								  a constantly updated collection of beautiful svg 
+								  images that you can use completely free and without attribution!</p>
+								  <a target="_blank" rel="nofollow" href="#">Details sur l'illustration &rarr;</a>
+								</div>
+							  </div>
+							  	
+                            </div>
+							
                             </div>
 							
 							  <div class="tab-pane fade show" id="Termes" role="tabpanel" aria-labelledby="Termes-tab">
-								   
-							 Termes
+						
+								<br> 
+									
+							  <div class="row">
+
+								<!-- Earnings (Monthly) Card Example -->
+								<div class="col-xl-3 col-md-6 mb-4">
+								  <div class="card border-left-primary shadow h-100 py-2">
+									<div class="card-body">
+									  <div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+										<div class="h5 mb-0 font-weight-bold text-primary">Haki des rois</div>
+										  <div class="">
+										  
+										  Energie bla bla bla
+										  
+										  </div>
+										  
+										</div>
+									  </div>
+									</div>
+								  </div>
+								</div>
+								
+								<div class="col-xl-3 col-md-6 mb-4">
+								  <div class="card border-left-primary shadow h-100 py-2">
+									<div class="card-body">
+									  <div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+										<div class="h5 mb-0 font-weight-bold text-primary">Super Saiyan</div>
+										  <div class="">
+										  
+										  Transformation bla bla bla
+										  
+										  </div>
+										  
+										</div>
+									  </div>
+									</div>
+								  </div>
+								</div>
+								
+							</div>
+
                             </div>
 							
 							  <div class="tab-pane fade show" id="Illustrations" role="tabpanel" aria-labelledby="Illustrations-tab">
 								   
-							 Illustrations
+								   
+								   <br>  
+								
+								<div class="row">
+								<div class="col-xl-4 col-md-6 mb-4">
+								  <div class="card border-left-info shadow h-100 py-2">
+									<div class="card-body">
+									  <div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+										  <div class="font-weight-bold text-info text-uppercase mb-1">Non de l'illustration 1</div>
+										  <div class="row no-gutters align-items-center">
+											<div class="col">
+											  <a href="#"><img class="card-img-top" src="IMAGES/radiant.jpg" alt=""></a>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								  </div>
+								</div>
+									<div class="col-xl-4 col-md-6 mb-4">
+								  <div class="card border-left-info shadow h-100 py-2">
+									<div class="card-body">
+									  <div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+										  <div class="font-weight-bold text-info text-uppercase mb-1">Non de l'illustration 2</div>
+										  <div class="row no-gutters align-items-center">
+											<div class="col">
+											  <a href="#"><img class="card-img-top" src="IMAGES/Hammer.jpg" alt=""></a>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							 </div>
+								   
+								   
                             </div>
 							
                         
