@@ -132,16 +132,20 @@ include "INCLUSION/header.php";
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column" style="background-color: white">
-
       <!-- Main Content -->
       <div id="content">
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="font-weight-light">Symfonia</h1>
+			<a class="nav-link nav-item" href="#">
+				<h1 class="font-weight-light">Symfonia
+                <span style="font-size:13px;" class="badge badge-primary badge-counter">124 <i class="fas fa-fw fa-thumbs-up"></i></span>
+				<span style="font-size:13px;" class="badge badge-primary badge-counter">10 <i class="fas fa-fw fa-users"></i></span>
+				</h1>
+              </a>
+				
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>Télécharger le projet en pdf</a>
           </div>
 

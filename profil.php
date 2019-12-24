@@ -58,21 +58,47 @@
                         <div class="profile-head">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Informations</a>
+                                    <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Projets</a>
+                                </li> 
+								<li class="nav-item">
+                                    <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Informations</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Projets</a>
-                                </li>
+                               
                             </ul>
                         </div>
 							
                     <div class="col-md-12">
                         <div class="tab-content profile-tab" id="myTabContent">
 						
-						    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                               <br>  
+						    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+							
+							<br> 
+							 <form class="form-signin" action="DATABASE/systeme.php" method="POST">
+							  <div class="form-label-group">
+								<input type="text" id="inputProjet" class="form-control" placeholder="Nom du projet" name="projet" required>
+								<label for="inputProjet">Nom du projet</label>
+							  </div>          
+							  <input type="hidden" name="formulaire" value="connexion" />
+							  <button class="btn btn-lg btn-primary btn-block " type="submit"><i class="fas fa-fw fa-plus"></i> Créer le projet</button>
+						   </form>
+											
+                               <hr>  					
+							   <div class="inline-block">
+								  <div class="card h-100">
+									 <div class="card-body">
+									  <h4 class="card-title">
+										Listes des projets
+									  </h4>
+									</div>
+								  </div>
+								</div>
 							   
-								<div class="col-lg-8 col-sm-8 mb-4">
+							   <div class="row">
+							   
+								<div class="col-lg-6 col-sm-6 mb-4">
+								
+                <span style="font-size:10px;" class="badge badge-primary badge-counter">124 <i class="fas fa-fw fa-thumbs-up"></i></span>
+				<span style="font-size:10px;" class="badge badge-primary badge-counter">10 <i class="fas fa-fw fa-users"></i></span>
 								  <div class="card h-100">
 									<a href="#"><img class="card-img-top" src="IMAGES/giphy1.gif" alt=""></a>
 									 <div class="card-body">
@@ -83,7 +109,10 @@
 								  </div>
 								</div>
 								
-								<div class="col-lg-8 col-sm-8 mb-4">
+								<div class="col-lg-6 col-sm-5 mb-6">
+								
+                <span style="font-size:10px;" class="badge badge-primary badge-counter">124 <i class="fas fa-fw fa-thumbs-up"></i></span>
+				<span style="font-size:10px;" class="badge badge-primary badge-counter">10 <i class="fas fa-fw fa-users"></i></span>
 								  <div class="card h-100">
 									<a href="#"><img class="card-img-top" src="IMAGES/dragon-ball-z.jpg" alt=""></a>
 									 <div class="card-body">
@@ -94,9 +123,10 @@
 								  </div>
 								</div>
 								
+							  </div>
                             </div>
 						
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
 								   
 							 
 									<hr>
