@@ -86,6 +86,49 @@
 			$oldpassword = $_POST['password'];
 			$password = $_POST['newpassword'];
 			
+			try
+			{
+				$bdd = new PDO('mysql:host=localhost;dbname=blue;charset=utf8','root','');
+			}
+			catch(Exception $e)
+			{
+				die('Erreur : '.$e->getMessage());
+			}
+			
+			if($oldpassword != "")
+			{
+				if($oldpassword != $_SESSION['password'])
+				{
+					echo "le mot de passe saisi est incorrecte";
+				}
+				else
+				{
+					$requete = $bdd->prepare('UPDATE `user` SET PASSWORD_USER = :password, PSEUDO_USER = :pseudo, EMAIL_USER = :email WHERE PSEUDO_USER = :user');
+				
+					$requete->execute(array('password' => $password,'pseudo' => $pseudo, 'email' => $email, 'user' => $_SESSION['pseudo']));
+					
+					$_SESSION['pseudo'] = $pseudo;
+					$_SESSION['password'] = $password;
+					$_SESSION['domaine'] = $domaine;
+					
+					header('Location: ../profil.php');
+				}
+			}
+			else
+			{
+				$requete = $bdd->prepare('UPDATE `user` SET PSEUDO_USER = :pseudo, EMAIL_USER = :email, IMAGE_USER = :image WHERE PSEUDO_USER = :user');
+				
+				$requete->execute(array('pseudo' => $pseudo, 'email' => $email, 'image' => $image, 'user' => $_SESSION['pseudo']));
+					
+				$_SESSION['pseudo'] = $pseudo;
+				$_SESSION['domaine'] = $domaine;
+				$_SESSION['image'] = $image;
+					
+				header('Location: ../profil.php');
+			}
+		}
+		else if($_POST['formulaire'] == "image")
+		{
 			$extension_autorisees = array('jpg', 'jpeg', 'gif', 'png');
 			
 			if(isset($_FILES['profil']) AND $_FILES['profil']['error'] == 0)
@@ -113,23 +156,13 @@
 				die('Erreur : '.$e->getMessage());
 			}
 			
-			if($oldpassword != $_SESSION['password'])
-			{
-				echo "le mot de passe saisi est incorrecte";
-			}
-			else
-			{
-				$requete = $bdd->prepare('UPDATE `user` SET PASSWORD_USER = :password, PSEUDO_USER = :pseudo, EMAIL_USER = :email, IMAGE_USER = :image WHERE PSEUDO_USER = :user');
+			$requete = $bdd->prepare('UPDATE `user` SET IMAGE_USER = :image WHERE PSEUDO_USER = :user');
+				
+			$requete->execute(array('image' => $image, 'user' => $_SESSION['pseudo']));
+					
+			$_SESSION['image'] = $image;
 			
-				$requete->execute(array('password' => $password,'pseudo' => $pseudo, 'email' => $email, 'image' => $image, 'user' => $_SESSION['pseudo']));
-				
-				$_SESSION['pseudo'] = $pseudo;
-				$_SESSION['password'] = $password;
-				$_SESSION['domaine'] = $domaine;
-				$_SESSION['image'] = $image;
-				
-				header('Location: ../profil.php');
-			}
+			header('Location: ../profil.php');
 		}
 	}
 	else
