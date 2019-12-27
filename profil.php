@@ -10,9 +10,10 @@
 
 
   
-<form action="DATABASE/systeme.php" method="POST" enctype="multipart/form-data">
+
       <div class="row">
                     <div class="col-md-4">
+						<form action="DATABASE/systeme.php" method="POST" enctype="multipart/form-data">
                         <div class="profile-img">
 							<h4><?php if(isset($_SESSION['pseudo'])){echo$_SESSION['pseudo'];} ?></h4><h6 class="text-muted"><?php if(isset($_SESSION['domaine'])){echo$_SESSION['domaine'];}else{echo "...";} ?></h6>
                             <?php
@@ -34,6 +35,7 @@
 								}
 							?>
                         </div>
+						</form>
 							
 						<div class="row">
 							<div class="col-md-12">
@@ -73,9 +75,9 @@
 						    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 							
 							<br> 
-							 <form class="form-signin" action="DATABASE/systeme.php" method="POST">
+							 <form class="form-signin" action="DATABASE/projet_systeme.php" method="POST">
 							  <div class="form-label-group">
-								<input type="text" id="inputProjet" class="form-control" placeholder="Nom du projet" name="projet" required>
+								<input type="text" id="inputProjet" class="form-control" placeholder="Nom du projet" name="projet">
 								<label for="inputProjet">Nom du projet</label>
 							  </div>          
 							  <input type="hidden" name="formulaire" value="connexion" />
@@ -125,9 +127,9 @@
 								
 							  </div>
                             </div>
-						
+							
                             <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-								   
+								<form action="DATABASE/systeme.php" method="POST">
 							 
 									<hr>
 									  <div class="form-label-group">
@@ -156,12 +158,12 @@
 									 <hr>
 
 									  <div class="form-label-group">
-										<input type="password" id="inputPassword2" class="form-control" placeholder="Password" name="password" required>
+										<input type="password" id="inputPassword2" class="form-control" placeholder="Password" name="password">
 										<label for="inputPassword2">Ancien Mot de passe</label>
 									  </div>
 									  
 									<div class="form-label-group">
-										<input type="password" id="inputPassword3" class="form-control" placeholder="Password" name="newpassword" required>
+										<input type="password" id="inputPassword3" class="form-control" placeholder="Password" name="newpassword">
 										<label for="inputPassword3">Nouveau Mot de passe</label>
 									  </div>
 											
@@ -183,7 +185,7 @@
 											</div>
 										</div>
 								</div>
-									
+								</form>
                             </div>
 							
                         
@@ -195,7 +197,6 @@
             
        </div>
 			
-        </form>  
 	
     </div>
 
