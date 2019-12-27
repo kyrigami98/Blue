@@ -22,7 +22,7 @@
 									echo "<img class=\"avatar rounded img-fluid\" src=\"http://ssl.gstatic.com/accounts/ui/avatar_2x.png\"/>
 										<div class=\"file btn btn-lg btn-primary\">
 											Photo de Profil
-											<input type=\"file\" name=\"profil\"  class=\"file-upload\"/>
+											<input type=\"file\" name=\"profil\"  class=\"file-upload\" required/>
 										</div>";
 								}
 								else
@@ -30,11 +30,14 @@
 									echo "<img class=\"avatar rounded img-fluid\" src=\"IMAGES/PROFILS/".$_SESSION['image']."\" alt=\"".$_SESSION['image']."\"/>
 										<div class=\"file btn btn-lg btn-primary\">
 											Photo de Profil
-											<input type=\"file\" name=\"profil\"  class=\"file-upload\"/>
+											<input type=\"file\" name=\"profil\"  class=\"file-upload\" required/>
 										</div>";
 								}
 							?>
-                        </div>
+							<input type="hidden" name="formulaire" value="image" />
+							<button class="btn btn-lg btn-primary btn-block" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>Changer</button>
+							<br />
+						</div>
 						</form>
 							
 						<div class="row">

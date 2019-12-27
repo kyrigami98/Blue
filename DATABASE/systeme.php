@@ -160,7 +160,9 @@
 				
 			$requete->execute(array('image' => $image, 'user' => $_SESSION['pseudo']));
 					
-			$_SESSION['pseudo'] = $pseudo;
+			$_SESSION['image'] = $image;
+			
+			header('Location: ../profil.php');
 		}
 	}
 	else
