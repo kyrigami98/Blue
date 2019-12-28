@@ -15,14 +15,14 @@
                     <div class="col-md-4">
 						<form action="DATABASE/systeme.php" method="POST" enctype="multipart/form-data">
                         <div class="profile-img">
-							<h4><?php if(isset($_SESSION['pseudo'])){echo$_SESSION['pseudo'];} ?></h4><h6 class="text-muted"><?php if(isset($_SESSION['domaine'])){echo$_SESSION['domaine'];}else{echo "...";} ?></h6>
+							<h4><?php if(isset($_SESSION['pseudo'])){echo$_SESSION['pseudo'];} ?></h4><h6 class="text-muted"><?php if(isset($_SESSION['type'])){echo$_SESSION['type'];}else{echo "...";} ?></h6>
                             <?php
 								if($_SESSION['image'] == "")
 								{
 									echo "<img class=\"avatar rounded img-fluid\" src=\"http://ssl.gstatic.com/accounts/ui/avatar_2x.png\"/>
 										<div class=\"file btn btn-lg btn-primary\">
 											Photo de Profil
-											<input type=\"file\" name=\"profil\"  class=\"file-upload\" required/>
+											<input type=\"file\" name=\"image\"  class=\"file-upload\" required/>
 										</div>";
 								}
 								else
@@ -30,7 +30,7 @@
 									echo "<img class=\"avatar rounded img-fluid\" src=\"IMAGES/PROFILS/".$_SESSION['image']."\" alt=\"".$_SESSION['image']."\"/>
 										<div class=\"file btn btn-lg btn-primary\">
 											Photo de Profil
-											<input type=\"file\" name=\"profil\"  class=\"file-upload\" required/>
+											<input type=\"file\" name=\"image\"  class=\"file-upload\" required/>
 										</div>";
 								}
 							?>
@@ -138,7 +138,7 @@
 									  <div class="form-label-group">
 										<div class="form-group">
 										  <label for="Titre">Titre</label>
-										  <select class="form-control" id="Titre" name="domaine">
+										  <select class="form-control" id="Titre" name="type">
 											<option value="Dessinateur">Déssinateur</option>
 											<option value="Scenariste">Scénariste</option>
 											<option value="Scenariste & Dessinateur">Déssinateur & Scénariste</option>
