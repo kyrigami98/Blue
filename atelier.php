@@ -20,7 +20,7 @@ include "INCLUSION/header.php";
         </div>
 		
 		
-        <div class="sidebar-brand-text mx-3" >Mes projets</div>
+        <div class="sidebar-brand-text mx-3" >Atelier</div>
               <!-- Dropdown - User Information -->
 		
       </a>
@@ -29,11 +29,27 @@ include "INCLUSION/header.php";
       <hr class="sidebar-divider my-0">
 	  
   <li class="nav-item active">
+  
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProjet" aria-expanded="true" aria-controls="collapseProjet">
           <i class="fas fa-fw fa-plus"></i>
-          <span>Nouveau Projet</span></a>
+          <span>Mes projets</span></a>
         </a>
         <div id="collapseProjet" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+		
+	
+		<a class="nav-link" href="#">
+		<hr class="sidebar-divider">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Spiritual+Cross</span>
+        </a>
+		
+	
+		<a class="nav-link" href="#">
+          <hr class="sidebar-divider">
+		  <i class="fas fa-fw fa-folder"></i>
+          <span>Symfonia</span>
+        </a>
+		
           <div class="bg-white py-2 collapse-inner rounded">
              <div class="card-body">
             <form class="form-signin" action="DATABASE/systeme.php" method="POST">
@@ -140,7 +156,7 @@ include "INCLUSION/header.php";
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
 			<a class="nav-link nav-item" href="#">
-				<h1 class="font-weight-light">Symfonia
+				<h1 class="font-weight-light"><img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg">Symfonia
                 <span style="font-size:13px;" class="badge badge-primary badge-counter">124 <i class="fas fa-fw fa-thumbs-up"></i></span>
 				<span style="font-size:13px;" class="badge badge-primary badge-counter">10 <i class="fas fa-fw fa-users"></i></span>
 				</h1>
@@ -185,6 +201,35 @@ include "INCLUSION/header.php";
 								<br>  
 								
 								<div class="row">
+								
+								<div class="col-xl-3 col-md-6 mb-4">
+										<form action="DATABASE/systeme.php" method="POST" enctype="multipart/form-data">
+										<div class="profile-img">
+										<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+										<div class="file btn btn-sm btn-primary">
+											Choisir une image
+											<input type="file" name="profil"  class="file-upload" required/>
+										</div>
+														
+										<div class="form-label-group">
+											<input type="text" id="tome" class="form-control" placeholder="Nom du projet" name="projet">
+											<label for="tome">Titre du Tome</label>
+										</div>  
+										<div class="form-label-group">
+											<input type="text" id="tomedesc" class="form-control" placeholder="Nom du projet" name="projet">
+											<label for="tomedesc">Description</label>
+										</div>  
+
+											<input type="hidden" name="formulaire" value="image" />
+											<button class="btn btn-sm btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
+											Creer le tome
+											</button>
+											<br />
+										</div>
+										</form>
+								</div>
+								
+								
 								<div class="col-xl-3 col-md-6 mb-4">
 								  <div class="card border-left-info shadow h-100 py-2">
 									<div class="card-body">
@@ -226,6 +271,34 @@ include "INCLUSION/header.php";
                                <br>  
 							   
 							   <div class="row">
+							   
+							   		<div class="col-xl-3 col-md-6 mb-4">
+										<form action="DATABASE/systeme.php" method="POST" enctype="multipart/form-data">
+										<div class="profile-img">
+										<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+										<div class="file btn btn-sm btn-primary">
+											Choisir une image
+											<input type="file" name="profil"  class="file-upload" required/>
+										</div>
+														
+										<div class="form-label-group">
+											<input type="text" id="tome" class="form-control" placeholder="Nom du projet" name="projet">
+											<label for="tome">Nom du Personage</label>
+										</div>  
+										<div class="form-label-group">
+											<input type="text" id="tomedesc" class="form-control" placeholder="Nom du projet" name="projet">
+											<label for="tomedesc">Description</label>
+										</div>  
+
+											<input type="hidden" name="formulaire" value="image" />
+											<button class="btn btn-sm btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
+											Creer le personnage
+											</button>
+											<br />
+										</div>
+										</form>
+								</div>
+							   
 							   
 								<div class="col-lg-4 col-sm-8 mb-4">
 								  <div class="card h-100">
@@ -271,6 +344,36 @@ include "INCLUSION/header.php";
 							 
 							   <div class="row">
 							   
+							   
+										<div class="col-xl-3 col-md-6 mb-4">
+										<form action="DATABASE/systeme.php" method="POST" enctype="multipart/form-data">
+										<div class="profile-img">
+										<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+										<div class="file btn btn-sm btn-primary">
+											Choisir une image
+											<input type="file" name="profil"  class="file-upload" required/>
+										</div>
+														
+										<div class="form-label-group">
+											<input type="text" id="tome" class="form-control" placeholder="Nom du projet" name="projet">
+											<label for="tome">Nom de l'animal</label>
+										</div>  
+										<div class="form-label-group">
+											<input type="text" id="tomedesc" class="form-control" placeholder="Nom du projet" name="projet">
+											<label for="tomedesc">Description</label>
+										</div>  
+
+											<input type="hidden" name="formulaire" value="image" />
+											<button class="btn btn-sm btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
+											Creer l'animal
+											</button>
+											<br />
+										</div>
+										</form>
+								</div>
+							   
+							 
+								
 								
 								<div class="col-lg-4 col-sm-8 mb-4">
 								  <div class="card h-100">
@@ -299,6 +402,37 @@ include "INCLUSION/header.php";
 									
 									
 							   <div class="row">
+							   
+							   
+							   		<div class="col-xl-3 col-md-6 mb-4">
+										<form action="DATABASE/systeme.php" method="POST" enctype="multipart/form-data">
+										<div class="profile-img">
+										<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+										<div class="file btn btn-sm btn-primary">
+											Choisir une image
+											<input type="file" name="profil"  class="file-upload" required/>
+										</div>
+														
+										<div class="form-label-group">
+											<input type="text" id="tome" class="form-control" placeholder="Nom du projet" name="projet">
+											<label for="tome">Nom du Lieu</label>
+										</div>  
+										<div class="form-label-group">
+											<input type="text" id="tomedesc" class="form-control" placeholder="Nom du projet" name="projet">
+											<label for="tomedesc">Description</label>
+										</div>  
+
+											<input type="hidden" name="formulaire" value="image" />
+											<button class="btn btn-sm btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
+											Creer le lieu
+											</button>
+											<br />
+										</div>
+										</form>
+								</div>
+							   
+							   
+							   
 							   
 							  <div class="card shadow mb-4 col-lg-4 col-sm-8 mb-4">
 								<div class="card-header py-3">
@@ -339,6 +473,28 @@ include "INCLUSION/header.php";
 								<br> 
 									
 							  <div class="row">
+
+								<div class="col-xl-3 col-md-6 mb-4">
+										<form action="DATABASE/systeme.php" method="POST" enctype="multipart/form-data">
+												
+										<div class="form-label-group">
+											<input type="text" id="tome" class="form-control" placeholder="Nom du projet" name="projet">
+											<label for="tome">Mot clé</label>
+										</div>  
+										<div class="form-label-group">
+											<input type="text" id="tomedesc" class="form-control" placeholder="Nom du projet" name="projet">
+											<label for="tomedesc">Description</label>
+										</div>  
+
+											<input type="hidden" name="formulaire" value="image" />
+											<button class="btn btn-sm btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
+											Creer le mot
+											</button>
+											<br />
+										</form>
+								</div>
+							   
+							   
 
 								<!-- Earnings (Monthly) Card Example -->
 								<div class="col-xl-3 col-md-6 mb-4">
@@ -387,6 +543,38 @@ include "INCLUSION/header.php";
 								   <br>  
 								
 								<div class="row">
+								
+								
+								<div class="col-xl-3 col-md-6 mb-4">
+										<form action="DATABASE/systeme.php" method="POST" enctype="multipart/form-data">
+											<div class="profile-img">
+											<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+											<div class="file btn btn-sm btn-primary">
+												Choisir une illustration
+												<input type="file" name="profil"  class="file-upload" required/>
+											</div>
+															
+											<div class="form-label-group">
+												<input type="text" id="tome" class="form-control" placeholder="Nom du projet" name="projet">
+												<label for="tome">Titre de l'illustration</label>
+											</div>  
+											<div class="form-label-group">
+												<input type="text" id="tomedesc" class="form-control" placeholder="Nom du projet" name="projet">
+												<label for="tomedesc">Description</label>
+											</div>  
+
+												<input type="hidden" name="formulaire" value="image" />
+												<button class="btn btn-sm btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
+												Importer l'illustration
+												</button>
+												<br />
+											</div>
+										</form>
+								</div>
+							   
+							   
+								
+								
 								<div class="col-xl-4 col-md-6 mb-4">
 								  <div class="card border-left-info shadow h-100 py-2">
 									<div class="card-body">
