@@ -1,7 +1,7 @@
 
 <?php
 	include "INCLUSION/header.php";
-	
+
 ?>
 
 <div class="container">
@@ -15,14 +15,14 @@
                     <div class="col-md-4">
 						<form action="DATABASE/systeme.php" method="POST" enctype="multipart/form-data">
                         <div class="profile-img">
-							<h4><?php if(isset($_SESSION['pseudo'])){echo$_SESSION['pseudo'];} ?></h4><h6 class="text-muted"><?php if(isset($_SESSION['domaine'])){echo$_SESSION['domaine'];}else{echo "...";} ?></h6>
+							<h4><?php if(isset($_SESSION['pseudo'])){echo$_SESSION['pseudo'];} ?></h4><h6 class="text-muted"><?php if(isset($_SESSION['type'])){echo$_SESSION['type'];}else{echo "...";} ?></h6>
                             <?php
 								if($_SESSION['image'] == "")
 								{
 									echo "<img class=\"avatar rounded img-fluid\" src=\"http://ssl.gstatic.com/accounts/ui/avatar_2x.png\"/>
 										<div class=\"file btn btn-lg btn-primary\">
 											Photo de Profil
-											<input type=\"file\" name=\"profil\"  class=\"file-upload\" required/>
+											<input type=\"file\" name=\"image\"  class=\"file-upload\" required/>
 										</div>";
 								}
 								else
@@ -30,7 +30,7 @@
 									echo "<img class=\"avatar rounded img-fluid\" src=\"IMAGES/PROFILS/".$_SESSION['image']."\" alt=\"".$_SESSION['image']."\"/>
 										<div class=\"file btn btn-lg btn-primary\">
 											Photo de Profil
-											<input type=\"file\" name=\"profil\"  class=\"file-upload\" required/>
+											<input type=\"file\" name=\"image\"  class=\"file-upload\" required/>
 										</div>";
 								}
 							?>
@@ -99,35 +99,41 @@
 								</div>
 							   
 							   <div class="row">
-							   
-								<div class="col-lg-6 col-sm-6 mb-4">
+							   <?php
+									try
+									{
+										$bdd = new PDO('mysql:host=localhost;dbname=blue;charset=utf8','root','');
+									}
+									catch(Exception $e)
+									{
+										die('Erreur : '.$e->getMessage());
+									}
+									
+									$requete = $bdd->query('SELECT * FROM creer_projet');
+									
+									while($donnee = $requete->fetch())
+									{
+										if($donnee['id_user'] == $_SESSION['id'])
+										{
+											echo
+												"
+												<div class=\"col-lg-6 col-sm-6 mb-4\">
+													<span style=\"font-size:10px;\" class=\"badge badge-primary badge-counter\">".$donnee['likes_projet']." <i class=\"fas fa-fw fa-thumbs-up\"></i></span>
+													<span style=\"font-size:10px;\" class=\"badge badge-primary badge-counter\">".$donnee['followers_projet']." <i class=\"fas fa-fw fa-users\"></i></span>
+													<div class=\"card h-100\">
+														<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/giphy1.gif\" alt=\"\"></a>
+														<div class=\"card-body\">
+															<h4 class=\"card-title\">
+																<a href=\"#\">".$donnee['nom_projet']."</a>
+															</h4>
+														</div>
+													</div>
+												</div>	
+												";
+										}
+									}
 								
-                <span style="font-size:10px;" class="badge badge-primary badge-counter">124 <i class="fas fa-fw fa-thumbs-up"></i></span>
-				<span style="font-size:10px;" class="badge badge-primary badge-counter">10 <i class="fas fa-fw fa-users"></i></span>
-								  <div class="card h-100">
-									<a href="#"><img class="card-img-top" src="IMAGES/giphy1.gif" alt=""></a>
-									 <div class="card-body">
-									  <h4 class="card-title">
-										<a href="#">Symfonia</a>
-									  </h4>
-									</div>
-								  </div>
-								</div>
-								
-								<div class="col-lg-6 col-sm-5 mb-6">
-								
-                <span style="font-size:10px;" class="badge badge-primary badge-counter">124 <i class="fas fa-fw fa-thumbs-up"></i></span>
-				<span style="font-size:10px;" class="badge badge-primary badge-counter">10 <i class="fas fa-fw fa-users"></i></span>
-								  <div class="card h-100">
-									<a href="#"><img class="card-img-top" src="IMAGES/dragon-ball-z.jpg" alt=""></a>
-									 <div class="card-body">
-									  <h4 class="card-title">
-										<a href="#">Badass</a>
-									  </h4>
-									</div>
-								  </div>
-								</div>
-								
+							   ?>
 							  </div>
                             </div>
 							
@@ -138,7 +144,7 @@
 									  <div class="form-label-group">
 										<div class="form-group">
 										  <label for="Titre">Titre</label>
-										  <select class="form-control" id="Titre" name="domaine">
+										  <select class="form-control" id="Titre" name="type">
 											<option value="Dessinateur">Déssinateur</option>
 											<option value="Scenariste">Scénariste</option>
 											<option value="Scenariste & Dessinateur">Déssinateur & Scénariste</option>
