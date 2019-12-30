@@ -1,7 +1,7 @@
 
 <?php
 	include "INCLUSION/header.php";
-	
+
 ?>
 
 <div class="container">
@@ -99,35 +99,41 @@
 								</div>
 							   
 							   <div class="row">
-							   
-								<div class="col-lg-6 col-sm-6 mb-4">
+							   <?php
+									try
+									{
+										$bdd = new PDO('mysql:host=localhost;dbname=blue;charset=utf8','root','');
+									}
+									catch(Exception $e)
+									{
+										die('Erreur : '.$e->getMessage());
+									}
+									
+									$requete = $bdd->query('SELECT * FROM creer_projet');
+									
+									while($donnee = $requete->fetch())
+									{
+										if($donnee['id_user'] == $_SESSION['id'])
+										{
+											echo
+												"
+												<div class=\"col-lg-6 col-sm-6 mb-4\">
+													<span style=\"font-size:10px;\" class=\"badge badge-primary badge-counter\">".$donnee['likes_projet']." <i class=\"fas fa-fw fa-thumbs-up\"></i></span>
+													<span style=\"font-size:10px;\" class=\"badge badge-primary badge-counter\">".$donnee['followers_projet']." <i class=\"fas fa-fw fa-users\"></i></span>
+													<div class=\"card h-100\">
+														<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/giphy1.gif\" alt=\"\"></a>
+														<div class=\"card-body\">
+															<h4 class=\"card-title\">
+																<a href=\"#\">".$donnee['nom_projet']."</a>
+															</h4>
+														</div>
+													</div>
+												</div>	
+												";
+										}
+									}
 								
-                <span style="font-size:10px;" class="badge badge-primary badge-counter">124 <i class="fas fa-fw fa-thumbs-up"></i></span>
-				<span style="font-size:10px;" class="badge badge-primary badge-counter">10 <i class="fas fa-fw fa-users"></i></span>
-								  <div class="card h-100">
-									<a href="#"><img class="card-img-top" src="IMAGES/giphy1.gif" alt=""></a>
-									 <div class="card-body">
-									  <h4 class="card-title">
-										<a href="#">Symfonia</a>
-									  </h4>
-									</div>
-								  </div>
-								</div>
-								
-								<div class="col-lg-6 col-sm-5 mb-6">
-								
-                <span style="font-size:10px;" class="badge badge-primary badge-counter">124 <i class="fas fa-fw fa-thumbs-up"></i></span>
-				<span style="font-size:10px;" class="badge badge-primary badge-counter">10 <i class="fas fa-fw fa-users"></i></span>
-								  <div class="card h-100">
-									<a href="#"><img class="card-img-top" src="IMAGES/dragon-ball-z.jpg" alt=""></a>
-									 <div class="card-body">
-									  <h4 class="card-title">
-										<a href="#">Badass</a>
-									  </h4>
-									</div>
-								  </div>
-								</div>
-								
+							   ?>
 							  </div>
                             </div>
 							
