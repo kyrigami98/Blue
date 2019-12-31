@@ -17,25 +17,14 @@
                         <div class="profile-img">
 							<h4><?php if(isset($_SESSION['pseudo'])){echo$_SESSION['pseudo'];} ?></h4><h6 class="text-muted"><?php if(isset($_SESSION['type'])){echo$_SESSION['type'];}else{echo "...";} ?></h6>
                             <?php
-								if($_SESSION['image'] == "")
-								{
-									echo "<img class=\"avatar rounded img-fluid\" src=\"http://ssl.gstatic.com/accounts/ui/avatar_2x.png\"/>
-										<div class=\"file btn btn-lg btn-primary\">
-											Photo de Profil
-											<input type=\"file\" name=\"image\"  class=\"file-upload\" required/>
-										</div>";
-								}
-								else
-								{
-									echo "<img class=\"avatar rounded img-fluid\" src=\"IMAGES/PROFILS/".$_SESSION['image']."\" alt=\"".$_SESSION['image']."\"/>
-										<div class=\"file btn btn-lg btn-primary\">
-											Photo de Profil
-											<input type=\"file\" name=\"image\"  class=\"file-upload\" required/>
-										</div>";
-								}
+								echo "<img class=\"avatar rounded img-fluid\" src=\"IMAGES/PROFILS/".$_SESSION['image']."\" alt=\"".$_SESSION['image']."\"/>
+									<div class=\"file btn btn-lg btn-primary\">
+										Photo de Profil
+										<input type=\"file\" name=\"image\"  class=\"file-upload\" required/>
+									</div>";
 							?>
 							<input type="hidden" name="formulaire" value="image" />
-							<button class="btn btn-lg btn-primary btn-block" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>Changer</button>
+							<button class="btn btn-lg btn-primary btn-block" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>Enregistrer</button>
 							<br />
 						</div>
 						</form>
@@ -80,7 +69,7 @@
 							<br> 
 							 <form class="form-signin" action="DATABASE/projet_systeme.php" method="POST">
 							  <div class="form-label-group">
-								<input type="text" id="inputProjet" class="form-control" placeholder="Nom du projet" name="projet">
+								<input type="text" id="inputProjet" class="form-control" placeholder="Nom du projet" name="projet" required/>
 								<label for="inputProjet">Nom du projet</label>
 							  </div>          
 							  <input type="hidden" name="formulaire" value="connexion" />
@@ -109,7 +98,7 @@
 										die('Erreur : '.$e->getMessage());
 									}
 									
-									$requete = $bdd->query('SELECT * FROM creer_projet');
+									$requete = $bdd->query('SELECT * FROM creer_projet ORDER BY id_projet DESC');
 									
 									while($donnee = $requete->fetch())
 									{

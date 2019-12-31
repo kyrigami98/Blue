@@ -28,6 +28,7 @@
 					$_SESSION['email'] = $donnee['email_user'];
 					$_SESSION['password'] = $donnee['password_user'];
 					$_SESSION['type'] = $donnee['type_user'];
+					$_SESSION['image'] = "STAND.jpg";
 					$vide = false;
 					$requete->closeCursor();
 					$requete = $bdd->query('SELECT * FROM image_user');
@@ -48,7 +49,7 @@
 					}
 					if($vide == true)
 					{
-						$_SESSION['image'] = "";
+						$_SESSION['image'] = "STAND.jpg";
 					}
 					header('Location: ../index.php');
 				}
