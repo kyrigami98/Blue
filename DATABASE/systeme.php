@@ -150,7 +150,7 @@
 		}
 		else if($_POST['formulaire'] == "image")
 		{
-			$extension_autorisees = array('jpg', 'jpeg', 'png');
+			$extensions_autorisees = array('jpg', 'jpeg', 'png');
 			
 			if(isset($_FILES['image']) AND $_FILES['image']['error'] == 0)
 			{
@@ -160,7 +160,7 @@
 					$image = pathinfo($_FILES['image']['name']);
 					$extension = $image['extension'];
 					
-					if(in_array($extension, $extension_autorisees))
+					if(in_array($extension, $extensions_autorisees))
 					{
 						$image = basename($_FILES['image']['name']);
 						move_uploaded_file($_FILES['image']['tmp_name'], '../IMAGES/PROFILS/'.$image);

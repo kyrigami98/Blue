@@ -24,7 +24,7 @@
 									</div>";
 							?>
 							<input type="hidden" name="formulaire" value="image" />
-							<button class="btn btn-lg btn-primary btn-block" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>Enregistrer</button>
+							<button class="btn btn-lg btn-primary btn-block" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>Enregistrer l'image</button>
 							<br />
 						</div>
 						</form>
@@ -109,14 +109,18 @@
 												<div class=\"col-lg-6 col-sm-6 mb-4\">
 													<span style=\"font-size:10px;\" class=\"badge badge-primary badge-counter\">".$donnee['likes_projet']." <i class=\"fas fa-fw fa-thumbs-up\"></i></span>
 													<span style=\"font-size:10px;\" class=\"badge badge-primary badge-counter\">".$donnee['followers_projet']." <i class=\"fas fa-fw fa-users\"></i></span>
-													<div class=\"card h-100\">
-														<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/giphy1.gif\" alt=\"\"></a>
-														<div class=\"card-body\">
-															<h4 class=\"card-title\">
-																<a href=\"#\">".$donnee['nom_projet']."</a>
-															</h4>
+													<form action=\"DATABASE/atelier_systeme.php\" method=\"POST\">
+														<div class=\"card h-100\">
+															<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/giphy1.gif\" alt=\"\"></a>
+															<div class=\"card-body\">
+																<h4 class=\"card-title\">
+																	<input type=\"hidden\" name=\"id\" value=".$donnee['id_projet']." />
+																	<input type=\"hidden\" name=\"formulaire\" value=\"projet\" />
+																	<button class=\"btn btn-md\" href=\"#\">".$donnee['nom_projet']."</button>
+																</h4>
+															</div>
 														</div>
-													</div>
+													</form>
 												</div>	
 												";
 										}
