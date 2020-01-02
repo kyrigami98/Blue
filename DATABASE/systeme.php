@@ -162,7 +162,7 @@
 					
 					if(in_array($extension, $extensions_autorisees))
 					{
-						$image = basename($_FILES['image']['name']);
+						$image = $_SESSION['pseudo'].basename($_FILES['image']['name']);
 						move_uploaded_file($_FILES['image']['tmp_name'], '../IMAGES/PROFILS/'.$image);
 					}
 				}

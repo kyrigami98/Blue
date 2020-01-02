@@ -181,5 +181,10 @@
           </div>
         </div>
       </div>
-    </div>";
+    </div>
+	<script src=\"jquery.min.js\"></script>
+	<script>
+		
+	</script>
+	";
 	}

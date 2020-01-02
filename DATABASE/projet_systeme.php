@@ -16,6 +16,22 @@
 	
 	$requete->execute(array('nom' => $projet, 'id' => $_SESSION['id']));
 	
-	echo "le projet a ete cree avec succes";
+	$requete->closeCursor();	
 	
+	$requete = $bdd->query('SELECT * FROM creer_projet');
+		
+	while($donnee = $requete->fetch())
+	{
+		if($donnee['nom_projet'] == $projet)
+		{
+			$_SESSION['id_projet'] = $donnee['id_projet'];
+			$_SESSION['nom_projet'] = $donnee['nom_projet'];
+			$_SESSION['likes'] = $donnee['likes_projet'];
+			$_SESSION['followers'] = $donnee['followers_projet'];
+			
+			$requete->closeCursor();
+			
+			header('Location: ../atelier.php');
+		}
+	}
 ?>

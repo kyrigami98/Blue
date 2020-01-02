@@ -1,6 +1,11 @@
 <?php
 	include "INCLUSION/header.php";
 	
+	if(!isset($_SESSION['pseudo']))
+	{
+		header('Location: index.php');
+	}
+	
 	try
 	{
 		$bdd = new PDO('mysql:host=localhost;dbname=blue;charset=utf8','root','');
@@ -712,7 +717,7 @@
 														<div class="profile-img">
 															<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
 															<div class="file btn btn-sm btn-primary">
-																Choisir une illustration
+																Choisir une image
 																<input type="file" name="image"  class="file-upload"/>
 															</div>
 															<div class="form-label-group">

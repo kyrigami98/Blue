@@ -60,7 +60,7 @@
 					
 					if(in_array($extension, $extensions_autorisees))
 					{
-						$image = basename($_FILES['image']['name']);
+						$image = $_SESSION['pseudo'].basename($_FILES['image']['name']);
 						move_uploaded_file($_FILES['image']['tmp_name'], '../IMAGES/PERSONNAGES/'.$image);
 					}
 				}
@@ -76,7 +76,7 @@
 			
 			$requete->closeCursor();
 			
-			header('Location: ../atelier.php');
+			header('Location: ../atelier.php#Personnages');
 		}
 		elseif($_POST['formulaire'] == "creature")
 		{
@@ -90,7 +90,7 @@
 					
 					if(in_array($extension, $extensions_autorisees))
 					{
-						$image = basename($_FILES['image']['name']);
+						$image = $_SESSION['pseudo'].basename($_FILES['image']['name']);
 						move_uploaded_file($_FILES['image']['tmp_name'], '../IMAGES/CREATURES/'.$image);
 					}
 				}
@@ -120,7 +120,7 @@
 					
 					if(in_array($extension, $extensions_autorisees))
 					{
-						$image = basename($_FILES['image']['name']);
+						$image = $_SESSION['pseudo'].basename($_FILES['image']['name']);
 						move_uploaded_file($_FILES['image']['tmp_name'], '../IMAGES/LIEUX/'.$image);
 					}
 				}
@@ -160,7 +160,7 @@
 					
 					if(in_array($extension, $extensions_autorisees))
 					{
-						$image = basename($_FILES['image']['name']);
+						$image = $_SESSION['pseudo'].basename($_FILES['image']['name']);
 						move_uploaded_file($_FILES['image']['tmp_name'], '../IMAGES/ILLUSTRATIONS/'.$image);
 					}
 				}
