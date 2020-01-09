@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mer. 01 jan. 2020 à 07:06
+-- Généré le :  jeu. 09 jan. 2020 à 16:44
 -- Version du serveur :  10.4.8-MariaDB
 -- Version de PHP :  7.3.10
 
@@ -41,7 +41,7 @@ CREATE TABLE `chapitre` (
 --
 
 INSERT INTO `chapitre` (`id_chapitre`, `nom_chapitre`, `description_chapitre`, `id_tome`, `id_projet`) VALUES
-(1, 'le commencement', '', 0, 11);
+(5, 'le commencement de tout', 'J\'ai envoyé Shiro auprès de Kuro pour que commence l\'histoire de la première possibilité...', 0, 11);
 
 -- --------------------------------------------------------
 
@@ -85,10 +85,7 @@ CREATE TABLE `creer_projet` (
 --
 
 INSERT INTO `creer_projet` (`id_projet`, `nom_projet`, `likes_projet`, `followers_projet`, `description_projet`, `image_projet`, `id_user`) VALUES
-(11, 'ENREGISTREMENT 1', 0, 0, '', '', 6),
-(12, 'BOOK OF DEATH', 0, 0, '', '', 6),
-(15, 'ikar', 0, 0, '', '', 7),
-(16, 'SPIRITUAL + CROSS', 0, 0, '', '', 6);
+(11, 'ENREGISTREMENT 1', 0, 0, '', '', 6);
 
 -- --------------------------------------------------------
 
@@ -109,7 +106,8 @@ CREATE TABLE `illustration` (
 --
 
 INSERT INTO `illustration` (`id_illustration`, `nom_illustration`, `description_illustration`, `image_illustration`, `id_projet`) VALUES
-(1, 'chara-design de Kuro', '', '', 11);
+(1, 'chara-design de Kuro', '', '', 11),
+(2, 'le livre du monde', '', '', 11);
 
 -- --------------------------------------------------------
 
@@ -128,7 +126,7 @@ CREATE TABLE `image_user` (
 --
 
 INSERT INTO `image_user` (`id_image`, `image_user`, `id_user`) VALUES
-(17, 'd0f6cc250c466724992136933b9a9668.jpg', 6),
+(17, 'Danielsd0f6cc250c466724992136933b9a9668.jpg', 6),
 (19, '1573741486944.png', 7);
 
 -- --------------------------------------------------------
@@ -150,7 +148,8 @@ CREATE TABLE `lieu` (
 --
 
 INSERT INTO `lieu` (`id_lieu`, `nom_lieu`, `description_lieu`, `image_lieu`, `id_projet`) VALUES
-(1, 'monde de Kuro detruit', '', '', 11);
+(1, 'monde de Kuro detruit', '', '', 11),
+(3, 'espace neutre', 'Un espace entierrement blanc ou je peux m\'adresser a Shiro, hors de la timeline scenaristique...', '', 11);
 
 -- --------------------------------------------------------
 
@@ -171,8 +170,8 @@ CREATE TABLE `personnage` (
 --
 
 INSERT INTO `personnage` (`id_personnage`, `nom_personnage`, `description_personnage`, `image_personnage`, `id_projet`) VALUES
-(1, 'Kuro', '', '', 11),
-(2, 'Shiro', '', '', 11);
+(5, 'Kuro', '', '', 11),
+(13, 'Shiro', ' Personnage emblematique cree pour gerer le lancement de chaque possibilite, expliquer l\'existence des livres de l\'auteur et servir de lien entre l\'histoire fictive et l\'histoire reelle...', 'Beautiful Illustrated Portraits by Janice Sung _ Inspiration Grid.jpg', 11);
 
 -- --------------------------------------------------------
 
@@ -192,7 +191,8 @@ CREATE TABLE `terme` (
 --
 
 INSERT INTO `terme` (`id_terme`, `nom_terme`, `description_terme`, `id_projet`) VALUES
-(1, 'kuro', 'signifie \"Noir\" en japonais.', 11);
+(1, 'kuro', 'signifie \"Noir\" en japonais. selon mes connaissances, bien sur...', 11),
+(3, 'shiro', 'signifie \"Blanc\" en japonais. selon mes connaissances, bien sur...', 11);
 
 -- --------------------------------------------------------
 
@@ -302,49 +302,49 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `chapitre`
 --
 ALTER TABLE `chapitre`
-  MODIFY `id_chapitre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_chapitre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `creature`
 --
 ALTER TABLE `creature`
-  MODIFY `id_creature` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_creature` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `creer_projet`
 --
 ALTER TABLE `creer_projet`
-  MODIFY `id_projet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_projet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT pour la table `illustration`
 --
 ALTER TABLE `illustration`
-  MODIFY `id_illustration` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_illustration` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `image_user`
 --
 ALTER TABLE `image_user`
-  MODIFY `id_image` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_image` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT pour la table `lieu`
 --
 ALTER TABLE `lieu`
-  MODIFY `id_lieu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_lieu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `personnage`
 --
 ALTER TABLE `personnage`
-  MODIFY `id_personnage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_personnage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `terme`
 --
 ALTER TABLE `terme`
-  MODIFY `id_terme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_terme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `tome`

@@ -181,7 +181,7 @@
 											}
 											else
 											{
-												echo "Atelier";
+												echo "<h1>Atelier</h1>";
 											}
 										?>
 									</h1>
@@ -193,7 +193,7 @@
 								{
 							?>
 							<!-- Content Row -->
-							<div class="row text-center">
+							<div class="row text-center" id="cible">
 								<div class="profile-head">
 									<ul class="nav nav-tabs" id="myTab" role="tablist">
 										<li class="nav-item">
@@ -264,18 +264,30 @@
 																						<div class=\"font-weight-bold text-info text-uppercase mb-1\">Chapitre ".$count."</div>
 																						<div class=\"text-xs text-muted font-weight-bold text-info text-uppercase mb-1\">".$donnee['nom_chapitre']."</div>
 																						<div class=\"row no-gutters align-items-center\">
-																							<div class=\"col\">
+																							<div class=\"col text-truncate\">
 																								".$donnee['description_chapitre']."
 																							</div>
 																						</div>
+																						<br />
+																						<form action=\"modifier.php\" method=\"POST\">
+																							<input type=\"hidden\" name=\"id\" value=".$donnee['id_chapitre']." />
+																							<input type=\"hidden\" name=\"modifier\" value=\"chapitre\" />
+																							<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Modifier</button>
+																						</form>
+																						<br />
+																						<form action=\"supprimer.php\" method=\"POST\">
+																							<input type=\"hidden\" name=\"id\" value=".$donnee['id_chapitre']." />
+																							<input type=\"hidden\" name=\"supprimer\" value=\"chapitre\" />
+																							<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																						</form>
 																					</div>
 																				</div>
 																			</div>
 																		</div>
 																	</div>
 																";
+															$count++;
 														}
-														$count++;
 													}
 												?>
 												<!--<div class="col-xl-3 col-md-6 mb-4">
@@ -362,7 +374,18 @@
 																					<p>
 																						".$donnee['description_personnage']."
 																					</p>
-																					<a target=\"_blank\" rel=\"nofollow\" href=\"#\">Details sur l'illustration &rarr;</a>
+																					<br />
+																					<form action=\"modifier.php\" method=\"POST\">
+																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_personnage']." />
+																						<input type=\"hidden\" name=\"modifier\" value=\"personnage\" />
+																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Details sur l'illustration &rarr;</button>
+																					</form>
+																					<br />
+																					<form action=\"supprimer.php\" method=\"POST\">
+																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_personnage']." />
+																						<input type=\"hidden\" name=\"supprimer\" value=\"personnage\" />
+																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																					</form>
 																				</div>
 																			</div>
 																		</div>
@@ -382,7 +405,18 @@
 																					<p>
 																						".$donnee['description_personnage']."
 																					</p>
-																					<a target=\"_blank\" rel=\"nofollow\" href=\"#\">Details sur l'illustration &rarr;</a>
+																					<br />
+																					<form action=\"modifier.php\" method=\"POST\">
+																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_personnage']." />
+																						<input type=\"hidden\" name=\"modifier\" value=\"personnage\" />
+																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Details sur l'illustration &rarr;</button>
+																					</form>
+																					<br />
+																					<form action=\"supprimer.php\" method=\"POST\">
+																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_personnage']." />
+																						<input type=\"hidden\" name=\"supprimer\" value=\"personnage\" />
+																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																					</form>
 																				</div>
 																			</div>
 																		</div>
@@ -473,7 +507,18 @@
 																					<p>
 																						".$donnee['description_creature']."
 																					</p>
-																					<a target=\"_blank\" rel=\"nofollow\" href=\"#\">Details sur l'illustration &rarr;</a>
+																					<br />
+																					<form action=\"modifier.php\" method=\"POST\">
+																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_creature']." />
+																						<input type=\"hidden\" name=\"modifier\" value=\"creature\" />
+																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Details sur l'illustration &rarr;</button>
+																					</form>
+																					<br />
+																					<form action=\"supprimer.php\" method=\"POST\">
+																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_creature']." />
+																						<input type=\"hidden\" name=\"supprimer\" value=\"creature\" />
+																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																					</form>
 																				</div>
 																			</div>
 																		</div>
@@ -493,7 +538,18 @@
 																					<p>
 																						".$donnee['description_creature']."
 																					</p>
-																					<a target=\"_blank\" rel=\"nofollow\" href=\"#\">Details sur l'illustration &rarr;</a>
+																					<br />
+																					<form action=\"modifier.php\" method=\"POST\">
+																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_creature']." />
+																						<input type=\"hidden\" name=\"modifier\" value=\"creature\" />
+																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Details sur l'illustration &rarr;</button>
+																					</form>
+																					<br />
+																					<form action=\"supprimer.php\" method=\"POST\">
+																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_creature']." />
+																						<input type=\"hidden\" name=\"supprimer\" value=\"creature\" />
+																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																					</form>
 																				</div>
 																			</div>
 																		</div>
@@ -569,7 +625,18 @@
 																				<p>
 																					".$donnee['description_lieu']."
 																				</p>
-																				<a target=\"_blank\" rel=\"nofollow\" href=\"#\">Details sur l'illustration &rarr;</a>
+																				<br />
+																				<form action=\"modifier.php\" method=\"POST\">
+																					<input type=\"hidden\" name=\"id\" value=".$donnee['id_lieu']." />
+																					<input type=\"hidden\" name=\"modifier\" value=\"lieu\" />
+																					<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Details sur l'illustration &rarr;</button>
+																				</form>
+																				<br />
+																					<form action=\"supprimer.php\" method=\"POST\">
+																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_lieu']." />
+																						<input type=\"hidden\" name=\"supprimer\" value=\"lieu\" />
+																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																					</form>
 																			</div>
 																		</div>
 																	";
@@ -589,7 +656,19 @@
 																				<p>
 																					".$donnee['description_lieu']."
 																				</p>
-																				<a target=\"_blank\" rel=\"nofollow\" href=\"#\">Details sur l'illustration &rarr;</a>
+																				<br />
+																				<form action=\"modifier.php\" method=\"POST\">
+																					<input type=\"hidden\" name=\"id\" value=".$donnee['id_lieu']." />
+																					<input type=\"hidden\" name=\"modifier\" value=\"lieu\" />
+																					<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Details sur l'illustration &rarr;</button>
+																				</form>
+																				<br />
+																				<br />
+																					<form action=\"supprimer.php\" method=\"POST\">
+																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_lieu']." />
+																						<input type=\"hidden\" name=\"supprimer\" value=\"lieu\" />
+																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																					</form>
 																			</div>
 																		</div>
 																	";
@@ -670,6 +749,19 @@
 																							".$donnee['description_terme']."
 																						</div>
 																					</div>
+																					<br />
+																					<form action=\"modifier.php\" method=\"POST\">
+																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_terme']." />
+																						<input type=\"hidden\" name=\"modifier\" value=\"terme\" />
+																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Modifier</button>
+																					</form>
+																					<br />
+																					<br />
+																					<form action=\"supprimer.php\" method=\"POST\">
+																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_terme']." />
+																						<input type=\"hidden\" name=\"supprimer\" value=\"terme\" />
+																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																					</form>
 																				</div>
 																			</div>
 																		</div>
@@ -758,6 +850,18 @@
 																								<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/ILLUSTRATIONS/STAND.jpg\" alt=\"\"></a>
 																							</div>
 																						</div>
+																						<br />
+																						<form action=\"modifier.php\" method=\"POST\">
+																							<input type=\"hidden\" name=\"id\" value=".$donnee['id_illustration']." />
+																							<input type=\"hidden\" name=\"modifier\" value=\"illustration\" />
+																							<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Modifier</button>
+																						</form>
+																						<br />
+																						<form action=\"supprimer.php\" method=\"POST\">
+																							<input type=\"hidden\" name=\"id\" value=".$donnee['id_illustration']." />
+																							<input type=\"hidden\" name=\"supprimer\" value=\"illustration\" />
+																							<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																						</form>
 																					</div>
 																				</div>
 																			</div>
@@ -780,6 +884,18 @@
 																									<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/ILLUSTRATIONS/".$donnee['image_illustration']."\" alt=\"\"></a>
 																								</div>
 																							</div>
+																							<br />
+																							<form action=\"modifier.php\" method=\"POST\">
+																								<input type=\"hidden\" name=\"id\" value=".$donnee['id_illustration']." />
+																								<input type=\"hidden\" name=\"modifier\" value=\"chapitre\" />
+																								<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Modifier</button>
+																							</form>
+																							<br />
+																							<form action=\"supprimer.php\" method=\"POST\">
+																								<input type=\"hidden\" name=\"id\" value=".$donnee['id_illustration']." />
+																								<input type=\"hidden\" name=\"supprimer\" value=\"illustration\" />
+																								<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																							</form>
 																						</div>
 																					</div>
 																				</div>
