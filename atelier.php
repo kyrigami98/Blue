@@ -264,16 +264,11 @@
 																						<div class=\"font-weight-bold text-info text-uppercase mb-1\">Chapitre ".$count."</div>
 																						<div class=\"text-xs text-muted font-weight-bold text-info text-uppercase mb-1\">".$donnee['nom_chapitre']."</div>
 																						<div class=\"row no-gutters align-items-center\">
-																							<div class=\"col text-truncate\">
+																							<div class=\"col\">
 																								".$donnee['description_chapitre']."
 																							</div>
 																						</div>
 																						<br />
-																						<form action=\"modifier.php\" method=\"POST\">
-																							<input type=\"hidden\" name=\"id\" value=".$donnee['id_chapitre']." />
-																							<input type=\"hidden\" name=\"modifier\" value=\"chapitre\" />
-																							<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Modifier</button>
-																						</form>
 																						<br />
 																						<form action=\"supprimer.php\" method=\"POST\">
 																							<input type=\"hidden\" name=\"id\" value=".$donnee['id_chapitre']." />
@@ -366,7 +361,7 @@
 																	"
 																		<div class=\"col-lg-4 col-sm-8 mb-4\">
 																			<div class=\"card h-100\">
-																				<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/PERSONNAGES/STAND.jpg\" alt=\"\"></a>
+																				<a href=\"#\"><img class=\"card-img-top\" src=\"http://ssl.gstatic.com/accounts/ui/avatar_2x.png\" alt=\"\"></a>
 																				<div class=\"card-body\">
 																					<h4 class=\"card-title\">
 																						<a href=\"#\">".$donnee['nom_personnage']."</a>
@@ -375,11 +370,8 @@
 																						".$donnee['description_personnage']."
 																					</p>
 																					<br />
-																					<form action=\"modifier.php\" method=\"POST\">
-																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_personnage']." />
-																						<input type=\"hidden\" name=\"modifier\" value=\"personnage\" />
-																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Details sur l'illustration &rarr;</button>
-																					</form>
+																					<a href=\"#\">Details sur l'illustration &rarr;</a>
+																					<br />
 																					<br />
 																					<form action=\"supprimer.php\" method=\"POST\">
 																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_personnage']." />
@@ -406,11 +398,8 @@
 																						".$donnee['description_personnage']."
 																					</p>
 																					<br />
-																					<form action=\"modifier.php\" method=\"POST\">
-																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_personnage']." />
-																						<input type=\"hidden\" name=\"modifier\" value=\"personnage\" />
-																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Details sur l'illustration &rarr;</button>
-																					</form>
+																					<a href=\"#\">Details sur l'illustration &rarr;</a>
+																					<br />
 																					<br />
 																					<form action=\"supprimer.php\" method=\"POST\">
 																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_personnage']." />
@@ -499,7 +488,7 @@
 																	"
 																		<div class=\"col-lg-4 col-sm-8 mb-4\">
 																			<div class=\"card h-100\">
-																				<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/CREATURES/STAND.jpg\" alt=\"\"></a>
+																				<a href=\"#\"><img class=\"card-img-top\" src=\"http://ssl.gstatic.com/accounts/ui/avatar_2x.png\" alt=\"\"></a>
 																				<div class=\"card-body\">
 																					<h4 class=\"card-title\">
 																						<a href=\"#\">".$donnee['nom_creature']."</a>
@@ -508,11 +497,8 @@
 																						".$donnee['description_creature']."
 																					</p>
 																					<br />
-																					<form action=\"modifier.php\" method=\"POST\">
-																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_creature']." />
-																						<input type=\"hidden\" name=\"modifier\" value=\"creature\" />
-																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Details sur l'illustration &rarr;</button>
-																					</form>
+																					<a href=\"#\">Details sur l'illustration &rarr;</a>
+																					<br />
 																					<br />
 																					<form action=\"supprimer.php\" method=\"POST\">
 																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_creature']." />
@@ -539,11 +525,8 @@
 																						".$donnee['description_creature']."
 																					</p>
 																					<br />
-																					<form action=\"modifier.php\" method=\"POST\">
-																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_creature']." />
-																						<input type=\"hidden\" name=\"modifier\" value=\"creature\" />
-																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Details sur l'illustration &rarr;</button>
-																					</form>
+																					<a href=\"#\">Details sur l'illustration &rarr;</a>
+																					<br />
 																					<br />
 																					<form action=\"supprimer.php\" method=\"POST\">
 																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_creature']." />
@@ -620,23 +603,20 @@
 																			</div>
 																			<div class=\"card-body\">
 																				<div class=\"text-center\">
-																					<img class=\"img-fluid px-3 px-sm-4 mt-3 mb-4\" style=\"width: 25rem;\" src=\"IMAGES/LIEUX/STAND.jpg\" alt=\"\">
+																					<img class=\"img-fluid px-3 px-sm-4 mt-3 mb-4\" style=\"width: 25rem;\" src=\"http://ssl.gstatic.com/accounts/ui/avatar_2x.png\" alt=\"\">
 																				</div>
 																				<p>
 																					".$donnee['description_lieu']."
 																				</p>
 																				<br />
-																				<form action=\"modifier.php\" method=\"POST\">
-																					<input type=\"hidden\" name=\"id\" value=".$donnee['id_lieu']." />
-																					<input type=\"hidden\" name=\"modifier\" value=\"lieu\" />
-																					<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Details sur l'illustration &rarr;</button>
-																				</form>
+																				<a href=\"#\">Details sur l'illustration &rarr;</a>
 																				<br />
-																					<form action=\"supprimer.php\" method=\"POST\">
-																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_lieu']." />
-																						<input type=\"hidden\" name=\"supprimer\" value=\"lieu\" />
-																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
-																					</form>
+																				<br />
+																				<form action=\"supprimer.php\" method=\"POST\">
+																					<input type=\"hidden\" name=\"id\" value=".$donnee['id_lieu']." />
+																					<input type=\"hidden\" name=\"supprimer\" value=\"lieu\" />
+																					<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																				</form>
 																			</div>
 																		</div>
 																	";
@@ -657,18 +637,14 @@
 																					".$donnee['description_lieu']."
 																				</p>
 																				<br />
-																				<form action=\"modifier.php\" method=\"POST\">
+																					<a href=\"#\">Details sur l'illustration &rarr;</a>
+																				<br />
+																				<br />
+																				<form action=\"supprimer.php\" method=\"POST\">
 																					<input type=\"hidden\" name=\"id\" value=".$donnee['id_lieu']." />
-																					<input type=\"hidden\" name=\"modifier\" value=\"lieu\" />
-																					<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Details sur l'illustration &rarr;</button>
+																					<input type=\"hidden\" name=\"supprimer\" value=\"lieu\" />
+																					<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
 																				</form>
-																				<br />
-																				<br />
-																					<form action=\"supprimer.php\" method=\"POST\">
-																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_lieu']." />
-																						<input type=\"hidden\" name=\"supprimer\" value=\"lieu\" />
-																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
-																					</form>
 																			</div>
 																		</div>
 																	";
@@ -749,12 +725,6 @@
 																							".$donnee['description_terme']."
 																						</div>
 																					</div>
-																					<br />
-																					<form action=\"modifier.php\" method=\"POST\">
-																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_terme']." />
-																						<input type=\"hidden\" name=\"modifier\" value=\"terme\" />
-																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Modifier</button>
-																					</form>
 																					<br />
 																					<br />
 																					<form action=\"supprimer.php\" method=\"POST\">
@@ -847,15 +817,13 @@
 																						<div class=\"font-weight-bold text-info text-uppercase mb-1\">".$donnee['nom_illustration']."</div>
 																						<div class=\"row no-gutters align-items-center\">
 																							<div class=\"col\">
-																								<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/ILLUSTRATIONS/STAND.jpg\" alt=\"\"></a>
+																								<a href=\"#\"><img class=\"card-img-top\" src=\"http://ssl.gstatic.com/accounts/ui/avatar_2x.png\" alt=\"\"></a>
+																							</div>
+																							<div class=\"\">
+																								".$donnee['description_illustration']."
 																							</div>
 																						</div>
 																						<br />
-																						<form action=\"modifier.php\" method=\"POST\">
-																							<input type=\"hidden\" name=\"id\" value=".$donnee['id_illustration']." />
-																							<input type=\"hidden\" name=\"modifier\" value=\"illustration\" />
-																							<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Modifier</button>
-																						</form>
 																						<br />
 																						<form action=\"supprimer.php\" method=\"POST\">
 																							<input type=\"hidden\" name=\"id\" value=".$donnee['id_illustration']." />
@@ -883,13 +851,11 @@
 																								<div class=\"col\">
 																									<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/ILLUSTRATIONS/".$donnee['image_illustration']."\" alt=\"\"></a>
 																								</div>
+																								<div class=\"\">
+																									".$donnee['description_illustration']."
+																								</div>
 																							</div>
 																							<br />
-																							<form action=\"modifier.php\" method=\"POST\">
-																								<input type=\"hidden\" name=\"id\" value=".$donnee['id_illustration']." />
-																								<input type=\"hidden\" name=\"modifier\" value=\"chapitre\" />
-																								<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Modifier</button>
-																							</form>
 																							<br />
 																							<form action=\"supprimer.php\" method=\"POST\">
 																								<input type=\"hidden\" name=\"id\" value=".$donnee['id_illustration']." />

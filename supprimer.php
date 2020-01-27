@@ -44,7 +44,7 @@
 		}
 		elseif($_POST['supprimer'] == "lieu")
 		{
-			$requete = $bdd->prepare('DELETE FROM terme WHERE id_lieu = :id');
+			$requete = $bdd->prepare('DELETE FROM lieu WHERE id_lieu = :id');
 			
 			$requete->execute(array('id' => $_POST['id']));
 			
