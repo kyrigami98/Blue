@@ -8,7 +8,7 @@
 	
 	try
 	{
-		$bdd = new PDO('mysql:host=localhost;dbname=blue;charset=utf8','root','');
+		$bdd = new PDO('mysql:host=localhost;dbname=blue2;charset=utf8','root','');
 	}
 	catch(Exception $e)
 	{
@@ -40,25 +40,22 @@
 						</a>
 						<div id="collapseProjet" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 							<?php
-								$requete = $bdd->query('SELECT * FROM creer_projet ORDER BY id_projet');
+								$requete = $bdd->prepare('SELECT * FROM projet WHERE id_utilisateur = :id ORDER BY id_projet');
+								$requete->execute(array('id' => $_SESSION['id']));
 								
 								while($donnee = $requete->fetch())
 								{
-									if($donnee['id_user'] == $_SESSION['id'])
-									{
-										echo
-											"
-												<form action=\"DATABASE/atelier_systeme.php\" method=\"POST\">
-													<a class=\"nav-link\" href=\"#\">
-														<hr class=\"sidebar-divider\">
-														<i class=\"fas fa-fw fa-folder\"></i>
-														<input type=\"hidden\" name=\"id\" value=".$donnee['id_projet']." />
-														<input type=\"hidden\" name=\"formulaire\" value=\"projet\" />
-														<button class=\"btn btn-sm\" style=\"color:white;\">".$donnee['nom_projet']."</button>
-													</a>
-												</form>
-											";
-									}
+								?>
+											<form action="DATABASE/atelier_systeme.php" method="POST">
+												<a class="nav-link" href="#">
+													<hr class="sidebar-divider">
+													<i class="fas fa-fw fa-folder"></i>
+													<input type="hidden" name="id" value="<?php echo $donnee['id_projet']; ?>" />
+													<input type="hidden" name="formulaire" value="projet" />
+													<button class="btn btn-sm" style="color:white;"><?php echo $donnee['titre_projet']; ?></button>
+												</a>
+											</form>
+								<?php
 								}
 								
 								$requete->closeCursor();
@@ -170,11 +167,11 @@
 								<a class="nav-link nav-item" href="#">
 									<h1 class="font-weight-light">
 										<?php
-											if(isset($_SESSION['nom_projet']))
+											if(isset($_SESSION['titre_projet']))
 											{
 										?>
 											<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />
-											<?php echo $_SESSION['nom_projet']; ?>
+											<?php echo $_SESSION['titre_projet']; ?>
 											<span style="font-size:13px;" class="badge badge-primary badge-counter"><?php echo $_SESSION['likes'];?> <i class="fas fa-fw fa-thumbs-up"></i></span>
 											<span style="font-size:13px;" class="badge badge-primary badge-counter"><?php echo $_SESSION['followers'];?> <i class="fas fa-fw fa-users"></i></span>
 										<?php
@@ -186,10 +183,10 @@
 										?>
 									</h1>
 								</a>
-								<?php if(isset($_SESSION['nom_projet'])){?><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>Télécharger le projet en pdf</a><?php } ?>
+								<?php if(isset($_SESSION['titre_projet'])){?><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>Télécharger le projet en pdf</a><?php } ?>
 							</div>
 							<?php
-								if(isset($_SESSION['nom_projet']))
+								if(isset($_SESSION['titre_projet']))
 								{
 							?>
 							<!-- Content Row -->
@@ -246,14 +243,14 @@
 													</form>
 												</div>
 												<?php
-													$requete = $bdd->query('SELECT * FROM chapitre');
+													$requete = $bdd->prepare('SELECT id_chapitre, titre_chapitre, description_chapitre FROM chapitre, (SELECT id_tome FROM tome WHERE id_projet = 1)resultat WHERE chapitre.id_tome = resultat.id_tome;');
+													
+													$requete->execute(array('id' => $_SESSION['id_projet']));
 													
 													$count = 1;
 													
 													while($donnee = $requete->fetch())
 													{
-														if($donnee['id_projet'] == $_SESSION['id_projet'])
-														{
 															echo
 																"
 																	<div class=\"col-xl-3 col-md-6 mb-4\">
@@ -262,7 +259,7 @@
 																				<div class=\"row no-gutters align-items-center\">
 																					<div class=\"col mr-2\">
 																						<div class=\"font-weight-bold text-info text-uppercase mb-1\">Chapitre ".$count."</div>
-																						<div class=\"text-xs text-muted font-weight-bold text-info text-uppercase mb-1\">".$donnee['nom_chapitre']."</div>
+																						<div class=\"text-xs text-muted font-weight-bold text-info text-uppercase mb-1\">".$donnee['titre_chapitre']."</div>
 																						<div class=\"row no-gutters align-items-center\">
 																							<div class=\"col\">
 																								".$donnee['description_chapitre']."
@@ -282,7 +279,6 @@
 																	</div>
 																";
 															$count++;
-														}
 													}
 												?>
 												<!--<div class="col-xl-3 col-md-6 mb-4">
@@ -349,68 +345,67 @@
 													</form>
 												</div>
 												<?php
-													$requete = $bdd->query('SELECT * FROM personnage ORDER BY id_personnage DESC');
+													$requete = $bdd->prepare('SELECT personnage.id_personnage, nom_personnage, description_personnage, image_personnage FROM personnage, intervenir WHERE personnage.id_personnage = intervenir.id_personnage AND intervenir.id_projet = :id_projet ORDER BY id_personnage DESC');
+												
+													$requete->execute(array('id_projet' => $_SESSION['id_projet']));
 												
 													while($donnee = $requete->fetch())
 													{
-														if($donnee['id_projet'] == $_SESSION['id_projet'])
+														if($donnee['image_personnage'] == "")
 														{
-															if($donnee['image_personnage'] == "")
-															{
-																echo
-																	"
-																		<div class=\"col-lg-4 col-sm-8 mb-4\">
-																			<div class=\"card h-100\">
-																				<a href=\"#\"><img class=\"card-img-top\" src=\"http://ssl.gstatic.com/accounts/ui/avatar_2x.png\" alt=\"\"></a>
-																				<div class=\"card-body\">
-																					<h4 class=\"card-title\">
-																						<a href=\"#\">".$donnee['nom_personnage']."</a>
-																					</h4>
-																					<p>
-																						".$donnee['description_personnage']."
-																					</p>
-																					<br />
-																					<a href=\"#\">Details sur l'illustration &rarr;</a>
-																					<br />
-																					<br />
-																					<form action=\"supprimer.php\" method=\"POST\">
-																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_personnage']." />
-																						<input type=\"hidden\" name=\"supprimer\" value=\"personnage\" />
-																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
-																					</form>
-																				</div>
+															echo
+																"
+																	<div class=\"col-lg-4 col-sm-8 mb-4\">
+																		<div class=\"card h-100\">
+																			<a href=\"#\"><img class=\"card-img-top\" src=\"http://ssl.gstatic.com/accounts/ui/avatar_2x.png\" alt=\"\"></a>
+																			<div class=\"card-body\">
+																				<h4 class=\"card-title\">
+																					<a href=\"#\">".$donnee['nom_personnage']."</a>
+																				</h4>
+																				<p>
+																					".$donnee['description_personnage']."
+																				</p>
+																				<br />
+																				<a href=\"#\">Details sur l'illustration &rarr;</a>
+																				<br />
+																				<br />
+																				<form action=\"supprimer.php\" method=\"POST\">
+																					<input type=\"hidden\" name=\"id\" value=".$donnee['id_personnage']." />
+																					<input type=\"hidden\" name=\"supprimer\" value=\"personnage\" />
+																					<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																				</form>
 																			</div>
 																		</div>
-																	";
-															}
-															else
-															{
-																echo
-																	"
-																		<div class=\"col-lg-4 col-sm-8 mb-4\">
-																			<div class=\"card h-100\">
-																				<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/PERSONNAGES/".$donnee['image_personnage']."\" alt=\"\"></a>
-																				<div class=\"card-body\">
-																					<h4 class=\"card-title\">
-																						<a href=\"#\">".$donnee['nom_personnage']."</a>
-																					</h4>
-																					<p>
-																						".$donnee['description_personnage']."
-																					</p>
-																					<br />
-																					<a href=\"#\">Details sur l'illustration &rarr;</a>
-																					<br />
-																					<br />
-																					<form action=\"supprimer.php\" method=\"POST\">
-																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_personnage']." />
-																						<input type=\"hidden\" name=\"supprimer\" value=\"personnage\" />
-																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
-																					</form>
-																				</div>
+																	</div>
+																";
+														}
+														else
+														{
+															echo
+																"
+																	<div class=\"col-lg-4 col-sm-8 mb-4\">
+																		<div class=\"card h-100\">
+																			<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/PERSONNAGES/".$donnee['image_personnage']."\" alt=\"\"></a>
+																			<div class=\"card-body\">
+																				<h4 class=\"card-title\">
+																					<a href=\"#\">".$donnee['nom_personnage']."</a>
+																				</h4>
+																				<p>
+																					".$donnee['description_personnage']."
+																				</p>
+																				<br />
+																				<a href=\"#\">Details sur l'illustration &rarr;</a>
+																				<br />
+																				<br />
+																				<form action=\"supprimer.php\" method=\"POST\">
+																					<input type=\"hidden\" name=\"id\" value=".$donnee['id_personnage']." />
+																					<input type=\"hidden\" name=\"supprimer\" value=\"personnage\" />
+																					<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																				</form>
 																			</div>
 																		</div>
-																	";
-															}
+																	</div>
+																";
 														}
 													}
 												?>
@@ -476,12 +471,12 @@
 													</form>
 												</div>
 												<?php
-													$requete = $bdd->query('SELECT * FROM creature ORDER BY id_creature DESC');
+													$requete = $bdd->prepare('SELECT creature.id_creature, nom_creature, description_creature, image_creature FROM creature, apparaitre WHERE creature.id_creature = apparaitre.id_creature AND apparaitre.id_projet = :id_projet ORDER BY id_creature DESC');
+												
+													$requete->execute(array('id_projet' => $_SESSION['id_projet']));
 												
 													while($donnee = $requete->fetch())
 													{
-														if($donnee['id_projet'] == $_SESSION['id_projet'])
-														{
 															if($donnee['image_creature'] == "")
 															{
 																echo
@@ -538,7 +533,7 @@
 																		</div>
 																	";
 															}
-														}
+														
 													}
 												?>
 												<!--<div class="col-lg-4 col-sm-8 mb-4">
@@ -587,12 +582,12 @@
 													</form>
 												</div>
 												<?php
-													$requete = $bdd->query('SELECT * FROM lieu ORDER BY id_lieu DESC');
+													$requete = $bdd->prepare('SELECT lieu.id_lieu, nom_lieu, description_lieu, image_lieu FROM lieu, visiter WHERE lieu.id_lieu = visiter.id_lieu AND visiter.id_projet = :id_projet ORDER BY id_lieu DESC');
+												
+													$requete->execute(array('id_projet' => $_SESSION['id_projet']));
 												
 													while($donnee = $requete->fetch())
 													{
-														if($donnee['id_projet'] == $_SESSION['id_projet'])
-														{
 															if($donnee['image_lieu'] == "")
 															{
 																echo
@@ -649,7 +644,7 @@
 																		</div>
 																	";
 															}
-														}
+														
 													}
 												?>
 												<!--<div class="card shadow mb-4 col-lg-4 col-sm-8 mb-4">
@@ -707,12 +702,12 @@
 													</form>
 												</div>
 												<?php
-													$requete = $bdd->query('SELECT * FROM terme ORDER BY id_terme DESC');
+													$requete = $bdd->prepare('SELECT terme.id_terme, nom_terme, description_terme FROM terme, citer WHERE terme.id_terme = citer.id_terme AND citer.id_projet = :id_projet ORDER BY id_terme DESC');
+												
+													$requete->execute(array('id_projet' => $_SESSION['id_projet']));
 												
 													while($donnee = $requete->fetch())
 													{
-														if($donnee['id_projet'] == $_SESSION['id_projet'])
-														{
 															echo
 																"
 																	<div class=\"col-xl-3 col-md-6 mb-4\">
@@ -737,7 +732,6 @@
 																		</div>
 																	</div>
 																";
-														}
 													}
 												?>
 												<!-- Earnings (Monthly) Card Example -->
@@ -799,12 +793,12 @@
 													</form>
 												</div>
 												<?php
-													$requete = $bdd->query('SELECT * FROM illustration ORDER BY id_illustration DESC');
+													$requete = $bdd->prepare('SELECT * FROM illustration WHERE id_projet = :id_projet ORDER BY id_illustration DESC');
+													
+													$requete->execute(array('id_projet' => $_SESSION['id_projet']));
 												
 													while($donnee = $requete->fetch())
 													{
-														if($donnee['id_projet'] == $_SESSION['id_projet'])
-														{
 															if($donnee['image_illustration'] == "")
 															{
 																echo
@@ -814,7 +808,7 @@
 																			<div class=\"card-body\">
 																				<div class=\"row no-gutters align-items-center\">
 																					<div class=\"col mr-2\">
-																						<div class=\"font-weight-bold text-info text-uppercase mb-1\">".$donnee['nom_illustration']."</div>
+																						<div class=\"font-weight-bold text-info text-uppercase mb-1\">".$donnee['titre_illustration']."</div>
 																						<div class=\"row no-gutters align-items-center\">
 																							<div class=\"col\">
 																								<a href=\"#\"><img class=\"card-img-top\" src=\"http://ssl.gstatic.com/accounts/ui/avatar_2x.png\" alt=\"\"></a>
@@ -846,7 +840,7 @@
 																				<div class=\"card-body\">
 																					<div class=\"row no-gutters align-items-center\">
 																						<div class=\"col mr-2\">
-																							<div class=\"font-weight-bold text-info text-uppercase mb-1\">".$donnee['nom_illustration']."</div>
+																							<div class=\"font-weight-bold text-info text-uppercase mb-1\">".$donnee['titre_illustration']."</div>
 																							<div class=\"row no-gutters align-items-center\">
 																								<div class=\"col\">
 																									<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/ILLUSTRATIONS/".$donnee['image_illustration']."\" alt=\"\"></a>
@@ -869,7 +863,6 @@
 																		</div>
 																	";
 															}
-														}
 													}
 												?>
 												<!--<div class="col-xl-4 col-md-6 mb-4">

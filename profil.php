@@ -72,7 +72,7 @@
 								<input type="text" id="inputProjet" class="form-control" placeholder="Nom du projet" name="projet" required/>
 								<label for="inputProjet">Nom du projet</label>
 							  </div>          
-							  <input type="hidden" name="formulaire" value="connexion" />
+							  <input type="hidden" name="formulaire" value="creer" />
 							  <button class="btn btn-lg btn-primary btn-block " type="submit"><i class="fas fa-fw fa-plus"></i> Créer le projet</button>
 						   </form>
 											
@@ -91,18 +91,18 @@
 							   <?php
 									try
 									{
-										$bdd = new PDO('mysql:host=localhost;dbname=blue;charset=utf8','root','');
+										$bdd = new PDO('mysql:host=localhost;dbname=blue2;charset=utf8','root','');
 									}
 									catch(Exception $e)
 									{
 										die('Erreur : '.$e->getMessage());
 									}
 									
-									$requete = $bdd->query('SELECT * FROM creer_projet ORDER BY id_projet DESC');
+									$requete = $bdd->query('SELECT * FROM projet ORDER BY id_projet DESC');
 									
 									while($donnee = $requete->fetch())
 									{
-										if($donnee['id_user'] == $_SESSION['id'])
+										if($donnee['id_utilisateur'] == $_SESSION['id'])
 										{
 											echo
 												"
@@ -116,7 +116,7 @@
 																<h4 class=\"card-title\">
 																	<input type=\"hidden\" name=\"id\" value=".$donnee['id_projet']." />
 																	<input type=\"hidden\" name=\"formulaire\" value=\"projet\" />
-																	<button class=\"btn btn-md\" href=\"#\">".$donnee['nom_projet']."</button>
+																	<button class=\"btn btn-md\" href=\"#\">".$donnee['titre_projet']."</button>
 																</h4>
 															</div>
 														</div>

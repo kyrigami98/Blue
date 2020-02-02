@@ -10,52 +10,30 @@
 			
 			try
 			{
-				$bdd = new PDO('mysql:host=localhost;dbname=blue;charset=utf8','root','');
+				$bdd = new PDO('mysql:host=localhost;dbname=blue2;charset=utf8','root','');
 			}
 			catch(Exception $e)
 			{
 				die('Erreur : '.$e->getMessage());
 			}
 			
-			$requete = $bdd->query('SELECT * FROM user');
+			$requete = $bdd->query('SELECT * FROM utilisateur');
 			
 			while($donnee = $requete->fetch())
 			{
-				if($donnee['email_user'] == $email && $donnee['password_user'] == $password)
+				if($donnee['email_utilisateur'] == $email && $donnee['password_utilisateur'] == $password)
 				{
-					$_SESSION['id'] = $donnee['id_user'];
-					$_SESSION['pseudo'] = $donnee['pseudo_user'];
-					$_SESSION['email'] = $donnee['email_user'];
-					$_SESSION['password'] = $donnee['password_user'];
-					$_SESSION['type'] = $donnee['type_user'];
-					$_SESSION['image'] = "STAND.jpg";
-					$vide = false;
+					$_SESSION['id'] = $donnee['id_utilisateur'];
+					$_SESSION['pseudo'] = $donnee['nom_utilisateur'];
+					$_SESSION['email'] = $donnee['email_utilisateur'];
+					$_SESSION['password'] = $donnee['password_utilisateur'];
+					$_SESSION['type'] = $donnee['type_utilisateur'];
+					$_SESSION['image'] = $donnee['image_utilisateur'];
 					$requete->closeCursor();
-					$requete = $bdd->query('SELECT * FROM image_user');
-					while($donnee = $requete->fetch())
-					{
-						if($donnee['id_user'] == $_SESSION['id'])
-						{
-							$_SESSION['image'] = $donnee['image_user'];
-							$vide = false;
-							$requete->closeCursor();
-							header('Location: ../index.php');
-							break;
-						}
-						else
-						{
-							$vide = true;
-						}
-					}
-					if($vide == true)
-					{
-						$_SESSION['image'] = "STAND.jpg";
-					}
 					header('Location: ../index.php');
 				}
 			}
 			echo "l'email ou le mot de passe est incorrecte";
-			
 			$requete->closeCursor();
 		}
 		elseif($_POST['formulaire'] == "inscription")
@@ -67,21 +45,20 @@
 			
 			try
 			{
-				$bdd = new PDO('mysql:host=localhost;dbname=blue;charset=utf8','root','');
+				$bdd = new PDO('mysql:host=localhost;dbname=blue2;charset=utf8','root','');
 			}
 			catch(Exception $e)
 			{
 				die('Erreur : '.$e->getMessage());
 			}
 			
-			$requete = $bdd->query('SELECT email_user FROM user');
+			$requete = $bdd->query('SELECT email_utilisateur FROM utilisateur');
 			
 			while($donnee = $requete->fetch())
 			{
-				if($donnee['email_user'] == $email)
+				if($donnee['email_utilisateur'] == $email)
 				{
-					echo "l'email entre est deja utilise";
-					$requete->closeCursor();
+					echo "l'email entre existe deja";
 					$existe = true;
 				}
 			}
@@ -90,7 +67,7 @@
 			
 			if($existe == false)
 			{
-				$requete = $bdd->prepare('INSERT INTO `user` (`id_user`, `pseudo_user`, `email_user`, `password_user`)VALUES(NULL, :pseudo, :email, :password)');
+				$requete = $bdd->prepare('INSERT INTO `utilisateur` (`id_utilisateur`, `nom_utilisateur`, `email_utilisateur`, `password_utilisateur`)VALUES(NULL, :pseudo, :email, :password)');
 				
 				$requete->execute(array('pseudo' => $pseudo, 'email' => $email, 'password' => $password));
 				
@@ -109,7 +86,7 @@
 			
 			try
 			{
-				$bdd = new PDO('mysql:host=localhost;dbname=blue;charset=utf8','root','');
+				$bdd = new PDO('mysql:host=localhost;dbname=blue2;charset=utf8','root','');
 			}
 			catch(Exception $e)
 			{
@@ -124,7 +101,7 @@
 				}
 				else
 				{
-					$requete = $bdd->prepare('UPDATE `user` SET password_user = :password, pseudo_user = :pseudo, email_user = :email, type_user = :type WHERE id_user = :id');
+					$requete = $bdd->prepare('UPDATE `utilisateur` SET password_utilisateur = :password, nom_utilisateur = :pseudo, email_utilisateur = :email, type_utilisateur = :type WHERE id_utilisateur = :id');
 				
 					$requete->execute(array('password' => $password,'pseudo' => $pseudo, 'email' => $email, 'type' => $type, 'id' => $_SESSION['id']));
 					
@@ -137,7 +114,7 @@
 			}
 			else
 			{
-				$requete = $bdd->prepare('UPDATE `user` SET pseudo_user = :pseudo, email_user = :email, type_user = :type WHERE id_user = :id');
+				$requete = $bdd->prepare('UPDATE `utilisateur` SET nom_utilisateur = :pseudo, email_utilisateur = :email, type_utilisateur = :type WHERE id_utilisateur = :id');
 				
 				$requete->execute(array('pseudo' => $pseudo, 'email' => $email, 'type' => $type, 'id' => $_SESSION['id']));
 					
@@ -170,44 +147,22 @@
 			
 			try
 			{
-				$bdd = new PDO('mysql:host=localhost;dbname=blue;charset=utf8','root','');
+				$bdd = new PDO('mysql:host=localhost;dbname=blue2;charset=utf8','root','');
 			}
 			catch(Exception $e)
 			{
 				die('Erreur : '.$e->getMessage());
 			}
 			
-			$requete = $bdd->query('SELECT * FROM image_user');
-			
-			while($donnee = $requete->fetch())
-			{
-				if($donnee['id_user'] == $_SESSION['id'])
-				{
-					$requete = $bdd->prepare('UPDATE `image_user` SET image_user = :image WHERE id_user = :id');
-				
-					$requete->execute(array('image' => $image, 'id' => $_SESSION['id']));
-							
-					$_SESSION['image'] = $image;
-					
-					$requete->closeCursor();
-					
-					header('Location: ../profil.php');
-				}
-			}
-			
-			$requete->closeCursor();
-			
-			$requete = $bdd->prepare('INSERT INTO `image_user`(`id_image`, `image_user`, `id_user`)VALUES(NULL, :image, :id)');
+			$requete = $bdd->prepare('UPDATE `utilisateur` SET image_utilisateur = :image WHERE id_utilisateur = :id');
 				
 			$requete->execute(array('image' => $image, 'id' => $_SESSION['id']));
-					
+							
 			$_SESSION['image'] = $image;
-			
+					
 			$requete->closeCursor();
-			
+					
 			header('Location: ../profil.php');
-			
-			
 		}
 	}
 	else
