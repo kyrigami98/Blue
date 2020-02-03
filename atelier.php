@@ -243,7 +243,7 @@
 													</form>
 												</div>
 												<?php
-													$requete = $bdd->prepare('SELECT id_chapitre, titre_chapitre, description_chapitre FROM chapitre, (SELECT id_tome FROM tome WHERE id_projet = 1)resultat WHERE chapitre.id_tome = resultat.id_tome;');
+													$requete = $bdd->prepare('SELECT id_chapitre, titre_chapitre, description_chapitre FROM chapitre, (SELECT id_tome FROM tome WHERE id_projet = :id)resultat WHERE chapitre.id_tome = resultat.id_tome');
 													
 													$requete->execute(array('id' => $_SESSION['id_projet']));
 													

@@ -1,7 +1,7 @@
 ﻿<?php
 	try
 	{
-		$bdd = new PDO('mysql:host=localhost;dbname=blue;charset=utf8','root','');
+		$bdd = new PDO('mysql:host=localhost;dbname=blue2;charset=utf8','root','');
 	}
 	catch(Exception $e)
 	{
@@ -60,7 +60,7 @@
 <div class="container">
 	<div class="row">
 		<?php
-			$requete = $bdd->query('SELECT * FROM creer_projet ORDER BY id_projet DESC LIMIT 6');
+			$requete = $bdd->query('SELECT * FROM projet ORDER BY id_projet DESC LIMIT 6');
 			
 			while($donnee = $requete->fetch())
 			{
@@ -73,7 +73,7 @@
 								<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/PROJETS/STAND.jpg\" alt=\"\"></a>
 								<div class=\"card-body\">
 									<h4 class=\"card-title\">
-										<a href=\"#\">".$donnee['nom_projet']."</a>
+										<a href=\"#\">".$donnee['titre_projet']."</a>
 									</h4>
 									<p class=\"card-text\">".$donnee['description_projet']."</p>
 								</div>
@@ -90,7 +90,7 @@
 								<a href=\"#\"><img class=\"card-img-top\" src=\"../IMAGES/PROJETS/".$donnee['image_projet']."\" alt=\"\"></a>
 								<div class=\"card-body\">
 									<h4 class=\"card-title\">
-										<a href=\"#\">".$donnee['nom_projet']."</a>
+										<a href=\"#\">".$donnee['titre_projet']."</a>
 									</h4>
 									<p class=\"card-text\">".$donnee['description_projet']."</p>
 								</div>

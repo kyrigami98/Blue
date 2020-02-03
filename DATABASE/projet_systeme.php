@@ -26,7 +26,7 @@
 				
 			while($donnee = $requete->fetch())
 			{
-				if($donnee['nom_projet'] == $projet)
+				if($donnee['titre_projet'] == $projet)
 				{
 					$_SESSION['id_projet'] = $donnee['id_projet'];
 					$_SESSION['titre_projet'] = $donnee['titre_projet'];
