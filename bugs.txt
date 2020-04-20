@@ -1,5 +1,7 @@
+- images dans la créations des chapitre ne marche pas
+- image par defaut à l'inscription ne fonctionne pas
 ﻿- images dans la créations des chapitre ne marche pas
--
-*******************************************************
-- les donnees ne s'enregistrent pas dans la base de donnees -
-- le code du fichier atelier_system.php n'est pas convenable -
+-
+*******************************************************
+- les donnees ne s'enregistrent pas dans la base de donnees -
+- le code du fichier atelier_system.php n'est pas convenable -
