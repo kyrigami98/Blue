@@ -1,21 +1,51 @@
 <?php
 	session_start();
 	
-	$projet = $_POST['projet'];
-	
-	try
+	if(isset($_POST['formulaire']))
 	{
-		$bdd = new PDO('mysql:host=localhost;dbname=blue;charset=utf8','root','');
+		if($_POST['formulaire'] == "creer")
+		{
+			$projet = $_POST['projet'];
+			
+			try
+			{
+				$bdd = new PDO('mysql:host=localhost;dbname=blue2;charset=utf8','root','');
+			}
+			catch(Exception $e)
+			{
+				die('Erreur : '.$e->getMessage());
+			}
+			
+			$requete = $bdd->prepare('INSERT INTO `projet`(`id_projet`, `titre_projet`, `id_utilisateur`)VALUES(NULL, :nom, :id)');
+			
+			$requete->execute(array('nom' => $projet, 'id' => $_SESSION['id']));
+			
+			$requete->closeCursor();	
+			
+			$requete = $bdd->query('SELECT * FROM projet');
+				
+			while($donnee = $requete->fetch())
+			{
+				if($donnee['titre_projet'] == $projet)
+				{
+					$_SESSION['id_projet'] = $donnee['id_projet'];
+					$_SESSION['titre_projet'] = $donnee['titre_projet'];
+					$_SESSION['likes'] = $donnee['likes_projet'];
+					$_SESSION['followers'] = $donnee['followers_projet'];
+					
+					$requete->closeCursor();
+					
+					header('Location: ../atelier.php');
+				}
+			}
+		}
+		else
+		{
+			
+		}
 	}
-	catch(Exception $e)
+	else
 	{
-		die('Erreur : '.$e->getMessage());
+		
 	}
-	
-	$requete = $bdd->prepare('INSERT INTO `creer_projet`(`id_projet`, `nom_projet`, `id_user`)VALUES(NULL, :nom, :id)');
-	
-	$requete->execute(array('nom' => $projet, 'id' => $_SESSION['id']));
-	
-	echo "le projet a ete cree avec succes";
-	
 ?>

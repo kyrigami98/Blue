@@ -24,7 +24,7 @@
 									</div>";
 							?>
 							<input type="hidden" name="formulaire" value="image" />
-							<button class="btn btn-lg btn-primary btn-block" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>Enregistrer</button>
+							<button class="btn btn-lg btn-primary btn-block" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>Enregistrer l'image</button>
 							<br />
 						</div>
 						</form>
@@ -72,7 +72,7 @@
 								<input type="text" id="inputProjet" class="form-control" placeholder="Nom du projet" name="projet" required/>
 								<label for="inputProjet">Nom du projet</label>
 							  </div>          
-							  <input type="hidden" name="formulaire" value="connexion" />
+							  <input type="hidden" name="formulaire" value="creer" />
 							  <button class="btn btn-lg btn-primary btn-block " type="submit"><i class="fas fa-fw fa-plus"></i> Créer le projet</button>
 						   </form>
 											
@@ -91,32 +91,36 @@
 							   <?php
 									try
 									{
-										$bdd = new PDO('mysql:host=localhost;dbname=blue;charset=utf8','root','');
+										$bdd = new PDO('mysql:host=localhost;dbname=blue2;charset=utf8','root','');
 									}
 									catch(Exception $e)
 									{
 										die('Erreur : '.$e->getMessage());
 									}
 									
-									$requete = $bdd->query('SELECT * FROM creer_projet ORDER BY id_projet DESC');
+									$requete = $bdd->query('SELECT * FROM projet ORDER BY id_projet DESC');
 									
 									while($donnee = $requete->fetch())
 									{
-										if($donnee['id_user'] == $_SESSION['id'])
+										if($donnee['id_utilisateur'] == $_SESSION['id'])
 										{
 											echo
 												"
 												<div class=\"col-lg-6 col-sm-6 mb-4\">
 													<span style=\"font-size:10px;\" class=\"badge badge-primary badge-counter\">".$donnee['likes_projet']." <i class=\"fas fa-fw fa-thumbs-up\"></i></span>
 													<span style=\"font-size:10px;\" class=\"badge badge-primary badge-counter\">".$donnee['followers_projet']." <i class=\"fas fa-fw fa-users\"></i></span>
-													<div class=\"card h-100\">
-														<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/giphy1.gif\" alt=\"\"></a>
-														<div class=\"card-body\">
-															<h4 class=\"card-title\">
-																<a href=\"#\">".$donnee['nom_projet']."</a>
-															</h4>
+													<form action=\"DATABASE/atelier_systeme.php\" method=\"POST\">
+														<div class=\"card h-100\">
+															<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/giphy1.gif\" alt=\"\"></a>
+															<div class=\"card-body\">
+																<h4 class=\"card-title\">
+																	<input type=\"hidden\" name=\"id\" value=".$donnee['id_projet']." />
+																	<input type=\"hidden\" name=\"formulaire\" value=\"projet\" />
+																	<button class=\"btn btn-md\" href=\"#\">".$donnee['titre_projet']."</button>
+																</h4>
+															</div>
 														</div>
-													</div>
+													</form>
 												</div>	
 												";
 										}
