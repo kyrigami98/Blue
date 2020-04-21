@@ -26,7 +26,13 @@
 		$_SESSION['followers'] = $donnee['followers_projet'];
 		
 		$requete->closeCursor();
-				
+		
+		$requete = $bdd->prepare('UPDATE `utilisateur` SET `projet_en_cours` = :id_projet WHERE `id_utilisateur` = :id_utilisateur');
+
+		$requete->execute(array('id_projet' => $_SESSION['id_projet'], 'id_utilisateur' => $_SESSION['id']));
+
+		$requete->closeCursor();
+
 		header('Location: ../atelier.php');
 	}
 	else
@@ -83,9 +89,9 @@
 				
 				$donnee = $requete->fetch();
 				
-				$requete_chapitre = $bdd->prepare('INSERT INTO `chapitre`(`id_chapitre`, `titre_chapitre`, `description_chapitre`, `id_tome`)VALUES(NULL, :nom, :description, :id)');
+				$requete_chapitre = $bdd->prepare('INSERT INTO `chapitre`(`id_chapitre`, `titre_chapitre`, `description_chapitre`, `id_tome`, `image_chapitre`)VALUES(NULL, :nom, :description, :id, :image)');
 				
-				$requete_chapitre->execute(array('nom' => $nom, 'description' => $desc, 'id' => $donnee['id_tome']));
+				$requete_chapitre->execute(array('nom' => $nom, 'description' => $desc, 'id' => $donnee['id_tome'], 'image' => $image));
 				
 				$requete->closeCursor();
 				
@@ -119,9 +125,9 @@
 					{
 						$requete_chapitre->closeCursor();
 						
-						$requete_chapitre = $bdd->prepare('INSERT INTO `chapitre`(`id_chapitre`, `titre_chapitre`, `description_chapitre`, `id_tome`)VALUES(NULL, :nom, :description, :id)');
+						$requete_chapitre = $bdd->prepare('INSERT INTO `chapitre`(`id_chapitre`, `titre_chapitre`, `description_chapitre`, `id_tome`, `image_chapitre`)VALUES(NULL, :nom, :description, :id, :image)');
 					
-						$requete_chapitre->execute(array('nom' => $nom, 'description' => $desc, 'id' => $donnee['id_tome']));
+						$requete_chapitre->execute(array('nom' => $nom, 'description' => $desc, 'id' => $donnee['id_tome'], 'image' => $image));
 						
 						$requete_chapitre->closeCursor();
 						
@@ -148,9 +154,9 @@
 					
 					$donnee = $requete->fetch();
 					
-					$requete_chapitre = $bdd->prepare('INSERT INTO `chapitre`(`id_chapitre`, `titre_chapitre`, `description_chapitre`, `id_tome`)VALUES(NULL, :nom, :description, :id)');
+					$requete_chapitre = $bdd->prepare('INSERT INTO `chapitre`(`id_chapitre`, `titre_chapitre`, `description_chapitre`, `id_tome`, `image_chapitre`)VALUES(NULL, :nom, :description, :id, :image)');
 					
-					$requete_chapitre->execute(array('nom' => $nom, 'description' => $desc, 'id' => $donnee['id_tome']));
+					$requete_chapitre->execute(array('nom' => $nom, 'description' => $desc, 'id' => $donnee['id_tome'], 'image' => $image));
 					
 					$requete->closeCursor();
 					

@@ -34,6 +34,12 @@
 					$_SESSION['followers'] = $donnee['followers_projet'];
 					
 					$requete->closeCursor();
+
+					$requete = $bdd->prepare('UPDATE `utilisateur` SET `projet_en_cours` = :id_projet WHERE `id_utilisateur` = :id_utilisateur');
+
+					$requete->execute(array('id_projet' => $_SESSION['id_projet'], 'id_utilisateur' => $_SESSION['id']));
+
+					$requete->closeCursor();
 					
 					header('Location: ../atelier.php');
 				}
