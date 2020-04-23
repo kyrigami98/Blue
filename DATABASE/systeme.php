@@ -142,11 +142,11 @@
 		}
 		else if($_POST['formulaire'] == "image")
 		{
-			$extensions_autorisees = array('jpg', 'jpeg', 'png');
+			$extensions_autorisees = array('jpg', 'jpeg', 'png', 'bmp', 'jpeg', 'gif');
 			
 			if(isset($_FILES['image']) AND $_FILES['image']['error'] == 0)
 			{
-				if($_FILES['image']['size'] <= 1000000)
+				if($_FILES['image']['size'] <= 4000000)
 				{
 					
 					$image = pathinfo($_FILES['image']['name']);
