@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 	include "INCLUSION/header.php";
 	
 	if(!isset($_SESSION['pseudo']))
@@ -6,14 +6,7 @@
 		header('Location: index.php');
 	}
 	
-	try
-	{
-		$bdd = new PDO('mysql:host=localhost;dbname=blue2;charset=utf8','root','');
-	}
-	catch(Exception $e)
-	{
-		die('Erreur : '.$e->getMessage());
-	}
+	include("TRAITEMENT/connexion.php");
 ?>
 
 <div class="container-fluid">
@@ -46,7 +39,7 @@
 								while($donnee = $requete->fetch())
 								{
 								?>
-											<form action="DATABASE/atelier_systeme.php" method="POST">
+											<form action="TRAITEMENT/atelier_systeme.php" method="POST">
 												<a class="nav-link" href="#">
 													<hr class="sidebar-divider">
 													<i class="fas fa-fw fa-folder"></i>
@@ -62,7 +55,7 @@
 							?>
 							<div class="bg-white py-2 collapse-inner rounded">
 								<div class="card-body">
-									<form class="form-signin" action="DATABASE/projet_systeme.php" method="POST">
+									<form class="form-signin" action="TRAITEMENT/projet_systeme.php" method="POST">
 										<div class="form-label-group">
 											<input type="text" id="inputProjet" class="form-control" placeholder="Nom du projet" name="projet" required>
 											<label for="inputProjet">Nom du projet</label>
@@ -219,7 +212,7 @@
 											<br>  
 											<div class="row">
 												<div class="col-xl-3 col-md-6 mb-4">
-													<form action="DATABASE/atelier_systeme.php" method="POST" enctype="multipart/form-data">
+													<form action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
 														<div class="profile-img">
 															<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
 															<div class="file btn btn-sm btn-primary">
@@ -267,7 +260,7 @@
 																						</div>
 																						<br />
 																						<br />
-																						<form action=\"supprimer.php\" method=\"POST\">
+																						<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
 																							<input type=\"hidden\" name=\"id\" value=".$donnee['id_chapitre']." />
 																							<input type=\"hidden\" name=\"supprimer\" value=\"chapitre\" />
 																							<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
@@ -321,7 +314,7 @@
 											<br>  
 											<div class="row">
 												<div class="col-xl-3 col-md-6 mb-4">
-													<form action="DATABASE/atelier_systeme.php" method="POST" enctype="multipart/form-data">
+													<form action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
 														<div class="profile-img">
 															<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
 															<div class="file btn btn-sm btn-primary">
@@ -369,7 +362,7 @@
 																				<a href=\"#\">Details sur l'illustration &rarr;</a>
 																				<br />
 																				<br />
-																				<form action=\"supprimer.php\" method=\"POST\">
+																				<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
 																					<input type=\"hidden\" name=\"id\" value=".$donnee['id_personnage']." />
 																					<input type=\"hidden\" name=\"supprimer\" value=\"personnage\" />
 																					<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
@@ -397,7 +390,7 @@
 																				<a href=\"#\">Details sur l'illustration &rarr;</a>
 																				<br />
 																				<br />
-																				<form action=\"supprimer.php\" method=\"POST\">
+																				<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
 																					<input type=\"hidden\" name=\"id\" value=".$donnee['id_personnage']." />
 																					<input type=\"hidden\" name=\"supprimer\" value=\"personnage\" />
 																					<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
@@ -447,7 +440,7 @@
 											<br> 
 											<div class="row">
 												<div class="col-xl-3 col-md-6 mb-4">
-													<form action="DATABASE/atelier_systeme.php" method="POST" enctype="multipart/form-data">
+													<form action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
 														<div class="profile-img">
 															<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
 															<div class="file btn btn-sm btn-primary">
@@ -495,7 +488,7 @@
 																					<a href=\"#\">Details sur l'illustration &rarr;</a>
 																					<br />
 																					<br />
-																					<form action=\"supprimer.php\" method=\"POST\">
+																					<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
 																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_creature']." />
 																						<input type=\"hidden\" name=\"supprimer\" value=\"creature\" />
 																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
@@ -523,7 +516,7 @@
 																					<a href=\"#\">Details sur l'illustration &rarr;</a>
 																					<br />
 																					<br />
-																					<form action=\"supprimer.php\" method=\"POST\">
+																					<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
 																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_creature']." />
 																						<input type=\"hidden\" name=\"supprimer\" value=\"creature\" />
 																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
@@ -558,7 +551,7 @@
 											<br> 
 											<div class="row">
 												<div class="col-xl-3 col-md-6 mb-4">
-													<form action="DATABASE/atelier_systeme.php" method="POST" enctype="multipart/form-data">
+													<form action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
 														<div class="profile-img">
 															<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
 															<div class="file btn btn-sm btn-primary">
@@ -607,7 +600,7 @@
 																				<a href=\"#\">Details sur l'illustration &rarr;</a>
 																				<br />
 																				<br />
-																				<form action=\"supprimer.php\" method=\"POST\">
+																				<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
 																					<input type=\"hidden\" name=\"id\" value=".$donnee['id_lieu']." />
 																					<input type=\"hidden\" name=\"supprimer\" value=\"lieu\" />
 																					<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
@@ -635,7 +628,7 @@
 																					<a href=\"#\">Details sur l'illustration &rarr;</a>
 																				<br />
 																				<br />
-																				<form action=\"supprimer.php\" method=\"POST\">
+																				<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
 																					<input type=\"hidden\" name=\"id\" value=".$donnee['id_lieu']." />
 																					<input type=\"hidden\" name=\"supprimer\" value=\"lieu\" />
 																					<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
@@ -685,7 +678,7 @@
 											<br> 
 											<div class="row">
 												<div class="col-xl-3 col-md-6 mb-4">
-													<form action="DATABASE/atelier_systeme.php" method="POST" enctype="multipart/form-data">
+													<form action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
 														<div class="form-label-group">
 															<input type="text" id="cle" class="form-control" placeholder="mot cle" name="nom" required>
 															<label for="cle">Mot clé</label>
@@ -722,7 +715,7 @@
 																					</div>
 																					<br />
 																					<br />
-																					<form action=\"supprimer.php\" method=\"POST\">
+																					<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
 																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_terme']." />
 																						<input type=\"hidden\" name=\"supprimer\" value=\"terme\" />
 																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
@@ -769,7 +762,7 @@
 											<br>  
 											<div class="row">
 												<div class="col-xl-3 col-md-6 mb-4">
-													<form action="DATABASE/atelier_systeme.php" method="POST" enctype="multipart/form-data">
+													<form action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
 														<div class="profile-img">
 															<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
 															<div class="file btn btn-sm btn-primary">
@@ -819,7 +812,7 @@
 																						</div>
 																						<br />
 																						<br />
-																						<form action=\"supprimer.php\" method=\"POST\">
+																						<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
 																							<input type=\"hidden\" name=\"id\" value=".$donnee['id_illustration']." />
 																							<input type=\"hidden\" name=\"supprimer\" value=\"illustration\" />
 																							<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
@@ -851,7 +844,7 @@
 																							</div>
 																							<br />
 																							<br />
-																							<form action=\"supprimer.php\" method=\"POST\">
+																							<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
 																								<input type=\"hidden\" name=\"id\" value=".$donnee['id_illustration']." />
 																								<input type=\"hidden\" name=\"supprimer\" value=\"illustration\" />
 																								<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>

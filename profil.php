@@ -1,4 +1,4 @@
-
+﻿
 <?php
 	include "INCLUSION/header.php";
 
@@ -17,7 +17,7 @@
 
       <div class="row">
                     <div class="col-md-4">
-						<form action="DATABASE/systeme.php" method="POST" enctype="multipart/form-data">
+						<form action="TRAITEMENT/systeme.php" method="POST" enctype="multipart/form-data">
                         <div class="profile-img">
 							<h4><?php if(isset($_SESSION['pseudo'])){echo$_SESSION['pseudo'];} ?></h4><h6 class="text-muted"><?php if(isset($_SESSION['type'])){echo$_SESSION['type'];}else{echo "...";} ?></h6>
                             <?php
@@ -82,7 +82,7 @@
 						    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 							
 							<br> 
-							 <form class="form-signin" action="DATABASE/projet_systeme.php" method="POST">
+							 <form class="form-signin" action="TRAITEMENT/projet_systeme.php" method="POST">
 							  <div class="form-label-group">
 								<input type="text" id="inputProjet" class="form-control" placeholder="Nom du projet" name="projet" required/>
 								<label for="inputProjet">Nom du projet</label>
@@ -124,7 +124,7 @@
 												<div class=\"col-lg-6 col-sm-6 mb-4\">
 													<span style=\"font-size:10px;\" class=\"badge badge-primary badge-counter\">".$donnee['likes_projet']." <i class=\"fas fa-fw fa-thumbs-up\"></i></span>
 													<span style=\"font-size:10px;\" class=\"badge badge-primary badge-counter\">".$donnee['followers_projet']." <i class=\"fas fa-fw fa-users\"></i></span>
-													<form action=\"DATABASE/atelier_systeme.php\" method=\"POST\">
+													<form action=\"TRAITEMENT/atelier_systeme.php\" method=\"POST\">
 														<div class=\"card h-100\">
 															<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/giphy1.gif\" alt=\"\"></a>
 															<div class=\"card-body\">
@@ -146,7 +146,7 @@
                             </div>
 							
                             <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-								<form action="DATABASE/systeme.php" method="POST">
+								<form action="TRAITEMENT/systeme.php" method="POST">
 							 
 									<hr>
 									  <div class="form-label-group">

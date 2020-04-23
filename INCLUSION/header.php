@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 	session_start();
 ?>
 <!DOCTYPE html>
@@ -215,7 +215,7 @@
                   Mon atelier
                 </a>
                 <div class=\"dropdown-divider\"></div>
-                <a class=\"dropdown-item\" href=\"DATABASE/systeme.php\">
+                <a class=\"dropdown-item\" href=\"TRAITEMENT/systeme.php\">
                   <i class=\"fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400\"></i>
                   Deconnexion
                 </a>
@@ -353,7 +353,7 @@
                   Mon atelier
                 </a>
                 <div class=\"dropdown-divider\"></div>
-                <a class=\"dropdown-item\" href=\"DATABASE/systeme.php\">
+                <a class=\"dropdown-item\" href=\"TRAITEMENT/systeme.php\">
                   <i class=\"fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400\"></i>
                   Deconnexion
                 </a>

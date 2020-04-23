@@ -3,14 +3,7 @@
 	
 	if(isset($_POST['supprimer']))
 	{
-		try
-		{
-			$bdd = new PDO('mysql:host=localhost;dbname=blue2;charset=utf8','root','');
-		}
-		catch(Exception $e)
-		{
-			die('Erreur : '.$e->getMessage());
-		}
+		include("connexion.php");
 		
 		if($_POST['supprimer'] == "chapitre")
 		{
@@ -20,7 +13,7 @@
 			
 			$requete->closeCursor();
 			
-			header('Location: atelier.php');
+			header('Location: ../atelier.php');
 		}
 		elseif($_POST['supprimer'] == "personnage")
 		{	
@@ -37,7 +30,7 @@
 			
 			$requete->closeCursor();
 			
-			header('Location: atelier.php');
+			header('Location: ../atelier.php');
 		}
 		elseif($_POST['supprimer'] == "creature")
 		{
@@ -53,7 +46,7 @@
 			
 			$requete->closeCursor();
 			
-			header('Location: atelier.php');
+			header('Location: ../atelier.php');
 		}
 		elseif($_POST['supprimer'] == "lieu")
 		{
@@ -69,7 +62,7 @@
 			
 			$requete->closeCursor();
 			
-			header('Location: atelier.php');
+			header('Location: ../atelier.php');
 		}
 		elseif($_POST['supprimer'] == "terme")
 		{
@@ -86,7 +79,7 @@
 			$requete->closeCursor();
 			
 			
-			header('Location: atelier.php');
+			header('Location: ../atelier.php');
 		}
 		elseif($_POST['supprimer'] == "illustration")
 		{
@@ -96,7 +89,7 @@
 			
 			$requete->closeCursor();
 			
-			header('Location: atelier.php');
+			header('Location: ../atelier.php');
 		}
 	}
 ?>

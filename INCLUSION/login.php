@@ -1,12 +1,5 @@
 ﻿<?php
-	try
-	{
-		$bdd = new PDO('mysql:host=localhost;dbname=blue2;charset=utf8','root','');
-	}
-	catch(Exception $e)
-	{
-		die('Erreur : '.$e->getMessage());
-	}
+	include("TRAITEMENT/connexion.php");
 ?>
 <!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
 
@@ -142,7 +135,7 @@
           </div>
           <div class=\"card-body\">
             <h5 class=\"card-title text-center\" style=\"color:White;\">Rejoins Blue !</h5>				
-			<form class=\"form-signin\" action=\"DATABASE/systeme.php\" method=\"POST\">
+			<form class=\"form-signin\" action=\"TRAITEMENT/systeme.php\" method=\"POST\">
               <div class=\"form-label-group\">
                 <input type=\"text\" id=\"inputUserame\" class=\"form-control\" placeholder=\"Username\" name=\"pseudo\" required autofocus>
                 <label for=\"inputUserame\">Pseudo</label>

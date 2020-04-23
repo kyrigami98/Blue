@@ -23,7 +23,7 @@
             </div>
             <div class="card-body">
               <h5 class="card-title text-center">Se connecter!</h5>
-              <form class="form-signin" action="DATABASE/systeme.php" method="POST">
+              <form class="form-signin" action="TRAITEMENT/systeme.php" method="POST">
 
                 <div class="form-label-group">
                   <input type="email" id="inputEmail2" class="form-control" placeholder="Email address" name="email" required>

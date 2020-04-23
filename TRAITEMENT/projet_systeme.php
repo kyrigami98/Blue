@@ -7,14 +7,7 @@
 		{
 			$projet = $_POST['projet'];
 			
-			try
-			{
-				$bdd = new PDO('mysql:host=localhost;dbname=blue2;charset=utf8','root','');
-			}
-			catch(Exception $e)
-			{
-				die('Erreur : '.$e->getMessage());
-			}
+			include("connexion.php");
 			
 			$requete = $bdd->prepare('INSERT INTO `projet`(`id_projet`, `titre_projet`, `id_utilisateur`)VALUES(NULL, :nom, :id)');
 			
