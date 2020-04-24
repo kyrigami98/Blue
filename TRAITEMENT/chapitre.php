@@ -13,7 +13,7 @@ $cree = false;
 					if(in_array($extension, $extensions_autorisees))
 					{
 						$image = $_SESSION['pseudo'].basename($_FILES['image']['name']);
-						move_uploaded_file($_FILES['image']['tmp_name'], '../IMAGES/PERSONNAGES/'.$image);
+						move_uploaded_file($_FILES['image']['tmp_name'], '../IMAGES/CHAPITRES/'.$image);
 					}
 				}
 			}

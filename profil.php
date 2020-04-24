@@ -93,7 +93,7 @@
 											
                                <hr>  					
 							   <div class="inline-block">
-								  <div class="card h-100">
+								  <div	 class="card h-100">
 									 <div class="card-body">
 									  <h4 class="card-title">
 										Listes des projets

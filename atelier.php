@@ -60,7 +60,7 @@
 											<input type="text" id="inputProjet" class="form-control" placeholder="Nom du projet" name="projet" required>
 											<label for="inputProjet">Nom du projet</label>
 										</div>          
-										<input type="hidden" name="formulaire" value="connexion" />
+										<input type="hidden" name="formulaire" value="creer" />
 										<button class="btn btn-lg btn-primary btn-block " type="submit"><i class="fas fa-fw fa-plus"></i> Créer le projet</button>
 									</form>
 								</div>
@@ -171,7 +171,7 @@
 											}
 											else
 											{
-												echo "<h1>Atelier</h1>";
+												?><h1>Atelier</h1><?php
 											}
 										?>
 									</h1>
@@ -236,78 +236,54 @@
 													</form>
 												</div>
 												<?php
-													$requete = $bdd->prepare('SELECT id_chapitre, titre_chapitre, description_chapitre FROM chapitre, (SELECT id_tome FROM tome WHERE id_projet = :id)resultat WHERE chapitre.id_tome = resultat.id_tome');
+													$requete = $bdd->prepare('SELECT id_chapitre, titre_chapitre, description_chapitre, image_chapitre FROM chapitre, (SELECT id_tome FROM tome WHERE id_projet = :id)resultat WHERE chapitre.id_tome = resultat.id_tome');
 													
 													$requete->execute(array('id' => $_SESSION['id_projet']));
 													
 													$count = 1;
 													
 													while($donnee = $requete->fetch())
-													{
-															echo
-																"
-																	<div class=\"col-xl-3 col-md-6 mb-4\">
-																		<div class=\"card border-left-info shadow h-100 py-2\">
-																			<div class=\"card-body\">
-																				<div class=\"row no-gutters align-items-center\">
-																					<div class=\"col mr-2\">
-																						<div class=\"font-weight-bold text-info text-uppercase mb-1\">Chapitre ".$count."</div>
-																						<div class=\"text-xs text-muted font-weight-bold text-info text-uppercase mb-1\">".$donnee['titre_chapitre']."</div>
-																						<div class=\"row no-gutters align-items-center\">
-																							<div class=\"col\">
-																								".$donnee['description_chapitre']."
+													{?>
+																	<div class="col-xl-3 col-md-6 mb-4">
+																		<div class="card border-left-info shadow h-100 py-2">
+																			<div class="card-body">
+																				<div class="row no-gutters align-items-center">
+																					<div class="col mr-2">
+																						<div class="font-weight-bold text-info text-uppercase mb-1">Chapitre <?php echo $count; ?></div>
+																						<div class="text-xs text-muted font-weight-bold text-info text-uppercase mb-1"><?php echo $donnee['titre_chapitre']; ?></div>
+																						<div>
+																						<a href="story.php?id=<?php echo $donnee['id_chapitre']; ?>">
+																						<?php 
+																							if($donnee['image_chapitre'] != ""){ 
+																						?>
+																							<img class="card-img-top" src="IMAGES/CHAPITRES/<?php echo $donnee['image_chapitre']; ?>" alt="">
+																						<?php }else{ ?>
+																							
+																						<?php } ?>
+																						</a>	
+																						</div>
+																						<br />
+																						<div class="row no-gutters align-items-center">
+																							<div class="col">
+																								<?php echo $donnee['description_chapitre']; ?>
 																							</div>
 																						</div>
 																						<br />
 																						<br />
-																						<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
-																							<input type=\"hidden\" name=\"id\" value=".$donnee['id_chapitre']." />
-																							<input type=\"hidden\" name=\"supprimer\" value=\"chapitre\" />
-																							<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																						<form action="TRAITEMENT/supprimer.php" method="POST">
+																							<input type="hidden" name="id" value="<?php echo $donnee['id_chapitre']; ?>" />
+																							<input type="hidden" name="supprimer" value="chapitre" />
+																							<button class="btn btn-sm btn-primary shadow-sm" type="submit">Supprimer</button>
 																						</form>
 																					</div>
 																				</div>
 																			</div>
 																		</div>
 																	</div>
-																";
-															$count++;
+																
+														<?php	$count++;
 													}
 												?>
-												<!--<div class="col-xl-3 col-md-6 mb-4">
-													<div class="card border-left-info shadow h-100 py-2">
-														<div class="card-body">
-															<div class="row no-gutters align-items-center">
-																<div class="col mr-2">
-																	<div class="font-weight-bold text-info text-uppercase mb-1">Tome 1</div>
-																	<div class="text-xs text-muted font-weight-bold text-info text-uppercase mb-1">Sorcier</div>
-																	<div class="row no-gutters align-items-center">
-																		<div class="col">
-																			<a href="#"><img class="card-img-top" src="IMAGES/radiant.jpg" alt=""></a>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-xl-3 col-md-6 mb-4">
-													<div class="card border-left-info shadow h-100 py-2">
-														<div class="card-body">
-															<div class="row no-gutters align-items-center">
-																<div class="col mr-2">
-																	<div class="font-weight-bold text-info text-uppercase mb-1">Tome 2</div>
-																	<div class="text-xs text-muted font-weight-bold text-info text-uppercase mb-1">Sorcier</div>
-																	<div class="row no-gutters align-items-center">
-																		<div class="col">
-																			<a href="#"><img class="card-img-top" src="IMAGES/Hammer.jpg" alt=""></a>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>-->
 											</div>
 										</div>
 										<div class="tab-pane fade" id="Personnages" role="tabpanel" aria-labelledby="Personnages-tab">
@@ -344,96 +320,40 @@
 												
 													while($donnee = $requete->fetch())
 													{
-														if($donnee['image_personnage'] == "")
-														{
-															echo
-																"
-																	<div class=\"col-lg-4 col-sm-8 mb-4\">
-																		<div class=\"card h-100\">
-																			<a href=\"#\"><img class=\"card-img-top\" src=\"http://ssl.gstatic.com/accounts/ui/avatar_2x.png\" alt=\"\"></a>
-																			<div class=\"card-body\">
-																				<h4 class=\"card-title\">
-																					<a href=\"#\">".$donnee['nom_personnage']."</a>
+														?>
+																	<div class="col-lg-4 col-sm-8 mb-4">
+																		<div class="card h-100">
+																			<a href="#">
+																			<?php 
+																				if($donnee['image_personnage'] == ""){ 
+																			?>
+																				<img class="card-img-top" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="">
+																			<?php }else{ ?>
+																				<img class="card-img-top" src="IMAGES/PERSONNAGES/<?php echo $donnee['image_personnage']; ?>" alt="">
+																			<?php } ?>
+																			</a>
+																			<div class="card-body">
+																				<h4 class="card-title">
+																					<a href="#"><?php echo $donnee['nom_personnage']; ?></a>
 																				</h4>
 																				<p>
-																					".$donnee['description_personnage']."
+																					<?php echo $donnee['description_personnage']; ?>
 																				</p>
 																				<br />
-																				<a href=\"#\">Details sur l'illustration &rarr;</a>
+																				<a href="modification.php?id=<?php echo $donnee['id_personnage']; ?>">Details sur l'illustration &rarr;</a>
 																				<br />
 																				<br />
-																				<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
-																					<input type=\"hidden\" name=\"id\" value=".$donnee['id_personnage']." />
-																					<input type=\"hidden\" name=\"supprimer\" value=\"personnage\" />
-																					<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																				<form action="TRAITEMENT/supprimer.php" method="POST\">
+																					<input type="hidden" name="id" value="<?php echo $donnee['id_personnage']; ?>" />
+																					<input type="hidden" name="supprimer" value="personnage" />
+																					<button class="btn btn-sm btn-primary shadow-sm" type="submit">Supprimer</button>
 																				</form>
 																			</div>
 																		</div>
 																	</div>
-																";
-														}
-														else
-														{
-															echo
-																"
-																	<div class=\"col-lg-4 col-sm-8 mb-4\">
-																		<div class=\"card h-100\">
-																			<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/PERSONNAGES/".$donnee['image_personnage']."\" alt=\"\"></a>
-																			<div class=\"card-body\">
-																				<h4 class=\"card-title\">
-																					<a href=\"#\">".$donnee['nom_personnage']."</a>
-																				</h4>
-																				<p>
-																					".$donnee['description_personnage']."
-																				</p>
-																				<br />
-																				<a href=\"#\">Details sur l'illustration &rarr;</a>
-																				<br />
-																				<br />
-																				<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
-																					<input type=\"hidden\" name=\"id\" value=".$donnee['id_personnage']." />
-																					<input type=\"hidden\" name=\"supprimer\" value=\"personnage\" />
-																					<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
-																				</form>
-																			</div>
-																		</div>
-																	</div>
-																";
-														}
-													}
+														
+											<?php }
 												?>
-												<!--<div class="col-lg-4 col-sm-8 mb-4">
-													<div class="card h-100">
-														<a href="#"><img class="card-img-top" src="IMAGES/giphy1.gif" alt=""></a>
-														<div class="card-body">
-															<h4 class="card-title">
-																<a href="#">Creve</a>
-															</h4>
-															<p>
-																Add some quality, svg illustrations to your project courtesy of,
-																a constantly updated collection of beautiful svg 
-																images that you can use completely free and without attribution!
-															</p>
-															<a target="_blank" rel="nofollow" href="#">Details sur l'illustration &rarr;</a>
-														</div>
-													</div>
-												</div>
-												<div class="col-lg-4 col-sm-8 mb-4">
-													<div class="card h-100">
-														<a href="#"><img class="card-img-top" src="IMAGES/connect.gif" alt=""></a>
-														<div class="card-body">
-															<h4 class="card-title">
-																<a href="#">Shine</a>
-															</h4>
-															<p>
-																Add some quality, svg illustrations to your project courtesy of,
-																a constantly updated collection of beautiful svg 
-																images that you can use completely free and without attribution!
-															</p>
-															<a target="_blank" rel="nofollow" href="#">Details sur l'illustration &rarr;</a>
-														</div>
-													</div>
-												</div>-->
 											</div>
 										</div>
 										<div class="tab-pane fade show" id="Bestiaire" role="tabpanel" aria-labelledby="Bestiaire-tab">
@@ -469,82 +389,38 @@
 													$requete->execute(array('id_projet' => $_SESSION['id_projet']));
 												
 													while($donnee = $requete->fetch())
-													{
-															if($donnee['image_creature'] == "")
-															{
-																echo
-																	"
-																		<div class=\"col-lg-4 col-sm-8 mb-4\">
-																			<div class=\"card h-100\">
-																				<a href=\"#\"><img class=\"card-img-top\" src=\"http://ssl.gstatic.com/accounts/ui/avatar_2x.png\" alt=\"\"></a>
-																				<div class=\"card-body\">
-																					<h4 class=\"card-title\">
-																						<a href=\"#\">".$donnee['nom_creature']."</a>
+													{?>
+																
+																		<div class="col-lg-4 col-sm-8 mb-4">
+																			<div class="card h-100">
+																				<a href="#">
+																				<?php if($donnee['image_creature'] == ""){ ?>
+																				<img class="card-img-top" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="">
+																				<?php }else{ ?>
+																					<img class="card-img-top" src="IMAGES/CREATURES/<?php echo $donnee['image_creature']; ?>" alt="">
+																				<?php } ?>
+																				</a>
+																				<div class="card-body">
+																					<h4 class="card-title">
+																						<a href="#"><?php echo $donnee['nom_creature']; ?></a>
 																					</h4>
 																					<p>
-																						".$donnee['description_creature']."
+																						<?php echo $donnee['description_creature']; ?>
 																					</p>
 																					<br />
-																					<a href=\"#\">Details sur l'illustration &rarr;</a>
+																					<a href="modification.php?id=<?php echo $donnee['id_creature']; ?>">Details sur l'illustration &rarr;</a>
 																					<br />
 																					<br />
-																					<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
-																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_creature']." />
-																						<input type=\"hidden\" name=\"supprimer\" value=\"creature\" />
-																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																					<form action="TRAITEMENT/supprimer.php" method="POST">
+																						<input type="hidden" name="id" value="<?php echo $donnee['id_creature']; ?>" />
+																						<input type="hidden" name="supprimer" value="creature" />
+																						<button class="btn btn-sm btn-primary shadow-sm" type="submit">Supprimer</button>
 																					</form>
 																				</div>
 																			</div>
 																		</div>
-																	";
-															}
-															else
-															{
-																echo
-																	"
-																		<div class=\"col-lg-4 col-sm-8 mb-4\">
-																			<div class=\"card h-100\">
-																				<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/CREATURES/".$donnee['image_creature']."\" alt=\"\"></a>
-																				<div class=\"card-body\">
-																					<h4 class=\"card-title\">
-																						<a href=\"#\">".$donnee['nom_creature']."</a>
-																					</h4>
-																					<p>
-																						".$donnee['description_creature']."
-																					</p>
-																					<br />
-																					<a href=\"#\">Details sur l'illustration &rarr;</a>
-																					<br />
-																					<br />
-																					<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
-																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_creature']." />
-																						<input type=\"hidden\" name=\"supprimer\" value=\"creature\" />
-																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
-																					</form>
-																				</div>
-																			</div>
-																		</div>
-																	";
-															}
-														
-													}
+												<?php }
 												?>
-												<!--<div class="col-lg-4 col-sm-8 mb-4">
-													<div class="card h-100">
-														<a href="#"><img class="card-img-top" src="IMAGES/connect.gif" alt=""></a>
-														<div class="card-body">
-															<h4 class="card-title">
-																<a href="#">Shine</a>
-															</h4>
-															<p>
-																Add some quality, svg illustrations to your project courtesy of,
-																a constantly updated collection of beautiful svg 
-																images that you can use completely free and without attribution!
-															</p>
-															<a target="_blank" rel="nofollow" href="#">Details sur l'illustration &rarr;</a>
-														</div>
-													</div>
-												</div>-->
 											</div>
 										</div>
 										<div class="tab-pane fade show" id="Lieux" role="tabpanel" aria-labelledby="Lieux-tab">
@@ -580,98 +456,38 @@
 													$requete->execute(array('id_projet' => $_SESSION['id_projet']));
 												
 													while($donnee = $requete->fetch())
-													{
-															if($donnee['image_lieu'] == "")
-															{
-																echo
-																	"
-																		<div class=\"card shadow mb-4 col-lg-4 col-sm-8 mb-4\">
-																			<div class=\"card-header py-3\">
-																				<h6 class=\"m-0 font-weight-bold text-primary\">".$donnee['nom_lieu']."</h6>
+													{?>
+															
+															
+																		<div class="card shadow mb-4 col-lg-4 col-sm-8 mb-4">
+																			<div class="card-header py-3">
+																				<h6 class="m-0 font-weight-bold text-primary"><?php echo $donnee['nom_lieu']; ?></h6>
 																			</div>
-																			<div class=\"card-body\">
-																				<div class=\"text-center\">
-																					<img class=\"img-fluid px-3 px-sm-4 mt-3 mb-4\" style=\"width: 25rem;\" src=\"http://ssl.gstatic.com/accounts/ui/avatar_2x.png\" alt=\"\">
+																			<div class="card-body">
+																				<div class="text-center">
+																					<?php if($donnee['image_lieu'] == ""){ ?>
+																					<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="">
+																					<?php }else{ ?>
+																					<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="IMAGES/LIEUX/<?php echo $donnee['image_lieu']; ?>" alt="">
+																					<?php } ?>
 																				</div>
 																				<p>
-																					".$donnee['description_lieu']."
+																					<?php echo $donnee['description_lieu']; ?>
 																				</p>
 																				<br />
-																				<a href=\"#\">Details sur l'illustration &rarr;</a>
+																				<a href="modification.php?id=<?php echo $donnee['id_lieu']; ?>">Details sur l'illustration &rarr;</a>
 																				<br />
 																				<br />
-																				<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
-																					<input type=\"hidden\" name=\"id\" value=".$donnee['id_lieu']." />
-																					<input type=\"hidden\" name=\"supprimer\" value=\"lieu\" />
-																					<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																				<form action="TRAITEMENT/supprimer.php" method="POST">
+																					<input type="hidden" name="id" value="<?php echo $donnee['id_lieu']; ?>" />
+																					<input type="hidden" name="supprimer" value="lieu" />
+																					<button class="btn btn-sm btn-primary shadow-sm" type="submit">Supprimer</button>
 																				</form>
 																			</div>
-																		</div>
-																	";
-															}
-															else
-															{
-																echo
-																	"
-																		<div class=\"card shadow mb-4 col-lg-4 col-sm-8 mb-4\">
-																			<div class=\"card-header py-3\">
-																				<h6 class=\"m-0 font-weight-bold text-primary\">".$donnee['nom_lieu']."</h6>
-																			</div>
-																			<div class=\"card-body\">
-																				<div class=\"text-center\">
-																					<img class=\"img-fluid px-3 px-sm-4 mt-3 mb-4\" style=\"width: 25rem;\" src=\"IMAGES/LIEUX/".$donnee['image_lieu']."\" alt=\"\">
-																				</div>
-																				<p>
-																					".$donnee['description_lieu']."
-																				</p>
-																				<br />
-																					<a href=\"#\">Details sur l'illustration &rarr;</a>
-																				<br />
-																				<br />
-																				<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
-																					<input type=\"hidden\" name=\"id\" value=".$donnee['id_lieu']." />
-																					<input type=\"hidden\" name=\"supprimer\" value=\"lieu\" />
-																					<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
-																				</form>
-																			</div>
-																		</div>
-																	";
-															}
-														
-													}
+																		</div>														
+												<?php
+												}
 												?>
-												<!--<div class="card shadow mb-4 col-lg-4 col-sm-8 mb-4">
-													<div class="card-header py-3">
-														<h6 class="m-0 font-weight-bold text-primary">L'entre de BabaYaga</h6>
-													</div>
-													<div class="card-body">
-														<div class="text-center">
-															<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="IMAGES/giphy.gif" alt="">
-														</div>
-														<p>
-															Add some quality, svg illustrations to your project courtesy of,
-															a constantly updated collection of beautiful svg 
-															images that you can use completely free and without attribution!
-														</p>
-														<a target="_blank" rel="nofollow" href="#">Details sur l'illustration &rarr;</a>
-													</div>
-												</div>
-												<div class="card shadow mb-4 col-lg-4 col-sm-8 mb-4">
-													<div class="card-header py-3">
-														<h6 class="m-0 font-weight-bold text-primary">L'Atelier des OTAKUS</h6>
-													</div>
-													<div class="card-body">
-														<div class="text-center">
-															<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="IMAGES/mangaka.png" alt="">
-														</div>
-														<p>
-															Add some quality, svg illustrations to your project courtesy of,
-															a constantly updated collection of beautiful svg 
-															images that you can use completely free and without attribution!
-														</p>
-														<a target="_blank" rel="nofollow" href="#">Details sur l'illustration &rarr;</a>
-													</div>
-												</div>-->
 											</div>
 										</div>
 										<div class="tab-pane fade show" id="Termes" role="tabpanel" aria-labelledby="Termes-tab">
@@ -700,62 +516,30 @@
 													$requete->execute(array('id_projet' => $_SESSION['id_projet']));
 												
 													while($donnee = $requete->fetch())
-													{
-															echo
-																"
-																	<div class=\"col-xl-3 col-md-6 mb-4\">
-																		<div class=\"card border-left-primary shadow h-100 py-2\">
-																			<div class=\"card-body\">
-																				<div class=\"row no-gutters align-items-center\">
-																					<div class=\"col mr-2\">
-																						<div class=\"h5 mb-0 font-weight-bold text-primary\">".$donnee['nom_terme']."</div>
-																						<div class=\"\">
-																							".$donnee['description_terme']."
+													{?>
+																	<div class="col-xl-3 col-md-6 mb-4">
+																		<div class="card border-left-primary shadow h-100 py-2">
+																			<div class="card-body">
+																				<div class="row no-gutters align-items-center">
+																					<div class="col mr-2">
+																						<div class="h5 mb-0 font-weight-bold text-primary"><a href="modification.php?id=<?php echo $donnee['id_terme']; ?>"><?php echo $donnee['nom_terme']; ?></a></div>
+																						<div class="">
+																							<?php echo $donnee['description_terme']; ?>
 																						</div>
 																					</div>
 																					<br />
 																					<br />
-																					<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
-																						<input type=\"hidden\" name=\"id\" value=".$donnee['id_terme']." />
-																						<input type=\"hidden\" name=\"supprimer\" value=\"terme\" />
-																						<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																					<form action="TRAITEMENT/supprimer.php" method="POST">
+																						<input type="hidden" name="id" value="<?php echo $donnee['id_terme']; ?>" />
+																						<input type="hidden" name="supprimer" value="terme" />
+																						<button class="btn btn-sm btn-primary shadow-sm" type="submit">Supprimer</button>
 																					</form>
 																				</div>
 																			</div>
 																		</div>
 																	</div>
-																";
-													}
+													<?php }
 												?>
-												<!-- Earnings (Monthly) Card Example -->
-												<!--<div class="col-xl-3 col-md-6 mb-4">
-													<div class="card border-left-primary shadow h-100 py-2">
-														<div class="card-body">
-															<div class="row no-gutters align-items-center">
-																<div class="col mr-2">
-																	<div class="h5 mb-0 font-weight-bold text-primary">Haki des rois</div>
-																	<div class="">
-																		Energie bla bla bla
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-xl-3 col-md-6 mb-4">
-													<div class="card border-left-primary shadow h-100 py-2">
-														<div class="card-body">
-															<div class="row no-gutters align-items-center">
-																<div class="col mr-2">
-																	<div class="h5 mb-0 font-weight-bold text-primary">Super Saiyan</div>
-																	<div class="">
-																		Transformation bla bla bla
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>-->
 											</div>
 										</div>
 										<div class="tab-pane fade show" id="Illustrations" role="tabpanel" aria-labelledby="Illustrations-tab">
@@ -791,105 +575,42 @@
 													$requete->execute(array('id_projet' => $_SESSION['id_projet']));
 												
 													while($donnee = $requete->fetch())
-													{
-															if($donnee['image_illustration'] == "")
-															{
-																echo
-																"
-																	<div class=\"col-xl-4 col-md-6 mb-4\">
-																		<div class=\"card border-left-info shadow h-100 py-2\">
-																			<div class=\"card-body\">
-																				<div class=\"row no-gutters align-items-center\">
-																					<div class=\"col mr-2\">
-																						<div class=\"font-weight-bold text-info text-uppercase mb-1\">".$donnee['titre_illustration']."</div>
-																						<div class=\"row no-gutters align-items-center\">
-																							<div class=\"col\">
-																								<a href=\"#\"><img class=\"card-img-top\" src=\"http://ssl.gstatic.com/accounts/ui/avatar_2x.png\" alt=\"\"></a>
+													{?>
+																	<div class="col-xl-4 col-md-6 mb-4">
+																		<div class="card border-left-info shadow h-100 py-2">
+																			<div class="card-body">
+																				<div class="row no-gutters align-items-center">
+																					<div class="col mr-2">
+																						<div class="font-weight-bold text-info text-uppercase mb-1"><?php echo $donnee['titre_illustration']; ?></div>
+																						<div class="row no-gutters align-items-center">
+																							<div class="col">
+																								<a href="modification.php?id=<?php echo $donnee['id_illustration']; ?>">
+																								<?php if($donnee['image_illustration'] == ""){ ?>
+																								<img class="card-img-top" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png\" alt="">
+																								<?php }else{ ?>
+																									<img class="card-img-top" src="IMAGES/ILLUSTRATIONS/<?php echo $donnee['image_illustration']; ?>" alt="">
+																								<?php } ?>
+																								</a>
 																							</div>
-																							<div class=\"\">
-																								".$donnee['description_illustration']."
+																							<div class="">
+																								<?php echo $donnee['description_illustration']; ?>
 																							</div>
 																						</div>
 																						<br />
 																						<br />
-																						<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
-																							<input type=\"hidden\" name=\"id\" value=".$donnee['id_illustration']." />
-																							<input type=\"hidden\" name=\"supprimer\" value=\"illustration\" />
-																							<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
+																						<form action="TRAITEMENT/supprimer.php" method="POST">
+																							<input type="hidden" name="id" value="<?php echo $donnee['id_illustration']; ?>" />
+																							<input type="hidden" name="supprimer" value="illustration" />
+																							<button class="btn btn-sm btn-primary shadow-sm" type="submit">Supprimer</button>
 																						</form>
 																					</div>
 																				</div>
 																			</div>
 																		</div>
 																	</div>
-																";
-															}
-															else
-															{
-																echo
-																	"
-																		<div class=\"col-xl-4 col-md-6 mb-4\">
-																			<div class=\"card border-left-info shadow h-100 py-2\">
-																				<div class=\"card-body\">
-																					<div class=\"row no-gutters align-items-center\">
-																						<div class=\"col mr-2\">
-																							<div class=\"font-weight-bold text-info text-uppercase mb-1\">".$donnee['titre_illustration']."</div>
-																							<div class=\"row no-gutters align-items-center\">
-																								<div class=\"col\">
-																									<a href=\"#\"><img class=\"card-img-top\" src=\"IMAGES/ILLUSTRATIONS/".$donnee['image_illustration']."\" alt=\"\"></a>
-																								</div>
-																								<div class=\"\">
-																									".$donnee['description_illustration']."
-																								</div>
-																							</div>
-																							<br />
-																							<br />
-																							<form action=\"TRAITEMENT/supprimer.php\" method=\"POST\">
-																								<input type=\"hidden\" name=\"id\" value=".$donnee['id_illustration']." />
-																								<input type=\"hidden\" name=\"supprimer\" value=\"illustration\" />
-																								<button class=\"btn btn-sm btn-primary shadow-sm\" type=\"submit\">Supprimer</button>
-																							</form>
-																						</div>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	";
-															}
+													<?php
 													}
 												?>
-												<!--<div class="col-xl-4 col-md-6 mb-4">
-													<div class="card border-left-info shadow h-100 py-2">
-														<div class="card-body">
-															<div class="row no-gutters align-items-center">
-																<div class="col mr-2">
-																	<div class="font-weight-bold text-info text-uppercase mb-1">Non de l'illustration 1</div>
-																	<div class="row no-gutters align-items-center">
-																		<div class="col">
-																			<a href="#"><img class="card-img-top" src="IMAGES/radiant.jpg" alt=""></a>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-xl-4 col-md-6 mb-4">
-													<div class="card border-left-info shadow h-100 py-2">
-														<div class="card-body">
-															<div class="row no-gutters align-items-center">
-																<div class="col mr-2">
-																	<div class="font-weight-bold text-info text-uppercase mb-1">Non de l'illustration 2</div>
-																	<div class="row no-gutters align-items-center">
-																		<div class="col">
-																			<a href="#"><img class="card-img-top" src="IMAGES/Hammer.jpg" alt=""></a>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>-->
 											</div>
 										</div>
 									</div>
@@ -912,9 +633,6 @@
 		</div>
 	</div>
 </div>
-
-
-
 <?php
-include "INCLUSION/footer.php";
+	include "INCLUSION/footer.php";
 ?>

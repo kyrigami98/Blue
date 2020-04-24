@@ -1,8 +1,9 @@
 - images dans la créations des chapitre ne marche pas                                               #done
 - les donnees ne s'enregistrent pas dans la base de donnees                                         #done
-- le code du fichier atelier_system.php n'est pas convenable
-- images dans la créations des chapitre ne marche pas
+- le code du fichier atelier_system.php n'est pas convenable                                        #done
+- images dans la créations des chapitre ne marche pas                                               #done
 - image par defaut à l'inscription ne fonctionne pas                                                #done
-- images de chapitre ne s'affiche pas
+- images de chapitre ne s'affiche pas                                                               #done
 - les images bugs pour l'onglet illustration dans atelier (ajoute deux images pour comprendre)      #done
 - certaines images ne s'affichent pas pour on ne sait quelle raison
+- le bootstrap est parit en couille
