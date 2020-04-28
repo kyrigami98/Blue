@@ -243,9 +243,9 @@ include("TRAITEMENT/connexion.php");
 																	<div class="row no-gutters align-items-center">
 																		<div class="col mr-2">
 																			<div class="font-weight-bold text-info text-uppercase mb-1">Chapitre <?php echo $count; ?></div>
-																			<div class="text-xs text-muted font-weight-bold text-info text-uppercase mb-1"><?php echo $donnee['titre_chapitre']; ?></div>
+																			<div class="text-xs text-muted font-weight-bold text-info text-uppercase mb-1"><a href="story.php?id=<?php echo $donnee['id_chapitre']; ?>"><?php echo $donnee['titre_chapitre']; ?></a></div>
 																			<div>
-																				<a href="story.php?id=<?php echo $donnee['id_chapitre']; ?>">
+																				<a href="">
 																					<?php
 																					if ($donnee['image_chapitre'] != "") {
 																					?>
@@ -332,7 +332,7 @@ include("TRAITEMENT/connexion.php");
 																		<?php echo $donnee['description_personnage']; ?>
 																	</p>
 																	<br />
-																	<a href="modification.php?id=<?php echo $donnee['id_personnage']; ?>">Details sur l'illustration &rarr;</a>
+																	<a href="modification_personnage.php?id=<?php echo $donnee['id_personnage']; ?>">Details sur l'illustration &rarr;</a>
 																	<br />
 																	<br />
 																	<form action="TRAITEMENT/supprimer.php" method="POST\">
@@ -399,7 +399,7 @@ include("TRAITEMENT/connexion.php");
 																		<?php echo $donnee['description_creature']; ?>
 																	</p>
 																	<br />
-																	<a href="modification.php?id=<?php echo $donnee['id_creature']; ?>">Details sur l'illustration &rarr;</a>
+																	<a href="modification_creature.php?id=<?php echo $donnee['id_creature']; ?>">Details sur l'illustration &rarr;</a>
 																	<br />
 																	<br />
 																	<form action="TRAITEMENT/supprimer.php" method="POST">
@@ -465,7 +465,7 @@ include("TRAITEMENT/connexion.php");
 																	<?php echo $donnee['description_lieu']; ?>
 																</p>
 																<br />
-																<a href="modification.php?id=<?php echo $donnee['id_lieu']; ?>">Details sur l'illustration &rarr;</a>
+																<a href="modification_lieu.php?id=<?php echo $donnee['id_lieu']; ?>">Details sur l'illustration &rarr;</a>
 																<br />
 																<br />
 																<form action="TRAITEMENT/supprimer.php" method="POST">
@@ -511,7 +511,7 @@ include("TRAITEMENT/connexion.php");
 																<div class="card-body">
 																	<div class="row no-gutters align-items-center">
 																		<div class="col mr-2">
-																			<div class="h5 mb-0 font-weight-bold text-primary"><a href="modification.php?id=<?php echo $donnee['id_terme']; ?>"><?php echo $donnee['nom_terme']; ?></a></div>
+																			<div class="h5 mb-0 font-weight-bold text-primary"><a href="modification_terme.php?id=<?php echo $donnee['id_terme']; ?>"><?php echo $donnee['nom_terme']; ?></a></div>
 																			<div class="">
 																				<?php echo $donnee['description_terme']; ?>
 																			</div>
@@ -537,7 +537,7 @@ include("TRAITEMENT/connexion.php");
 													<div class="col-xl-3 col-md-6 mb-4">
 														<form action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
 															<div class="profile-img">
-																<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+																<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" required/>
 																<div class="file btn btn-sm btn-primary">
 																	Choisir une image
 																	<input type="file" name="image" class="file-upload" />
@@ -572,7 +572,7 @@ include("TRAITEMENT/connexion.php");
 																			<div class="font-weight-bold text-info text-uppercase mb-1"><?php echo $donnee['titre_illustration']; ?></div>
 																			<div class="row no-gutters align-items-center">
 																				<div class="col">
-																					<a href="modification.php?id=<?php echo $donnee['id_illustration']; ?>">
+																					<a href="modification_illustration.php?id=<?php echo $donnee['id_illustration']; ?>">
 																						<?php if ($donnee['image_illustration'] == "") { ?>
 																							<img class="card-img-top" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png\" alt="">
 																						<?php } else { ?>

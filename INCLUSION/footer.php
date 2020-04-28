@@ -17,7 +17,7 @@
 
       <div id="connexion" class="row">
         <div class="container-fluid">
-          <div class="card card-signin flex-row my-5" style="">
+          <div class="card card-signin flex-row my-5">
             <div class="d-none d-md-flex connexion">
               <!-- Background image for card set in CSS! -->
             </div>

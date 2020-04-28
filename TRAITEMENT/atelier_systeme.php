@@ -30,7 +30,7 @@ if ($_POST['formulaire'] == "projet") {
 	$nom = $_POST['nom'];
 	$desc = $_POST['description'];
 
-	$extensions_autorisees = array('jpg', 'jpeg', 'png', 'bmp', 'jpeg', 'gif');
+	$extensions_autorisees = array('jpg', 'jpeg', 'png', 'bmp', 'jpeg', 'gif', 'JPG', 'JPEG', 'PNG', 'BMP', 'JPEG', 'GIF');
 
 	$taille_max = 4000000;
 
