@@ -79,7 +79,7 @@
 
 <!--*********************JQuery**************************************************************************-->
 <script>
-/*   //voici le script Ajax pour la connexion
+//voici le script Ajax pour la connexion
   $(document).on("submit", "#connexion", function(event) {
 
     formulaire = $(this).find("input[name=formulaire]").val();
@@ -118,7 +118,6 @@
     event.preventDefault();
   
   });
- */
   //voici le script pour le champ text de la page story
   tinymce.init({
     selector: 'textarea#editor',
