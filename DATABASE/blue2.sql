@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  Dim 02 fév. 2020 à 21:10
+-- Généré le :  mer. 29 avr. 2020 à 16:19
 -- Version du serveur :  10.4.8-MariaDB
 -- Version de PHP :  7.3.10
 
@@ -38,7 +38,7 @@ CREATE TABLE `apparaitre` (
 --
 
 INSERT INTO `apparaitre` (`id_creature`, `id_projet`) VALUES
-(1, 1);
+(21, 8);
 
 -- --------------------------------------------------------
 
@@ -50,6 +50,8 @@ CREATE TABLE `chapitre` (
   `id_chapitre` int(11) NOT NULL,
   `titre_chapitre` varchar(30) DEFAULT NULL,
   `description_chapitre` text DEFAULT NULL,
+  `texte_chapitre` text CHARACTER SET utf32 NOT NULL,
+  `image_chapitre` varchar(100) CHARACTER SET utf32 NOT NULL,
   `id_tome` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -57,28 +59,9 @@ CREATE TABLE `chapitre` (
 -- Déchargement des données de la table `chapitre`
 --
 
-INSERT INTO `chapitre` (`id_chapitre`, `titre_chapitre`, `description_chapitre`, `id_tome`) VALUES
-(9, 'titre1', 'description', 8),
-(10, 'titre2', 'desc', 8),
-(11, 'titre3', 'desc', 8),
-(12, 'titre4', 'descr', 8),
-(14, 'titre6', 'description', 8),
-(15, 'titre6', 'description', 8),
-(16, 'titre6', 'description', 8),
-(17, 'titre6', 'description', 7),
-(18, 'titre6', 'description', 7),
-(20, 'titre', 'description', 7),
-(22, 'titre', 'description', 7),
-(23, 'titre', 'description', 7),
-(24, 'titre', 'description', 7),
-(25, 'titre', 'description', 7),
-(26, 'titre', 'description', 7),
-(27, 'titre', 'description', 7),
-(28, 'titre', 'description', 7),
-(29, 'titre', 'description', 8),
-(30, 'titre', 'description', 8),
-(31, 'titre', 'description', 8),
-(32, 'titre', 'description', 10);
+INSERT INTO `chapitre` (`id_chapitre`, `titre_chapitre`, `description_chapitre`, `texte_chapitre`, `image_chapitre`, `id_tome`) VALUES
+(51, 'Blessure', 'Le prologue de Spiritual Cross...', '', 'c88de6df84d3a9fe26a13a586b0bde71.jpg', 19),
+(52, 'cache dans l\'ombre d\'un autre', '', '', 'Daniels6f3d29f87e004abcdaf63bf606f56c7a.jpg', 19);
 
 -- --------------------------------------------------------
 
@@ -96,7 +79,7 @@ CREATE TABLE `citer` (
 --
 
 INSERT INTO `citer` (`id_terme`, `id_projet`) VALUES
-(1, 1);
+(5, 8);
 
 -- --------------------------------------------------------
 
@@ -128,7 +111,7 @@ CREATE TABLE `creature` (
 --
 
 INSERT INTO `creature` (`id_creature`, `nom_creature`, `description_creature`, `image_creature`) VALUES
-(1, 'etre sombre', '', '');
+(21, 'Humain', 'creature vivante et intelligente du monde des humains...', 'The Distorted Reality.jpg');
 
 -- --------------------------------------------------------
 
@@ -149,7 +132,7 @@ CREATE TABLE `illustration` (
 --
 
 INSERT INTO `illustration` (`id_illustration`, `titre_illustration`, `description_illustration`, `image_illustration`, `id_projet`) VALUES
-(1, 'image', '', 'Danielsd0f6cc250c466724992136933b9a9668.jpg', 1);
+(22, 'PNG2', '', 'DanielsPIC1.PNG', 8);
 
 -- --------------------------------------------------------
 
@@ -167,8 +150,7 @@ CREATE TABLE `intervenir` (
 --
 
 INSERT INTO `intervenir` (`id_personnage`, `id_projet`) VALUES
-(4, 1),
-(5, 1);
+(9, 8);
 
 -- --------------------------------------------------------
 
@@ -188,7 +170,7 @@ CREATE TABLE `lieu` (
 --
 
 INSERT INTO `lieu` (`id_lieu`, `nom_lieu`, `description_lieu`, `image_lieu`) VALUES
-(2, 'espace neutre', 'Un espace entierrement blanc ou je peux m\'adresser a Shiro, hors de la timeline scenaristique...', '');
+(23, 'Manoir Esthel', 'quartier général des templiers chevaliers de l\'ordre des ombres...', '4028b9172df236e57c97904108d8a7fd.jpg');
 
 -- --------------------------------------------------------
 
@@ -208,8 +190,7 @@ CREATE TABLE `personnage` (
 --
 
 INSERT INTO `personnage` (`id_personnage`, `nom_personnage`, `description_personnage`, `image_personnage`) VALUES
-(4, 'Shiro', 'Personnage emblematique cree pour gerer le lancement de chaque possibilite, expliquer l\'existence des livres de l\'auteur et servir de lien entre l\'histoire fictive et l\'histoire reelle...', ''),
-(5, 'Kuro', '', '');
+(9, 'Viktor Vladymir', 'Le protagoniste de Spiritual cross', 'd0f6cc250c466724992136933b9a9668.jpg');
 
 -- --------------------------------------------------------
 
@@ -232,7 +213,7 @@ CREATE TABLE `projet` (
 --
 
 INSERT INTO `projet` (`id_projet`, `titre_projet`, `description_projet`, `image_projet`, `likes_projet`, `followers_projet`, `id_utilisateur`) VALUES
-(1, 'ENREGISTREMENT 1 - LE MONDE', NULL, NULL, 0, 0, 1);
+(8, 'Spiritual Cross', NULL, NULL, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -251,7 +232,7 @@ CREATE TABLE `terme` (
 --
 
 INSERT INTO `terme` (`id_terme`, `nom_terme`, `description_terme`) VALUES
-(1, 'kuro', 'signifie \"Noir\" en japonais.');
+(5, 'Energie spirituelle', '');
 
 -- --------------------------------------------------------
 
@@ -271,9 +252,7 @@ CREATE TABLE `tome` (
 --
 
 INSERT INTO `tome` (`id_tome`, `titre_tome`, `image_tome`, `id_projet`) VALUES
-(7, 'titre1', '', 1),
-(8, 'titre2', '', 1),
-(10, 'titre11', NULL, 1);
+(19, 'Blessure', '', 8);
 
 -- --------------------------------------------------------
 
@@ -287,15 +266,17 @@ CREATE TABLE `utilisateur` (
   `email_utilisateur` varchar(30) DEFAULT NULL,
   `password_utilisateur` varchar(50) DEFAULT NULL,
   `type_utilisateur` varchar(30) DEFAULT NULL,
-  `image_utilisateur` varchar(100) DEFAULT NULL
+  `image_utilisateur` varchar(100) DEFAULT NULL,
+  `projet_en_cours` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`id_utilisateur`, `nom_utilisateur`, `email_utilisateur`, `password_utilisateur`, `type_utilisateur`, `image_utilisateur`) VALUES
-(1, 'Daniels', 'blacklenoire4444@gmail.com', '931996', 'Scenariste & Dessinateur', 'Danielsd0f6cc250c466724992136933b9a9668.jpg');
+INSERT INTO `utilisateur` (`id_utilisateur`, `nom_utilisateur`, `email_utilisateur`, `password_utilisateur`, `type_utilisateur`, `image_utilisateur`, `projet_en_cours`) VALUES
+(1, 'Daniels', 'blacklenoire4444@gmail.com', '931996', 'Scenariste & Dessinateur', 'Daniels4e97fbc5abb083a286183cfdce27730d.gif', 8),
+(4, 'erik', 'ericleblanc4444@gmail.com', '931996', NULL, 'erik6f3d29f87e004abcdaf63bf606f56c7a.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -313,7 +294,7 @@ CREATE TABLE `visiter` (
 --
 
 INSERT INTO `visiter` (`id_lieu`, `id_projet`) VALUES
-(2, 1);
+(23, 8);
 
 --
 -- Index pour les tables déchargées
@@ -420,55 +401,55 @@ ALTER TABLE `visiter`
 -- AUTO_INCREMENT pour la table `chapitre`
 --
 ALTER TABLE `chapitre`
-  MODIFY `id_chapitre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id_chapitre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT pour la table `creature`
 --
 ALTER TABLE `creature`
-  MODIFY `id_creature` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_creature` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT pour la table `illustration`
 --
 ALTER TABLE `illustration`
-  MODIFY `id_illustration` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_illustration` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT pour la table `lieu`
 --
 ALTER TABLE `lieu`
-  MODIFY `id_lieu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_lieu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT pour la table `personnage`
 --
 ALTER TABLE `personnage`
-  MODIFY `id_personnage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_personnage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `projet`
 --
 ALTER TABLE `projet`
-  MODIFY `id_projet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_projet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `terme`
 --
 ALTER TABLE `terme`
-  MODIFY `id_terme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_terme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `tome`
 --
 ALTER TABLE `tome`
-  MODIFY `id_tome` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_tome` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Contraintes pour les tables déchargées

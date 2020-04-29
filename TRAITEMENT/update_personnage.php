@@ -19,9 +19,9 @@
         $image = "";
     }
 
-    die(var_dump($_POST['image']));
+    /*die(var_dump($_FILES));
 
-    die("secours");
+    die("secours");*/
 
     if($image == "")
     {

@@ -13,7 +13,7 @@ $donnee = $requete->fetch();
 <div id="modification" class="row">
     <div class="col-lg-10 col-xl-9 mx-auto">
         <div class="card card-signin flex-row my-5" style="background-color: rgba(0, 0, 10, 0.8);">
-            <form class="form-signin row" action="TRAITEMENT/modification.php" method="POST">
+            <form class="form-signin row" action="TRAITEMENT/modification.php" method="POST" enctype="multipart/form-data">
                 <div class="card-img-left d-none d-md-flex col-md-6" style="background-image: url('');">
                     <div class="profile-img">
                         <br />
