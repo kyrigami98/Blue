@@ -135,7 +135,7 @@
           </div>
           <div class=\"card-body\">
             <h5 class=\"card-title text-center\" style=\"color:White;\">Rejoins Blue !</h5>				
-			<form class=\"form-signin\" action=\"TRAITEMENT/systeme.php\" method=\"POST\">
+			<form id=\"inscription\" class=\"form-signin\" action=\"TRAITEMENT/systeme.php\" method=\"POST\">
               <div class=\"form-label-group\">
                 <input type=\"text\" id=\"inputUserame\" class=\"form-control\" placeholder=\"Username\" name=\"pseudo\" required autofocus>
                 <label for=\"inputUserame\">Pseudo</label>
@@ -175,8 +175,6 @@
         </div>
       </div>
     </div>
-	<script src=\"jquery.min.js\"></script>
-	<script>
 		
 	</script>
 	";

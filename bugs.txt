@@ -7,3 +7,4 @@
 - les images bugs pour l'onglet illustration dans atelier (ajoute deux images pour comprendre)      #done
 - certaines images ne s'affichent pas pour on ne sait quelle raison
 - le bootstrap est parit en couille
+- erreurs sur la page de connexion lorsque rentre des informations qui n'existe pas dans la base
