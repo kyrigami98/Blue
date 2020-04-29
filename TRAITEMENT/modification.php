@@ -1,50 +1,31 @@
 <?php
     include "connexion.php";
 
+    $extensions_autorisees = array('jpg', 'jpeg', 'png', 'bmp', 'jpeg', 'gif', 'JPG', 'JPEG', 'PNG', 'BMP', 'JPEG', 'GIF');
+
+    $taille_max = 4000000;
+
     if(isset($_POST['modification']))
     {
         if($_POST['modification'] == "creature")
         {
-            echo $_POST['nom'];
+            include "update_creature.php";
         }
         elseif($_POST['modification'] == "illustration")
         {
-            echo $_POST['nom'];
+            include "update_illustration.php";
         }
         elseif($_POST['modification'] == "lieu")
         {
-            echo $_POST['nom'];
+            include "update_lieu.php";
         }
         elseif($_POST['modification'] == "personnage")
         {
-            echo $_POST['nom'];
+            include "update_personnage.php";
         }
         elseif($_POST['modification'] == "terme")
         {
-            echo $_POST['nom'];
-        }
-    }
-    elseif(isset($_POST['image']))
-    {
-        if($_POST['modification'] == "creature")
-        {
-            
-        }
-        elseif($_POST['modification'] == "illustration")
-        {
-            
-        }
-        elseif($_POST['modification'] == "lieu")
-        {
-            
-        }
-        elseif($_POST['modification'] == "personnage")
-        {
-            
-        }
-        elseif($_POST['modification'] == "terme")
-        {
-            ?><img src="<?php echo $_POST['image']; ?>" alt="<?php echo $_POST['image']; ?>" /><?php
+            include "update_terme.php";
         }
     }
 ?>

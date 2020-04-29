@@ -26,7 +26,8 @@ $donnee = $requete->fetch();
                     </div>
                     <hr>
 
-                    <input type="hidden" name="formulaire" value="terme" />
+                    <input type="hidden" name="modification" value="terme" />
+                    <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
                     <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Modifier</button>
 
 

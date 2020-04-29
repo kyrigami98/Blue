@@ -5,6 +5,6 @@
 - image par defaut à l'inscription ne fonctionne pas                                                #done
 - images de chapitre ne s'affiche pas                                                               #done
 - les images bugs pour l'onglet illustration dans atelier (ajoute deux images pour comprendre)      #done
-- certaines images ne s'affichent pas pour on ne sait quelle raison
+- certaines images ne s'affichent pas pour on ne sait quelle raison                                 #done
 - le bootstrap est parit en couille
 - erreurs sur la page de connexion lorsque rentre des informations qui n'existe pas dans la base
