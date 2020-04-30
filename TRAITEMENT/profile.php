@@ -8,6 +8,8 @@ $password = $_POST['newpassword'];
 
 include("connexion.php");
 
+
+
 if ($oldpassword != "") {
 	if ($oldpassword != $_SESSION['password']) {
 		echo "le mot de passe saisi est incorrecte";
