@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+include("fonctions.php");
+
 if (isset($_POST['formulaire'])) {
 	if ($_POST['formulaire'] == "connexion") {
 		include("signin.php");

@@ -89,17 +89,18 @@
     $.ajax({
       url: 'TRAITEMENT/systeme.php',
       type: 'POST',
-      dataType: 'html',
+      dataType: 'JSON',
       data: {
         formulaire: formulaire,
         email: email,
         password: password
       },
       success: function(data) {
-        if(data == "connecter"){  
+        console.log(data);
+        if(data.success == true && data.url !=""){  
           location.reload(true);
         }else{
-          $("#result").text(data).fadeIn(500);
+          $("#result").text(data.message).fadeIn(500);
         }
       },  
       error: function(data) {
@@ -113,11 +114,11 @@
   });
 
   //voici le script Ajax pour l'inscription
-  $(document).on("submit", "#inscription", function(event) {
+ /*  $(document).on("submit", "#inscription", function(event) {
 
     event.preventDefault();
   
-  });
+  }); */
   //voici le script pour le champ text de la page story
   tinymce.init({
     selector: 'textarea#editor',

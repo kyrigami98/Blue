@@ -30,9 +30,14 @@
 
 			$requete2->closeCursor();
 
-			header('Location: ../index.php');
+			returnJson(true,"index.php","Connecté");
+			exit;
+			
 		}
 	}
-	echo "l'email ou le mot de passe est incorrecte";
+
 	$requete1->closeCursor();
+	returnJson(false,"","L'email ou le mot de passe est incorrecte");
+	exit;
+
 ?>
