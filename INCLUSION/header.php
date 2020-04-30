@@ -15,6 +15,7 @@
  <link rel="stylesheet" href="CSS/MyStyle.css"> 
  <link rel="stylesheet" href="CSS/all.css">
  <link rel="stylesheet" href="CSS/bootstrap.css">
+ <link rel="stylesheet" href="CSS/buttonflottant.css"> 
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
  
   <!-- Custom fonts for this template-->
@@ -24,6 +25,7 @@
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+  <script src="vendor/jquery/jquery.min.js"></script>
 </head>
 
         <!-- Topbar -->

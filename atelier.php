@@ -31,26 +31,7 @@ include("TRAITEMENT/connexion.php");
 							<span>Mes projets</span>
 						</a>
 						<div id="collapseProjet" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-							<?php
-							$requete = $bdd->prepare('SELECT * FROM projet WHERE id_utilisateur = :id ORDER BY id_projet');
-							$requete->execute(array('id' => $_SESSION['id']));
 
-							while ($donnee = $requete->fetch()) {
-							?>
-								<form action="TRAITEMENT/atelier_systeme.php" method="POST">
-									<a class="nav-link" href="#">
-										<hr class="sidebar-divider">
-										<i class="fas fa-fw fa-folder"></i>
-										<input type="hidden" name="id" value="<?php echo $donnee['id_projet']; ?>" />
-										<input type="hidden" name="formulaire" value="projet" />
-										<button class="btn btn-sm" style="color:white;"><?php echo $donnee['titre_projet']; ?></button>
-									</a>
-								</form>
-							<?php
-							}
-
-							$requete->closeCursor();
-							?>
 							<div class="bg-white py-2 collapse-inner rounded">
 								<div class="card-body">
 									<form class="form-signin" action="TRAITEMENT/projet_systeme.php" method="POST">
@@ -61,8 +42,30 @@ include("TRAITEMENT/connexion.php");
 										<input type="hidden" name="formulaire" value="creer" />
 										<button class="btn btn-lg btn-primary btn-block " type="submit"><i class="fas fa-fw fa-plus"></i> Créer le projet</button>
 									</form>
+									<h6 class="collapse-header">Mes autres projets:</h6>
+									<?php
+									$requete = $bdd->prepare('SELECT * FROM projet WHERE id_utilisateur = :id ORDER BY id_projet');
+									$requete->execute(array('id' => $_SESSION['id']));
+
+									while ($donnee = $requete->fetch()) {
+									?>
+										<form action="TRAITEMENT/atelier_systeme.php" method="POST">
+											<a class="" href="#">
+												<i class="fas fa-fw fa-folder"></i>
+												<input type="hidden" name="id" value="<?php echo $donnee['id_projet']; ?>" />
+												<input type="hidden" name="formulaire" value="projet" />
+												<button class="btn btn-sm"><?php echo $donnee['titre_projet']; ?></button>
+											</a>
+										</form>
+									<?php
+									}
+
+									$requete->closeCursor();
+									?>
+
 								</div>
 							</div>
+
 						</div>
 					</li>
 
@@ -154,81 +157,55 @@ include("TRAITEMENT/connexion.php");
 						<!-- Begin Page Content -->
 						<div class="container-fluid">
 							<!-- Page Heading -->
-							<div class="d-sm-flex align-items-center justify-content-between mb-4">
+							<div class="d-sm-flex align-items-center justify-content-between mb-4" style='background-image: url("IMAGES/PROFILS/<?php echo $_SESSION['image']; ?>");background-repeat:no-repeat; background-size:cover;'>
 								<a class="nav-link nav-item" href="#">
-									<h1 class="font-weight-light">
-										<?php
-										if (isset($_SESSION['titre_projet'])) {
-										?>
+									<h1 class="font-weight-light text-white" style="text-shadow: 2px 2px black;">
+										<?php if (isset($_SESSION['titre_projet'])) { ?>
 											<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />
 											<?php echo $_SESSION['titre_projet']; ?>
 											<span style="font-size:13px;" class="badge badge-primary badge-counter"><?php echo $_SESSION['likes']; ?> <i class="fas fa-fw fa-thumbs-up"></i></span>
 											<span style="font-size:13px;" class="badge badge-primary badge-counter"><?php echo $_SESSION['followers']; ?> <i class="fas fa-fw fa-users"></i></span>
-										<?php
-										} else {
-										?><h1>Atelier</h1><?php
-														}
-															?>
+										<?php } else { ?>
+											<h1>Atelier</h1>
+										<?php } ?>
 									</h1>
 								</a>
-								<?php if (isset($_SESSION['titre_projet'])) { ?><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>Télécharger le projet en pdf</a><?php } ?>
+								<?php if (isset($_SESSION['titre_projet'])) { ?><a href="#" style="z-index:1" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>Télécharger le projet en pdf</a><?php } ?>
+
 							</div>
 							<?php
 							if (isset($_SESSION['titre_projet'])) {
 							?>
 								<!-- Content Row -->
 								<div class="row text-center" id="cible">
-									<div class="profile-head">
+									<div class="profile-head container-fluid">
 										<ul class="nav nav-tabs" id="myTab" role="tablist">
 											<li class="nav-item">
-												<a class="nav-link active" id="histoire-tab" data-toggle="tab" href="#histoire" role="tab" aria-controls="histoire" aria-selected="true">Histoire</a>
+												<a class="nav-link active" id="histoire-tab" data-toggle="tab" href="#histoire" role="tab" aria-controls="histoire" aria-selected="true"><i class="fas fa-fw fa-marker"></i>Histoire</a>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link" id="Personnages-tab" data-toggle="tab" href="#Personnages" role="tab" aria-controls="Personnages" aria-selected="false">Personnages</a>
+												<a class="nav-link" id="Personnages-tab" data-toggle="tab" href="#Personnages" role="tab" aria-controls="Personnages" aria-selected="false"><i class="fas fa-fw fa-user-ninja"></i>Personnages</a>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link" id="Bestiaire-tab" data-toggle="tab" href="#Bestiaire" role="tab" aria-controls="Bestiaire" aria-selected="false">Bestiaire</a>
+												<a class="nav-link" id="Bestiaire-tab" data-toggle="tab" href="#Bestiaire" role="tab" aria-controls="Bestiaire" aria-selected="false"><i class="fas fa-fw fa-paw"></i>Bestiaire</a>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link" id="Lieux-tab" data-toggle="tab" href="#Lieux" role="tab" aria-controls="Lieux" aria-selected="false">Lieux et villes</a>
+												<a class="nav-link" id="Lieux-tab" data-toggle="tab" href="#Lieux" role="tab" aria-controls="Lieux" aria-selected="false"><i class="fas fa-fw fa-globe-africa"></i>Lieux et villes</a>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link" id="Termes-tab" data-toggle="tab" href="#Termes" role="tab" aria-controls="Termes" aria-selected="false">Termes théoriques</a>
+												<a class="nav-link" id="Termes-tab" data-toggle="tab" href="#Termes" role="tab" aria-controls="Termes" aria-selected="false"><i class="fas fa-fw fa-list-alt"></i>Termes théoriques</a>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link" id="Illustrations-tab" data-toggle="tab" href="#Illustrations" role="tab" aria-controls="Illustrations" aria-selected="false">Illustrations</a>
+												<a class="nav-link" id="Illustrations-tab" data-toggle="tab" href="#Illustrations" role="tab" aria-controls="Illustrations" aria-selected="false"><i class="fas fa-fw fa-dragon"></i>Illustrations</a>
 											</li>
 										</ul>
 									</div>
-									<div class="col-md-12">
+									<div class="col-md-12 container-fluid">
 										<div class="tab-content profile-tab" id="myTabContent">
 											<div class="tab-pane fade show active" id="histoire" role="tabpanel" aria-labelledby="histoire-tab">
 												<br>
 												<div class="row">
-													<div class="col-xl-3 col-md-6 mb-4">
-														<form action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
-															<div class="profile-img">
-																<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-																<div class="file btn btn-sm btn-primary">
-																	Choisir une image
-																	<input type="file" name="image" class="file-upload" />
-																</div>
-																<div class="form-label-group">
-																	<input type="text" id="chapitre" class="form-control" placeholder="titre du chapitre" name="nom" required />
-																	<label for="chapitre">Titre du Chapitre</label>
-																</div>
-																<div class="form-label-group">
-																	<input type="text" id="description_chapitre" class="form-control" placeholder="description du chapitre" name="description">
-																	<label for="description_chapitre">Description</label>
-																</div>
-																<input type="hidden" name="formulaire" value="chapitre" />
-																<button class="btn btn-sm btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
-																	Cr&eacute;er un chapitre
-																</button>
-																<br />
-															</div>
-														</form>
-													</div>
+
 													<?php
 													$requete = $bdd->prepare('SELECT id_chapitre, titre_chapitre, description_chapitre, image_chapitre FROM chapitre, (SELECT id_tome FROM tome WHERE id_projet = :id)resultat WHERE chapitre.id_tome = resultat.id_tome');
 
@@ -282,30 +259,6 @@ include("TRAITEMENT/connexion.php");
 											<div class="tab-pane fade" id="Personnages" role="tabpanel" aria-labelledby="Personnages-tab">
 												<br>
 												<div class="row">
-													<div class="col-xl-3 col-md-6 mb-4">
-														<form action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
-															<div class="profile-img">
-																<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-																<div class="file btn btn-sm btn-primary">
-																	Choisir une image
-																	<input type="file" name="image" class="file-upload" />
-																</div>
-																<div class="form-label-group">
-																	<input type="text" id="personnage" class="form-control" placeholder="nom du personnage" name="nom" required />
-																	<label for="personnage">Nom du Personnage</label>
-																</div>
-																<div class="form-label-group">
-																	<input type="text" id="description_personnage" class="form-control" placeholder="description du personnage" name="description">
-																	<label for="description_personnage">Description</label>
-																</div>
-																<input type="hidden" name="formulaire" value="personnage" />
-																<button class="btn btn-sm btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
-																	Cr&eacute;er le personnage
-																</button>
-																<br />
-															</div>
-														</form>
-													</div>
 													<?php
 													$requete = $bdd->prepare('SELECT personnage.id_personnage, nom_personnage, description_personnage, image_personnage FROM personnage, intervenir WHERE personnage.id_personnage = intervenir.id_personnage AND intervenir.id_projet = :id_projet ORDER BY id_personnage DESC');
 
@@ -351,30 +304,7 @@ include("TRAITEMENT/connexion.php");
 											<div class="tab-pane fade show" id="Bestiaire" role="tabpanel" aria-labelledby="Bestiaire-tab">
 												<br>
 												<div class="row">
-													<div class="col-xl-3 col-md-6 mb-4">
-														<form action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
-															<div class="profile-img">
-																<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-																<div class="file btn btn-sm btn-primary">
-																	Choisir une image
-																	<input type="file" name="image" class="file-upload" />
-																</div>
-																<div class="form-label-group">
-																	<input type="text" id="creature" class="form-control" placeholder="nom de la creature" name="nom" required />
-																	<label for="creature">Nom de la cr&eacute;ature</label>
-																</div>
-																<div class="form-label-group">
-																	<input type="text" id="description_creature" class="form-control" placeholder="description de la creature" name="description">
-																	<label for="description_creature">Description</label>
-																</div>
-																<input type="hidden" name="formulaire" value="creature" />
-																<button class="btn btn-sm btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
-																	Cr&eacute;er la cr&eacute;ature
-																</button>
-																<br />
-															</div>
-														</form>
-													</div>
+
 													<?php
 													$requete = $bdd->prepare('SELECT creature.id_creature, nom_creature, description_creature, image_creature FROM creature, apparaitre WHERE creature.id_creature = apparaitre.id_creature AND apparaitre.id_projet = :id_projet ORDER BY id_creature DESC');
 
@@ -417,30 +347,7 @@ include("TRAITEMENT/connexion.php");
 											<div class="tab-pane fade show" id="Lieux" role="tabpanel" aria-labelledby="Lieux-tab">
 												<br>
 												<div class="row">
-													<div class="col-xl-3 col-md-6 mb-4">
-														<form action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
-															<div class="profile-img">
-																<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-																<div class="file btn btn-sm btn-primary">
-																	Choisir une image
-																	<input type="file" name="image" class="file-upload" />
-																</div>
-																<div class="form-label-group">
-																	<input type="text" id="lieu" class="form-control" placeholder="nom du lieu" name="nom" required>
-																	<label for="lieu">Nom du Lieu</label>
-																</div>
-																<div class="form-label-group">
-																	<input type="text" id="description_lieu" class="form-control" placeholder="description du lieu" name="description">
-																	<label for="description_lieu">Description</label>
-																</div>
-																<input type="hidden" name="formulaire" value="lieu" />
-																<button class="btn btn-sm btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
-																	Cr&eacute;er le lieu
-																</button>
-																<br />
-															</div>
-														</form>
-													</div>
+
 													<?php
 													$requete = $bdd->prepare('SELECT lieu.id_lieu, nom_lieu, description_lieu, image_lieu FROM lieu, visiter WHERE lieu.id_lieu = visiter.id_lieu AND visiter.id_projet = :id_projet ORDER BY id_lieu DESC');
 
@@ -483,23 +390,7 @@ include("TRAITEMENT/connexion.php");
 											<div class="tab-pane fade show" id="Termes" role="tabpanel" aria-labelledby="Termes-tab">
 												<br>
 												<div class="row">
-													<div class="col-xl-3 col-md-6 mb-4">
-														<form action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
-															<div class="form-label-group">
-																<input type="text" id="cle" class="form-control" placeholder="mot cle" name="nom" required>
-																<label for="cle">Mot clé</label>
-															</div>
-															<div class="form-label-group">
-																<input type="text" id="description_mot_cle" class="form-control" placeholder="description du mot cle" name="description">
-																<label for="description_mot_cle">Description</label>
-															</div>
-															<input type="hidden" name="formulaire" value="cle" />
-															<button class="btn btn-sm btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
-																Cr&eacute;er le mot
-															</button>
-															<br />
-														</form>
-													</div>
+
 													<?php
 													$requete = $bdd->prepare('SELECT terme.id_terme, nom_terme, description_terme FROM terme, citer WHERE terme.id_terme = citer.id_terme AND citer.id_projet = :id_projet ORDER BY id_terme DESC');
 
@@ -534,30 +425,7 @@ include("TRAITEMENT/connexion.php");
 											<div class="tab-pane fade show" id="Illustrations" role="tabpanel" aria-labelledby="Illustrations-tab">
 												<br>
 												<div class="row">
-													<div class="col-xl-3 col-md-6 mb-4">
-														<form action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
-															<div class="profile-img">
-																<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" required/>
-																<div class="file btn btn-sm btn-primary">
-																	Choisir une image
-																	<input type="file" name="image" class="file-upload" />
-																</div>
-																<div class="form-label-group">
-																	<input type="text" id="illustration" class="form-control" placeholder="Nom de l'illustration" name="nom" required>
-																	<label for="illustration">Titre de l'illustration</label>
-																</div>
-																<div class="form-label-group">
-																	<input type="text" id="description_illustration" class="form-control" placeholder="description de l'illustration" name="description">
-																	<label for="description_illustration">Description</label>
-																</div>
-																<input type="hidden" name="formulaire" value="illustration" />
-																<button class="btn btn-sm btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
-																	Importer l'illustration
-																</button>
-																<br />
-															</div>
-														</form>
-													</div>
+
 													<?php
 													$requete = $bdd->prepare('SELECT * FROM illustration WHERE id_projet = :id_projet ORDER BY id_illustration DESC');
 
@@ -618,6 +486,7 @@ include("TRAITEMENT/connexion.php");
 		</div>
 	</div>
 </div>
+
 <?php
 include "INCLUSION/footer.php";
 ?>

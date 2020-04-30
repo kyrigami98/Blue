@@ -1,10 +1,9 @@
 ﻿<?php
-	include "INCLUSION/header.php";
-	
-	if(!isset($_SESSION['pseudo'])) 
-	{
-		header('Location: index.php');
-	}
+include "INCLUSION/header.php";
+
+if (!isset($_SESSION['pseudo'])) {
+	header('Location: index.php');
+}
 ?>
 <div class="container">
 	<div class="card border-0 shadow my-5">
@@ -14,42 +13,35 @@
 					<form action="TRAITEMENT/systeme.php" method="POST" enctype="multipart/form-data">
 						<div class="profile-img">
 							<h4>
-								<?php 
-									if(isset($_SESSION['pseudo'])) 
-									{
-										echo $_SESSION['pseudo'];
-									} 
+								<?php
+								if (isset($_SESSION['pseudo'])) {
+									echo $_SESSION['pseudo'];
+								}
 								?>
 							</h4>
 							<h6 class="text-muted">
-								<?php 
-									if (isset($_SESSION['type'])) 
-									{
-										echo $_SESSION['type'];
-									} 
-									else 
-									{
-										echo "...";
-									} 
+								<?php
+								if (isset($_SESSION['type'])) {
+									echo $_SESSION['type'];
+								} else {
+									echo "...";
+								}
 								?>
 							</h6>
-							<?php 
-								if ($_SESSION['image']) 
-								{ 
+							<?php
+							if ($_SESSION['image']) {
 							?>
 								<img class="avatar rounded img-fluid" src="IMAGES/PROFILS/<?php echo $_SESSION['image']; ?>" alt="<?php echo $_SESSION['image']; ?>" />
-							<?php 
-								}
-								else
-								{ 
+							<?php
+							} else {
 							?>
 								<img class="avatar rounded img-fluid" src="IMAGES/PROFILS/STAND.jpg" alt="Image par defaut" />
-							<?php 
-								}
+							<?php
+							}
 							?>
 							<div class="file btn btn-lg btn-primary">
 								Photo de Profil
-								<input type="file" name="image"  class="file-upload" required/>
+								<input type="file" name="image" class="file-upload" required />
 							</div>
 							<input type="hidden" name="formulaire" value="image" />
 							<button class="btn btn-lg btn-primary btn-block" type="submit">
@@ -64,7 +56,7 @@
 							<div class="profile-work">
 								<ul class="list-group">
 									<li class="list-group-item text-muted">
-										Activité 
+										Activité
 										<i class="fa fa-dashboard fa-1x"></i>
 									</li>
 									<li class="list-group-item text-right">
@@ -73,15 +65,12 @@
 												Partage
 											</strong>
 										</span>
-										<?php 
-											if (isset($_SESSION['partages'])) 
-											{
-												echo $_SESSION['partages'];
-											} 
-											else 
-											{
-												echo "0";
-											} 
+										<?php
+										if (isset($_SESSION['partages'])) {
+											echo $_SESSION['partages'];
+										} else {
+											echo "0";
+										}
 										?>
 									</li>
 									<li class="list-group-item text-right">
@@ -90,15 +79,12 @@
 												Likes
 											</strong>
 										</span>
-										<?php 
-											if (isset($_SESSION['likes'])) 
-											{
-												echo $_SESSION['likes'];
-											} 
-											else 
-											{
-												echo "0";
-											} 
+										<?php
+										if (isset($_SESSION['likes'])) {
+											echo $_SESSION['likes'];
+										} else {
+											echo "0";
+										}
 										?>
 									</li>
 									<li class="list-group-item text-right">
@@ -107,15 +93,12 @@
 												Nombre de Projet
 											</strong>
 										</span>
-										<?php 
-											if (isset($_SESSION['projets'])) 
-											{
-												echo $_SESSION['projets'];
-											} 
-											else 
-											{
-												echo "0";
-											} 
+										<?php
+										if (isset($_SESSION['projets'])) {
+											echo $_SESSION['projets'];
+										} else {
+											echo "0";
+										}
 										?>
 									</li>
 									<li class="list-group-item text-right">
@@ -124,15 +107,12 @@
 												Followers
 											</strong>
 										</span>
-										<?php 
-											if (isset($_SESSION['followers'])) 
-											{
-												echo $_SESSION['followers'];
-											} 
-											else 
-											{
-												echo "0";
-											} 
+										<?php
+										if (isset($_SESSION['followers'])) {
+											echo $_SESSION['followers'];
+										} else {
+											echo "0";
+										}
 										?>
 									</li>
 								</ul>
@@ -141,7 +121,7 @@
 					</div>
 					<br>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-8">
 					<div class="profile-head">
 						<ul class="nav nav-tabs" id="myTab" role="tablist">
 							<li class="nav-item">
@@ -169,67 +149,66 @@
 									</div>
 									<input type="hidden" name="formulaire" value="creer" />
 									<button class="btn btn-lg btn-primary btn-block " type="submit">
-										<i class="fas fa-fw fa-plus"></i> 
+										<i class="fas fa-fw fa-plus"></i>
 										Créer le projet
 									</button>
 								</form>
 								<hr>
 								<div class="inline-block">
-									<div class="card h-100">
+									<div class="card">
 										<div class="card-body">
 											<h4 class="card-title">
 												Listes des projets
 											</h4>
+											<div class="row">
+												<?php
+												include("TRAITEMENT/connexion.php");
+
+												$requete = $bdd->query('SELECT * FROM projet ORDER BY id_projet DESC');
+
+												while ($donnee = $requete->fetch()) {
+													if ($donnee['id_utilisateur'] == $_SESSION['id']) {
+												?>
+														<div class="col-lg-6 col-sm-6 mb-4">
+															<span style="font-size:10px;" class="badge badge-primary badge-counter">
+																<?php
+																echo $donnee['likes_projet'];
+																?>
+																<i class="fas fa-fw fa-thumbs-up"></i>
+															</span>
+															<span style="font-size:10px;" class="badge badge-primary badge-counter">
+																<?php
+																echo $donnee['followers_projet'];
+																?>
+																<i class="fas fa-fw fa-users"></i>
+															</span>
+															<form action="TRAITEMENT/atelier_systeme.php" method="POST">
+																<div class="card h-100">
+																	<a href="#">
+																		<img class="card-img-top" src="IMAGES/giphy1.gif" alt="">
+																	</a>
+																	<div class="card-body">
+																		<h4 class="card-title">
+																			<input type="hidden" name="id" value="<?php echo $donnee['id_projet']; ?>" />
+																			<input type="hidden" name="formulaire" value="projet" />
+																			<button class="btn btn-md" href="#">
+																				<?php
+																				echo $donnee['titre_projet'];
+																				?>
+																			</button>
+																		</h4>
+																	</div>
+																</div>
+															</form>
+														</div>
+												<?php
+													}
+												}
+												?>
+											</div>
+
 										</div>
 									</div>
-								</div>
-								<div class="row">
-									<?php
-										include("TRAITEMENT/connexion.php");
-										
-										$requete = $bdd->query('SELECT * FROM projet ORDER BY id_projet DESC');
-
-										while ($donnee = $requete->fetch()) 
-										{
-											if ($donnee['id_utilisateur'] == $_SESSION['id']) 
-											{ 
-									?>
-												<div class="col-lg-6 col-sm-6 mb-4">
-													<span style="font-size:10px;" class="badge badge-primary badge-counter">
-														<?php 
-															echo $donnee['likes_projet']; 
-														?>
-														<i class="fas fa-fw fa-thumbs-up"></i>
-													</span>
-													<span style="font-size:10px;" class="badge badge-primary badge-counter">
-														<?php 
-															echo $donnee['followers_projet']; 
-														?>
-														<i class="fas fa-fw fa-users"></i>
-													</span>
-													<form action="TRAITEMENT/atelier_systeme.php" method="POST">
-														<div class="card h-100">
-															<a href="#">
-																<img class="card-img-top" src="IMAGES/giphy1.gif" alt="">
-															</a>
-															<div class="card-body">
-																<h4 class="card-title">
-																	<input type="hidden" name="id" value="<?php echo $donnee['id_projet']; ?>" />
-																	<input type="hidden" name="formulaire" value="projet" />
-																	<button class="btn btn-md" href="#">
-																		<?php 
-																			echo $donnee['titre_projet']; 
-																		?>
-																	</button>
-																</h4>
-															</div>
-														</div>
-													</form>
-												</div>	
-									<?php 
-											}
-										}
-									?>
 								</div>
 							</div>
 							<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -283,10 +262,10 @@
 										<div class="form-check">
 											<label class="form-check-label">
 												<input type="checkbox" class="form-check-input" value="">
-												J'ai lu et j'accepte les 
+												J'ai lu et j'accepte les
 												<a href="">
 													conditions d'utilisation
-												<a>
+													<a>
 											</label>
 										</div>
 									</div>
@@ -296,12 +275,12 @@
 												<br>
 												<input type="hidden" name="formulaire" value="profil" />
 												<button class="btn btn-lg btn-success pull-right" type="submit">
-													<i class="glyphicon glyphicon-ok-sign"></i> 
-													Save
+													<i class="glyphicon glyphicon-ok-sign"></i>
+													Sauvegarder
 												</button>
 												<button class="btn btn-lg  pull-left" type="reset">
-													<i class="fa fa-repeat"></i> 
-													Reset
+													<i class="fa fa-repeat"></i>
+													Vider les champs
 												</button>
 											</div>
 										</div>

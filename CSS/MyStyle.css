@@ -14,14 +14,14 @@ p    {color: Black;}
     text-align: center;
 }
 .profile-img img{
-    width: 70%;
-    height: 100%;
+    width: 100%;
 }
+
 .profile-img .file {
     position: relative;
     overflow: hidden;
     margin-top: -20%;
-    width: 70%;
+    width: 100%;
     border: none;
     border-radius: 0;
     font-size: 15px;
