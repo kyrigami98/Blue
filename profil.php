@@ -140,25 +140,50 @@ if (!isset($_SESSION['pseudo'])) {
 						<div class="tab-content profile-tab" id="myTabContent">
 							<div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 								<br>
-								<form class="form-signin" action="TRAITEMENT/projet_systeme.php" method="POST">
-									<div class="form-label-group">
-										<input type="text" id="inputProjet" class="form-control" placeholder="Nom du projet" name="projet" required />
-										<label for="inputProjet">
-											Nom du projet
-										</label>
+
+								<div class="card">
+									<div class="card-body">
+										<form class="form-signin" action="TRAITEMENT/projet_systeme.php" method="POST">
+
+											<h4 class="card-title">
+												Création de projet
+
+												<div class="pull-right img-responsive">
+													<div class="onoffswitch">
+														<input type="checkbox" name="visibilite" data-on="public" data-off="privé" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+														<label class="onoffswitch-label" for="myonoffswitch">
+															<span class="onoffswitch-inner"></span>
+														</label>
+													</div>
+												</div>
+
+											</h4>
+											<hr>
+
+											<div class="">
+												<div class="form-label-group">
+													<input type="text" id="inputProjet" class="form-control" placeholder="Nom du projet" name="projet" required />
+													<label for="inputProjet">
+														Nom du projet
+													</label>
+												</div>
+
+												<input type="hidden" name="formulaire" value="creer" />
+												<button class="btn btn-lg btn-primary btn-block " type="submit">
+													<i class="fas fa-fw fa-plus"></i>
+													Créer le projet
+												</button>
+											</div>
+
+										</form>
 									</div>
-									<input type="hidden" name="formulaire" value="creer" />
-									<button class="btn btn-lg btn-primary btn-block " type="submit">
-										<i class="fas fa-fw fa-plus"></i>
-										Créer le projet
-									</button>
-								</form>
+								</div>
 								<hr>
 								<div class="inline-block">
 									<div class="card">
 										<div class="card-body">
 											<h4 class="card-title">
-												Listes des projets
+												Mes projets
 											</h4>
 											<div class="row">
 												<?php
@@ -196,6 +221,16 @@ if (!isset($_SESSION['pseudo'])) {
 																				echo $donnee['titre_projet'];
 																				?>
 																			</button>
+
+																			<div class="pull-right img-responsive">
+																				<div class="onoffswitch">
+																					<input type="checkbox" name="visibilite" data-on="public" data-off="privé" class="onoffswitch-checkbox" id="<?php echo $donnee['id_projet']; ?>">
+																					<label class="onoffswitch-label" for="<?php echo $donnee['id_projet']; ?>">
+																						<span class="onoffswitch-inner"></span>
+																					</label>
+																				</div>
+																			</div>
+
 																		</h4>
 																	</div>
 																</div>
@@ -296,6 +331,24 @@ if (!isset($_SESSION['pseudo'])) {
 </div>
 
 
+<script>
+	$(document).ready(function() {
+		$('#myonoffswitch').on('change', function() {
+			var isChecked = $(this).is(':checked');
+			var selectedData;
+			console.log('isChecked: ' + isChecked);
+
+			if (isChecked) {
+				selectedData = $(this).attr('data-on');
+			} else {
+				selectedData = $(this).attr('data-off');
+			}
+
+			console.log('Selected data: ' + selectedData);
+
+		});
+	});
+</script>
 
 <?php
 include "INCLUSION/footer.php";

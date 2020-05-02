@@ -34,10 +34,10 @@ p    {color: Black;}
     top: 0;
 }
 
-.user{
+.user-photo{
 	border-radius:50px;
-	max-width: 5%;
-	max-height: 5%;
+  height: 30px;
+  width: 30px;
 }
 
 .carousel-item {
@@ -239,3 +239,44 @@ body {
 }
 
 /* Other styles for the page not related to the animated dropdown */
+.onoffswitch {
+  position: relative; width: 95px;
+  -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+  display: none;
+}
+.onoffswitch-label {
+  display: block; overflow: hidden; cursor: pointer;
+  border: 2px solid #4E73DF; border-radius: 15px;
+}
+.onoffswitch-inner {
+  display: block; width: 200%; margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+  display: block; float: left; width: 50%; height: 32px; padding: 0; line-height: 30px;
+  font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+  box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+  font-family: "Font Awesome 5 Free"; font-weight: 900; 
+  content: '\f0c0 Public';
+  padding-left: 9px;
+  background-color: #4E73DF; color: #FFFFFF;
+  
+}
+.onoffswitch-inner:after {
+  font-family: "Font Awesome 5 Free"; font-weight: 900; 
+  content: '\f023 Privé';
+  padding-right: 9px;
+  background-color: #FFFFFF; color: #4E73DF;
+  text-align: center;
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+  margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+  right: 0px; 
+}

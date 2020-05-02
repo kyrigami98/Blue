@@ -34,6 +34,7 @@ include("TRAITEMENT/connexion.php");
 
 							<div class="bg-white py-2 collapse-inner rounded">
 								<div class="card-body">
+									<h6 class="collapse-header">Créer un projet:</h6>
 									<form class="form-signin" action="TRAITEMENT/projet_systeme.php" method="POST">
 										<div class="form-label-group">
 											<input type="text" id="inputProjet" class="form-control" placeholder="Nom du projet" name="projet" required>
@@ -42,6 +43,12 @@ include("TRAITEMENT/connexion.php");
 										<input type="hidden" name="formulaire" value="creer" />
 										<button class="btn btn-lg btn-primary btn-block " type="submit"><i class="fas fa-fw fa-plus"></i> Créer le projet</button>
 									</form>
+
+								</div>
+							</div>
+
+							<div class="bg-white py-2 collapse-inner rounded">
+								<div class="card-body">
 									<h6 class="collapse-header">Mes autres projets:</h6>
 									<?php
 									$requete = $bdd->prepare('SELECT * FROM projet WHERE id_utilisateur = :id ORDER BY id_projet');
@@ -77,20 +84,26 @@ include("TRAITEMENT/connexion.php");
 						Options Générales
 					</div>
 
-
 					<!-- Nav Item - Utilities Collapse Menu -->
 					<li class="nav-item">
 						<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-							<i class="fas fa-fw fa-wrench"></i>
-							<span>Options</span>
+							<i class="fas fa-fw fa-lock"></i>
+							<span>Confidentialité</span>
 						</a>
 						<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 							<div class="bg-white py-2 collapse-inner rounded">
-								<h6 class="collapse-header">les gens qui peuvent voir</h6>
-								<a class="collapse-item" href="utilities-color.html">Colors</a>
-								<a class="collapse-item" href="utilities-border.html">Borders</a>
-								<a class="collapse-item" href="utilities-animation.html">Animations</a>
-								<a class="collapse-item" href="utilities-other.html">Other</a>
+
+								<h6 class="collapse-header">Visibilité de <?= $_SESSION['titre_projet'] ?></h6>
+
+								<div class="img-responsive collapse-item d-flex justify-content-center">
+									<div class="onoffswitch">
+										<input type="checkbox" name="visibilite" data-on="public" data-off="privé" class="onoffswitch-checkbox" id="<?php echo $_SESSION['id']; ?>">
+										<label class="onoffswitch-label" for="<?php echo $_SESSION['id']; ?>">
+											<span class="onoffswitch-inner"></span>
+										</label>
+									</div>
+								</div>
+
 							</div>
 						</div>
 					</li>
@@ -104,37 +117,34 @@ include("TRAITEMENT/connexion.php");
 						</a>
 						<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 							<div class="bg-white py-2 collapse-inner rounded">
-								<h6 class="collapse-header">Custom Components:</h6>
-								<a class="collapse-item" href="buttons.html">Buttons</a>
-								<a class="collapse-item" href="cards.html">Cards</a>
+								<h6 class="collapse-header">Ajouter un collaborateur</h6>
+								<form class="form-signin card-body" action="" method="POST">
+									<div class="form-label-group">
+										<input type="text" id="inputcollaborateur" class="form-control" placeholder="Nom du projet" name="projet" required>
+										<label for="inputcollaborateur">Email...</label>
+									</div>
+									<input type="hidden" name="formulaire" value="creer" />
+									<button class="btn btn-lg btn-primary btn-block " type="submit"><i class="fas fa-fw fa-user"></i> Ajouter comme collaborateur</button>
+								</form>
 							</div>
-						</div>
-					</li>
-
-					<!-- Divider -->
-					<hr class="sidebar-divider">
-
-					<!-- Heading -->
-					<div class="sidebar-heading">
-						Addons
-					</div>
-
-					<!-- Nav Item - Pages Collapse Menu -->
-					<li class="nav-item">
-						<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-							<i class="fas fa-fw fa-folder"></i>
-							<span>Pages</span>
-						</a>
-						<div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 							<div class="bg-white py-2 collapse-inner rounded">
-								<h6 class="collapse-header">Login Screens:</h6>
-								<a class="collapse-item" href="login.html">Login</a>
-								<a class="collapse-item" href="register.html">Register</a>
-								<a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-								<div class="collapse-divider"></div>
-								<h6 class="collapse-header">Other Pages:</h6>
-								<a class="collapse-item" href="404.html">404 Page</a>
-								<a class="collapse-item" href="blank.html">Blank Page</a>
+								<h6 class="collapse-header">Mes collaborateurs:</h6>
+								<a class="collapse-item" href="#">
+									<?php if ($_SESSION['image']) { ?>
+										<img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/<?php echo $_SESSION['image']; ?>">
+									<?php } else { ?>
+										<img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/STAND.jpg">
+									<?php } ?>
+									<span class="mr-2 d-none d-lg-inline text-gray-600 small"><strong>Hijiri Saito</strong></span>
+								</a>
+								<a class="collapse-item" href="#">
+									<?php if ($_SESSION['image']) { ?>
+										<img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/<?php echo $_SESSION['image']; ?>">
+									<?php } else { ?>
+										<img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/STAND.jpg">
+									<?php } ?>
+									<span class="mr-2 d-none d-lg-inline text-gray-600 small"><strong>Daniels</strong></span>
+								</a>
 							</div>
 						</div>
 					</li>
