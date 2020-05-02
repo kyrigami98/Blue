@@ -189,7 +189,7 @@ include("TRAITEMENT/connexion.php");
 								<!-- Content Row -->
 								<div class="row text-center" id="cible">
 									<div class="profile-head container-fluid">
-										<ul class="nav nav-tabs" id="myTab" role="tablist">
+										<ul class="nav nav-tabs rounded" id="myTab" role="tablist" style="background-color: rgba(0,0,255,0.05)">
 											<li class="nav-item">
 												<a class="nav-link active" id="histoire-tab" data-toggle="tab" href="#histoire" role="tab" aria-controls="histoire" aria-selected="true"><i class="fas fa-fw fa-marker"></i>Histoire</a>
 											</li>
@@ -210,60 +210,57 @@ include("TRAITEMENT/connexion.php");
 											</li>
 										</ul>
 									</div>
-									<div class="col-md-12 container-fluid">
+									<div class="col-md-12 container-fluid rounded">
 										<div class="tab-content profile-tab" id="myTabContent">
 											<div class="tab-pane fade show active" id="histoire" role="tabpanel" aria-labelledby="histoire-tab">
 												<br>
 												<div class="row">
 
-													<?php
-													$requete = $bdd->prepare('SELECT id_chapitre, titre_chapitre, description_chapitre, image_chapitre FROM chapitre, (SELECT id_tome FROM tome WHERE id_projet = :id)resultat WHERE chapitre.id_tome = resultat.id_tome');
+													<div class="card-columns">
 
-													$requete->execute(array('id' => $_SESSION['id_projet']));
+														<?php
+														$requete = $bdd->prepare('SELECT id_chapitre, titre_chapitre, description_chapitre, image_chapitre FROM chapitre, (SELECT id_tome FROM tome WHERE id_projet = :id)resultat WHERE chapitre.id_tome = resultat.id_tome');
 
-													$count = 1;
+														$requete->execute(array('id' => $_SESSION['id_projet']));
 
-													while ($donnee = $requete->fetch()) { ?>
-														<div class="col-xl-3 col-md-6 mb-4">
-															<div class="card border-left-info shadow h-100 py-2">
-																<div class="card-body">
-																	<div class="row no-gutters align-items-center">
-																		<div class="col mr-2">
-																			<div class="font-weight-bold text-info text-uppercase mb-1">Chapitre <?php echo $count; ?></div>
-																			<div class="text-xs text-muted font-weight-bold text-info text-uppercase mb-1"><a href="story.php?id=<?php echo $donnee['id_chapitre']; ?>"><?php echo $donnee['titre_chapitre']; ?></a></div>
-																			<div>
-																				<a href="">
-																					<?php
-																					if ($donnee['image_chapitre'] != "") {
-																					?>
-																						<img class="card-img-top" src="IMAGES/CHAPITRES/<?php echo $donnee['image_chapitre']; ?>" alt="">
-																					<?php } else { ?>
+														$count = 1;
 
-																					<?php } ?>
-																				</a>
-																			</div>
-																			<br />
-																			<div class="row no-gutters align-items-center">
-																				<div class="col">
-																					<?php echo $donnee['description_chapitre']; ?>
-																				</div>
-																			</div>
-																			<br />
-																			<br />
-																			<form action="TRAITEMENT/supprimer.php" method="POST">
-																				<input type="hidden" name="id" value="<?php echo $donnee['id_chapitre']; ?>" />
-																				<input type="hidden" name="supprimer" value="chapitre" />
-																				<button class="btn btn-sm btn-primary shadow-sm" type="submit">Supprimer</button>
-																			</form>
-																		</div>
-																	</div>
+														while ($donnee = $requete->fetch()) { ?>
+															<div class="card shadow">
+																<a href="#">
+																	<?php
+																	if ($donnee['image_chapitre'] != "") {
+																	?>
+																		<img class="card-img-top" src="IMAGES/CHAPITRES/<?php echo $donnee['image_chapitre']; ?>" alt="" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_chapitre']; ?>'>
+																	<?php } else { ?>
+																		<img class="card-img-top" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_chapitre']; ?>'>
+																	<?php } ?>
+																</a>
+
+																<div class="card-body btn-block">
+																	<a href="story.php?id=<?php echo $donnee['id_chapitre']; ?>" class="btn">
+																		<h5 class="card-title">
+																			Chapitre <?php echo $count . ": "; ?>
+																			<?php echo $donnee['titre_chapitre']; ?>
+																		</h5>
+																	</a>
 																</div>
-															</div>
-														</div>
 
-													<?php $count++;
-													}
-													?>
+																<form action="TRAITEMENT/supprimer.php" method="POST">
+																	<input type="hidden" name="id" value="<?php echo $donnee['id_chapitre']; ?>" />
+																	<input type="hidden" name="supprimer" value="chapitre" />
+																	<button type="submit" class="btn btn-danger btn-circle shadow-lg deleteboutton">
+																		<i class="fas fa-trash-alt"></i>
+																	</button>
+																</form>
+
+															</div>
+
+														<?php $count++;
+														} ?>
+
+													</div>
+
 												</div>
 											</div>
 											<div class="tab-pane fade" id="Personnages" role="tabpanel" aria-labelledby="Personnages-tab">
