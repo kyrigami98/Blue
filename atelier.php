@@ -1,11 +1,10 @@
 ﻿<?php
+
 include "INCLUSION/header.php";
 
-if (!isset($_SESSION['pseudo'])) {
-	header('Location: index.php');
-}
+include "INCLUSION/redirection1.php";
 
-include("TRAITEMENT/connexion.php");
+include "TRAITEMENT/connexion.php";
 ?>
 
 <div class="container-fluid">
@@ -97,7 +96,7 @@ include("TRAITEMENT/connexion.php");
 
 								<div class="img-responsive collapse-item d-flex justify-content-center">
 									<div class="onoffswitch">
-										<input type="checkbox" name="visibilite" data-on="public" data-off="privé" class="onoffswitch-checkbox" id="<?php echo $_SESSION['id']; ?>">
+										<input type="checkbox" name="visibilite" data-on="public" data-off="privé" class="onoffswitch-checkbox" id="<?php echo $_SESSION['id']; ?>" <?php if($_SESSION['visibilite'] == "public"){ echo "checked"; } else { } ?> />
 										<label class="onoffswitch-label" for="<?php echo $_SESSION['id']; ?>">
 											<span class="onoffswitch-inner"></span>
 										</label>
@@ -118,33 +117,36 @@ include("TRAITEMENT/connexion.php");
 						<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 							<div class="bg-white py-2 collapse-inner rounded">
 								<h6 class="collapse-header">Ajouter un collaborateur</h6>
-								<form class="form-signin card-body" action="" method="POST">
+								<form class="form-signin card-body" action="TRAITEMENT/atelier_systeme.php" method="POST">
 									<div class="form-label-group">
-										<input type="text" id="inputcollaborateur" class="form-control" placeholder="Nom du projet" name="projet" required>
+										<input type="text" id="inputcollaborateur" class="form-control" placeholder="email collaborateur" name="collaborateur" required>
 										<label for="inputcollaborateur">Email...</label>
 									</div>
-									<input type="hidden" name="formulaire" value="creer" />
+									<input type="hidden" name="formulaire" value="collaborer" />
 									<button class="btn btn-lg btn-primary btn-block " type="submit"><i class="fas fa-fw fa-user"></i> Ajouter comme collaborateur</button>
 								</form>
 							</div>
 							<div class="bg-white py-2 collapse-inner rounded">
 								<h6 class="collapse-header">Mes collaborateurs:</h6>
-								<a class="collapse-item" href="#">
-									<?php if ($_SESSION['image']) { ?>
-										<img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/<?php echo $_SESSION['image']; ?>">
-									<?php } else { ?>
-										<img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/STAND.jpg">
+								<?php
+									$requete = $bdd->prepare('SELECT image_utilisateur, nom_utilisateur FROM collaborer, (SELECT id_utilisateur, image_utilisateur, nom_utilisateur FROM utilisateur)collaborateur WHERE collaborer.id_utilisateur = collaborateur.id_utilisateur AND collaborer.id_projet = :id_projet');
+
+									$requete->execute(array('id_projet' => $_SESSION['id_projet']));
+
+									while($donnee = $requete->fetch())
+									{
+								?>
+									<a class="collapse-item" href="#">
+									<?php if(($donnee['image_utilisateur'] != "")){ ?>
+										<img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/<?php echo $donnee['image_utilisateur']; ?>" />
+									<?php }else{ ?>
+										<img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/STAND.jpg" />
 									<?php } ?>
-									<span class="mr-2 d-none d-lg-inline text-gray-600 small"><strong>Hijiri Saito</strong></span>
-								</a>
-								<a class="collapse-item" href="#">
-									<?php if ($_SESSION['image']) { ?>
-										<img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/<?php echo $_SESSION['image']; ?>">
-									<?php } else { ?>
-										<img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/STAND.jpg">
-									<?php } ?>
-									<span class="mr-2 d-none d-lg-inline text-gray-600 small"><strong>Daniels</strong></span>
-								</a>
+										<span class="mr-2 d-none d-lg-inline text-gray-600 small"><strong><?php echo $donnee['nom_utilisateur']; ?></strong></span>
+									</a>
+								<?php 
+									} 
+								?>
 							</div>
 						</div>
 					</li>
@@ -274,36 +276,30 @@ include("TRAITEMENT/connexion.php");
 													while ($donnee = $requete->fetch()) {
 													?>
 														<div class="col-lg-4 col-sm-8 mb-4">
-															<div class="card h-100">
-																<a href="#">
-																	<?php
-																	if ($donnee['image_personnage'] == "") {
-																	?>
-																		<img class="card-img-top" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="">
-																	<?php } else { ?>
-																		<img class="card-img-top" src="IMAGES/PERSONNAGES/<?php echo $donnee['image_personnage']; ?>" alt="">
+															<div class="card shadow">
+																<a href="">
+																	<?php if($donnee['image_personnage'] != ""){ ?>
+																		<img class="card-img-top" src="IMAGES/PERSONNAGES/<?php echo $donnee['image_personnage']; ?>" alt="" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_personnage']; ?>' />
+																	<?php }else{ ?>
+																		<img class="card-img-top" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_personnage']; ?>' />
 																	<?php } ?>
 																</a>
-																<div class="card-body">
-																	<h4 class="card-title">
-																		<a href="#"><?php echo $donnee['nom_personnage']; ?></a>
-																	</h4>
-																	<p>
-																		<?php echo $donnee['description_personnage']; ?>
-																	</p>
-																	<br />
-																	<a href="modification_personnage.php?id=<?php echo $donnee['id_personnage']; ?>">Details sur l'illustration &rarr;</a>
-																	<br />
-																	<br />
-																	<form action="TRAITEMENT/supprimer.php" method="POST\">
-																		<input type="hidden" name="id" value="<?php echo $donnee['id_personnage']; ?>" />
-																		<input type="hidden" name="supprimer" value="personnage" />
-																		<button class="btn btn-sm btn-primary shadow-sm" type="submit">Supprimer</button>
-																	</form>
+																<div class="card-body btn-block">
+																	<a href="personnage.php?id=<?php echo $donnee['id_personnage']; ?>" class="btn">
+																		<h5 class="card-title">
+																			<?php echo $donnee['nom_personnage']; ?>
+																		</h5>
+																	</a>
 																</div>
+																<form action="TRAITEMENT/supprimer.php" method="POST">
+																	<input type="hidden" name="id" value="<?php echo $donnee['id_personnage']; ?>" />
+																	<input type="hidden" name="supprimer" value="personnage" />
+																	<button type="submit" class="btn btn-danger btn-circle shadow-lg deleteboutton">
+																		<i class="fas fa-trash-alt"></i>
+																	</button>
+																</form>
 															</div>
 														</div>
-
 													<?php }
 													?>
 												</div>
@@ -317,34 +313,31 @@ include("TRAITEMENT/connexion.php");
 
 													$requete->execute(array('id_projet' => $_SESSION['id_projet']));
 
-													while ($donnee = $requete->fetch()) { ?>
-
+													while ($donnee = $requete->fetch()) { 
+													?>
 														<div class="col-lg-4 col-sm-8 mb-4">
-															<div class="card h-100">
-																<a href="#">
-																	<?php if ($donnee['image_creature'] == "") { ?>
-																		<img class="card-img-top" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="">
-																	<?php } else { ?>
-																		<img class="card-img-top" src="IMAGES/CREATURES/<?php echo $donnee['image_creature']; ?>" alt="">
+															<div class="card shadow">
+																<a href="">
+																	<?php if($donnee['image_creature'] != ""){ ?>
+																		<img class="card-img-top" src="IMAGES/CREATURES/<?php echo $donnee['image_creature']; ?>" alt="" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_creature']; ?>' />
+																	<?php }else{ ?>
+																		<img class="card-img-top" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_creature']; ?>' />
 																	<?php } ?>
 																</a>
-																<div class="card-body">
-																	<h4 class="card-title">
-																		<a href="#"><?php echo $donnee['nom_creature']; ?></a>
-																	</h4>
-																	<p>
-																		<?php echo $donnee['description_creature']; ?>
-																	</p>
-																	<br />
-																	<a href="modification_creature.php?id=<?php echo $donnee['id_creature']; ?>">Details sur l'illustration &rarr;</a>
-																	<br />
-																	<br />
-																	<form action="TRAITEMENT/supprimer.php" method="POST">
-																		<input type="hidden" name="id" value="<?php echo $donnee['id_creature']; ?>" />
-																		<input type="hidden" name="supprimer" value="creature" />
-																		<button class="btn btn-sm btn-primary shadow-sm" type="submit">Supprimer</button>
-																	</form>
+																<div class="card-body btn-block">
+																	<a href="creature.php?id=<?php echo $donnee['id_creature']; ?>" class="btn">
+																		<h5 class="card-title">
+																			<?php echo $donnee['nom_creature']; ?>
+																		</h5>
+																	</a>
 																</div>
+																<form action="TRAITEMENT/supprimer.php" method="POST">
+																	<input type="hidden" name="id" value="<?php echo $donnee['id_creature']; ?>" />
+																	<input type="hidden" name="supprimer" value="creature" />
+																	<button type="submit" class="btn btn-danger btn-circle shadow-lg deleteboutton">
+																		<i class="fas fa-trash-alt"></i>
+																	</button>
+																</form>
 															</div>
 														</div>
 													<?php }
@@ -361,31 +354,28 @@ include("TRAITEMENT/connexion.php");
 													$requete->execute(array('id_projet' => $_SESSION['id_projet']));
 
 													while ($donnee = $requete->fetch()) { ?>
-
-
-														<div class="card shadow mb-4 col-lg-4 col-sm-8 mb-4">
-															<div class="card-header py-3">
-																<h6 class="m-0 font-weight-bold text-primary"><?php echo $donnee['nom_lieu']; ?></h6>
-															</div>
-															<div class="card-body">
-																<div class="text-center">
-																	<?php if ($donnee['image_lieu'] == "") { ?>
-																		<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="">
-																	<?php } else { ?>
-																		<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="IMAGES/LIEUX/<?php echo $donnee['image_lieu']; ?>" alt="">
+														<div class="col-lg-4 col-sm-8 mb-4">
+															<div class="card shadow">
+																<a href="">
+																	<?php if($donnee['image_lieu'] != ""){ ?>
+																		<img class="card-img-top" src="IMAGES/LIEUX/<?php echo $donnee['image_lieu']; ?>" alt="" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_lieu']; ?>' />
+																	<?php }else{ ?>
+																		<img class="card-img-top" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_lieu']; ?>' />
 																	<?php } ?>
+																</a>
+																<div class="card-body btn-block">
+																	<a href="lieu.php?id=<?php echo $donnee['id_lieu']; ?>" class="btn">
+																		<h5 class="card-title">
+																			<?php echo $donnee['nom_lieu']; ?>
+																		</h5>
+																	</a>
 																</div>
-																<p>
-																	<?php echo $donnee['description_lieu']; ?>
-																</p>
-																<br />
-																<a href="modification_lieu.php?id=<?php echo $donnee['id_lieu']; ?>">Details sur l'illustration &rarr;</a>
-																<br />
-																<br />
 																<form action="TRAITEMENT/supprimer.php" method="POST">
 																	<input type="hidden" name="id" value="<?php echo $donnee['id_lieu']; ?>" />
 																	<input type="hidden" name="supprimer" value="lieu" />
-																	<button class="btn btn-sm btn-primary shadow-sm" type="submit">Supprimer</button>
+																	<button type="submit" class="btn btn-danger btn-circle shadow-lg deleteboutton">
+																		<i class="fas fa-trash-alt"></i>
+																	</button>
 																</form>
 															</div>
 														</div>
@@ -409,7 +399,7 @@ include("TRAITEMENT/connexion.php");
 																<div class="card-body">
 																	<div class="row no-gutters align-items-center">
 																		<div class="col mr-2">
-																			<div class="h5 mb-0 font-weight-bold text-primary"><a href="modification_terme.php?id=<?php echo $donnee['id_terme']; ?>"><?php echo $donnee['nom_terme']; ?></a></div>
+																			<div class="h5 mb-0 font-weight-bold text-primary"><a href="terme.php?id=<?php echo $donnee['id_terme']; ?>"><?php echo $donnee['nom_terme']; ?></a></div>
 																			<div class="">
 																				<?php echo $donnee['description_terme']; ?>
 																			</div>
@@ -439,36 +429,29 @@ include("TRAITEMENT/connexion.php");
 													$requete->execute(array('id_projet' => $_SESSION['id_projet']));
 
 													while ($donnee = $requete->fetch()) { ?>
-														<div class="col-xl-4 col-md-6 mb-4">
-															<div class="card border-left-info shadow h-100 py-2">
-																<div class="card-body">
-																	<div class="row no-gutters align-items-center">
-																		<div class="col mr-2">
-																			<div class="font-weight-bold text-info text-uppercase mb-1"><?php echo $donnee['titre_illustration']; ?></div>
-																			<div class="row no-gutters align-items-center">
-																				<div class="col">
-																					<a href="modification_illustration.php?id=<?php echo $donnee['id_illustration']; ?>">
-																						<?php if ($donnee['image_illustration'] == "") { ?>
-																							<img class="card-img-top" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png\" alt="">
-																						<?php } else { ?>
-																							<img class="card-img-top" src="IMAGES/ILLUSTRATIONS/<?php echo $donnee['image_illustration']; ?>" alt="">
-																						<?php } ?>
-																					</a>
-																				</div>
-																				<div class="">
-																					<?php echo $donnee['description_illustration']; ?>
-																				</div>
-																			</div>
-																			<br />
-																			<br />
-																			<form action="TRAITEMENT/supprimer.php" method="POST">
-																				<input type="hidden" name="id" value="<?php echo $donnee['id_illustration']; ?>" />
-																				<input type="hidden" name="supprimer" value="illustration" />
-																				<button class="btn btn-sm btn-primary shadow-sm" type="submit">Supprimer</button>
-																			</form>
-																		</div>
-																	</div>
+														<div class="col-lg-4 col-sm-8 mb-4">
+															<div class="card shadow">
+																<a href="">
+																	<?php if($donnee['image_illustration'] != ""){ ?>
+																		<img class="card-img-top" src="IMAGES/ILLUSTRATIONS/<?php echo $donnee['image_illustration']; ?>" alt="" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_illustration']; ?>' />
+																	<?php }else{ ?>
+																		<img class="card-img-top" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_illustration']; ?> />
+																	<?php } ?>
+																</a>
+																<div class="card-body btn-block">
+																	<a href="illustration.php?id=<?php echo $donnee['id_illustration']; ?>" class="btn">
+																		<h5 class="card-title">
+																			<?php echo $donnee['titre_illustration']; ?>
+																		</h5>
+																	</a>
 																</div>
+																<form action="TRAITEMENT/supprimer.php" method="POST">
+																	<input type="hidden" name="id" value="<?php echo $donnee['id_illustration']; ?>" />
+																	<input type="hidden" name="supprimer" value="illustration" />
+																	<button type="submit" class="btn btn-danger btn-circle shadow-lg deleteboutton">
+																		<i class="fas fa-trash-alt"></i>
+																	</button>
+																</form>
 															</div>
 														</div>
 													<?php

@@ -1,15 +1,25 @@
 <?php
 session_start();
 
+include "../INCLUSION/redirection2.php";
+
 if (isset($_POST['formulaire'])) {
 	if ($_POST['formulaire'] == "creer") {
 		$projet = $_POST['projet'];
+		if(isset($_POST['visibilite']))
+		{
+			$visibilite = "public";
+		}
+		else
+		{
+			$visibilite = "private";
+		}
 
 		include("connexion.php");
 
-		$requete = $bdd->prepare('INSERT INTO `projet`(`id_projet`, `titre_projet`, `id_utilisateur`)VALUES(NULL, :nom, :id)');
+		$requete = $bdd->prepare('INSERT INTO `projet`(`id_projet`, `titre_projet`, `visibilite`, `id_utilisateur`)VALUES(NULL, :nom, :visibilite, :id)');
 
-		$requete->execute(array('nom' => $projet, 'id' => $_SESSION['id']));
+		$requete->execute(array('nom' => $projet, 'visibilite' => $visibilite, 'id' => $_SESSION['id']));
 
 		$requete->closeCursor();
 
@@ -21,6 +31,7 @@ if (isset($_POST['formulaire'])) {
 				$_SESSION['titre_projet'] = $donnee['titre_projet'];
 				$_SESSION['likes'] = $donnee['likes_projet'];
 				$_SESSION['followers'] = $donnee['followers_projet'];
+				$_SESSION['visibilite'] = $donnee['visibilite'];
 
 				$requete->closeCursor();
 

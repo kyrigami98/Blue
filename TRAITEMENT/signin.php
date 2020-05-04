@@ -25,6 +25,9 @@
 			$_SESSION['titre_projet'] = $donnee2['titre_projet'];
 			$_SESSION['likes'] = $donnee2['likes_projet'];
 			$_SESSION['followers'] = $donnee2['followers_projet'];
+			$_SESSION['visibilite'] = $donnee2['visibilite'];
+
+			die($_SESSION['visibilite']);
 
 			$requete1->closeCursor();
 

@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+include "../INCLUSION/redirection2.php";
+
 if (isset($_POST['supprimer'])) {
 	include("connexion.php");
 

@@ -1,6 +1,8 @@
 <?php
 include "INCLUSION/header.php";
 
+include "INCLUSION/redirection1.php";
+
 include "TRAITEMENT/connexion.php";
 
 $requete = $bdd->prepare('SELECT * FROM chapitre WHERE id_chapitre = :id');

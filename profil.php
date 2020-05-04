@@ -1,9 +1,13 @@
 ﻿<?php
-include "INCLUSION/header.php";
 
-if (!isset($_SESSION['pseudo'])) {
-	header('Location: index.php');
-}
+include("INCLUSION/header.php");
+
+include("INCLUSION/redirection1.php");
+
+include("TRAITEMENT/connexion.php");
+
+include("INCLUSION/nombre_projets.php");
+
 ?>
 <div class="container">
 	<div class="card border-0 shadow my-5">
@@ -150,7 +154,7 @@ if (!isset($_SESSION['pseudo'])) {
 
 												<div class="pull-right img-responsive">
 													<div class="onoffswitch">
-														<input type="checkbox" name="visibilite" data-on="public" data-off="privé" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+														<input type="checkbox" name="visibilite" data-on="public" data-off="privé" class="onoffswitch-checkbox" id="myonoffswitch" />
 														<label class="onoffswitch-label" for="myonoffswitch">
 															<span class="onoffswitch-inner"></span>
 														</label>
@@ -187,7 +191,6 @@ if (!isset($_SESSION['pseudo'])) {
 											</h4>
 											<div class="row">
 												<?php
-												include("TRAITEMENT/connexion.php");
 
 												$requete = $bdd->query('SELECT * FROM projet ORDER BY id_projet DESC');
 
@@ -224,7 +227,7 @@ if (!isset($_SESSION['pseudo'])) {
 
 																			<div class="pull-right img-responsive">
 																				<div class="onoffswitch">
-																					<input type="checkbox" name="visibilite" data-on="public" data-off="privé" class="onoffswitch-checkbox" id="<?php echo $donnee['id_projet']; ?>">
+																					<input type="checkbox" name="visibilite" data-on="public" data-off="privé" class="onoffswitch-checkbox" id="<?php echo $donnee['id_projet']; ?>" <?php if($donnee['visibilite'] == "public"){ echo "checked"; } else { } ?> />
 																					<label class="onoffswitch-label" for="<?php echo $donnee['id_projet']; ?>">
 																						<span class="onoffswitch-inner"></span>
 																					</label>
@@ -343,9 +346,7 @@ if (!isset($_SESSION['pseudo'])) {
 			} else {
 				selectedData = $(this).attr('data-off');
 			}
-
 			console.log('Selected data: ' + selectedData);
-
 		});
 	});
 </script>

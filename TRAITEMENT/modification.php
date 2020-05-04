@@ -9,23 +9,23 @@
     {
         if($_POST['modification'] == "creature")
         {
-            include "update_creature.php";
+            include "modifier_creature.php";
         }
         elseif($_POST['modification'] == "illustration")
         {
-            include "update_illustration.php";
+            include "modifier_illustration.php";
         }
         elseif($_POST['modification'] == "lieu")
         {
-            include "update_lieu.php";
+            include "modifier_lieu.php";
         }
         elseif($_POST['modification'] == "personnage")
         {
-            include "update_personnage.php";
+            include "modifier_personnage.php";
         }
         elseif($_POST['modification'] == "terme")
         {
-            include "update_terme.php";
+            include "modifier_terme.php";
         }
     }
 ?>

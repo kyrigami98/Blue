@@ -1,7 +1,9 @@
 <?php
 session_start();
 
-include("connexion.php");
+include "../INCLUSION/redirection2.php";
+
+include "connexion.php";
 
 if ($_POST['formulaire'] == "projet") {
 	$id = $_POST['id'];
@@ -16,6 +18,7 @@ if ($_POST['formulaire'] == "projet") {
 	$_SESSION['titre_projet'] = $donnee['titre_projet'];
 	$_SESSION['likes'] = $donnee['likes_projet'];
 	$_SESSION['followers'] = $donnee['followers_projet'];
+	$_SESSION['visibilite'] = $donnee['visibilite'];
 
 	$requete->closeCursor();
 
@@ -26,6 +29,8 @@ if ($_POST['formulaire'] == "projet") {
 	$requete->closeCursor();
 
 	header('Location: ../atelier.php');
+} elseif($_POST['formulaire'] == "collaborer"){
+	include "ajouter_collaborateur.php";
 } else {
 	$nom = $_POST['nom'];
 	$desc = $_POST['description'];
@@ -35,16 +40,16 @@ if ($_POST['formulaire'] == "projet") {
 	$taille_max = 4000000;
 
 	if ($_POST['formulaire'] == "chapitre") {
-		include("chapitre.php");
+		include("ajouter_chapitre.php");
 	} elseif ($_POST['formulaire'] == "personnage") {
-		include("personnage.php");
+		include("ajouter_personnage.php");
 	} elseif ($_POST['formulaire'] == "creature") {
-		include("creature.php");
+		include("ajouter_creature.php");
 	} elseif ($_POST['formulaire'] == "lieu") {
-		include("lieu.php");
+		include("ajouter_lieu.php");
 	} elseif ($_POST['formulaire'] == "cle") {
-		include("cle.php");
+		include("ajouter_terme.php");
 	} elseif ($_POST['formulaire'] == "illustration") {
-		include("illustration.php");
+		include("ajouter_illustration.php");
 	}
 }

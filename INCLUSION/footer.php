@@ -1,4 +1,4 @@
-
+<?php if(isset($_SESSION['pseudo'])){ ?>
 <div class="floating">
 	<a href="#" class="float">
 		<i id="floatbutton" class="fa fa-plus my-float"></i>
@@ -36,6 +36,7 @@
 		</li>
 	</ul>
 </div>
+<?php } ?>
 
 <!-- Footer -->
 

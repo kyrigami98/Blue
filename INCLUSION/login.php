@@ -55,7 +55,8 @@ include("TRAITEMENT/connexion.php");
 
 		<div class="card-columns">
 			<?php
-			$requete = $bdd->query('SELECT * FROM projet ORDER BY id_projet DESC LIMIT 6');
+			//LIMIT 6
+			$requete = $bdd->query('SELECT * FROM projet WHERE visibilite = "public" ORDER BY id_projet DESC');
 			while ($donnee = $requete->fetch()) { ?>
 				<div class="card">
 					<?php if ($donnee['image_projet'] == "") { ?>
@@ -103,49 +104,49 @@ include("TRAITEMENT/connexion.php");
 </div>
 <!-- /.container -->
 <?php
-if (!isset($_SESSION['pseudo'])) {
-	echo
-		"<div id=\"inscription\" class=\"row\">
-      <div class=\"col-lg-10 col-xl-9 mx-auto\">
-        <div class=\"card card-signin flex-row my-5\" style=\"  background-color: rgba(0, 0, 10, 0.8);\">
-          <div class=\"card-img-left d-none d-md-flex\">
+if (!isset($_SESSION['pseudo'])) { ?>
+		<div id="inscription" class="row">
+      <div class="col-lg-10 col-xl-9 mx-auto">
+        <div class="card card-signin flex-row my-5" style="background-color: rgba(0, 0, 10, 0.8);">
+          <div class="card-img-left d-none d-md-flex">
              <!-- Background image for card set in CSS! -->
           </div>
-          <div class=\"card-body\">
-            <h5 class=\"card-title text-center\" style=\"color:White;\">Rejoins Blue !</h5>				
-			<form id=\"inscription\" class=\"form-signin\" action=\"TRAITEMENT/systeme.php\" method=\"POST\">
-              <div class=\"form-label-group\">
-                <input type=\"text\" id=\"inputUserame\" class=\"form-control\" placeholder=\"Username\" name=\"pseudo\" required autofocus>
-                <label for=\"inputUserame\">Pseudo</label>
+          <div class="card-body">
+            <h5 class="card-title text-center" style="color:White;">Rejoins Blue !</h5>				
+			<form id="inscription" class="form-signin" action="TRAITEMENT/systeme.php" method="POST">
+              <div class="form-label-group">
+                <input type="text" id="inputUserame" class="form-control" placeholder="Username" name="pseudo" required autofocus>
+                <label for="inputUserame">Pseudo</label>
               </div>
 
-              <div class=\"form-label-group\">
-                <input type=\"email\" id=\"inputEmail\" class=\"form-control\" placeholder=\"Email address\" name=\"email\" required>
-                <label for=\"inputEmail\">Email</label>
+              <div class="form-label-group">
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required>
+                <label for="inputEmail">Email</label>
               </div>
               
               <hr>
 
-              <div class=\"form-label-group\">
-                <input type=\"password\" id=\"inputPassword\" class=\"form-control\" placeholder=\"Password\" name=\"password\" required>
-                <label for=\"inputPassword\">Mot de passe</label>
+              <div class="form-label-group">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
+                <label for="inputPassword">Mot de passe</label>
               </div>
               
-              <div class=\"form-label-group\">
-                <input type=\"password\" id=\"inputConfirmPassword\" class=\"form-control\" placeholder=\"Password\" required>
-                <label for=\"inputConfirmPassword\">Confirmer le mot de passe</label>
+              <div class="form-label-group">
+                <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Password" required>
+                <label for="inputConfirmPassword">Confirmer le mot de passe</label>
               </div>
 			  
-			  <div class=\"form-label-group\">        
-			  <div class=\"form-check\">
-			  <label class=\"form-check-label\">
-				<input type=\"checkbox\" class=\"form-check-input\" value=\"\" style=\"color:white;\">J'ai lu et j\'accepte les <a href=\"\">conditions d'utilisation<a>
+			  <div class="form-label-group">        
+			  <div class="form-check">
+			  <label class="form-check-label">
+				<input type="checkbox" class="form-check-input" value="" style="color:white;" required>J'ai lu et j'accepte les <a href="">conditions d'utilisation<a>
 			  </label>
 			</div>
 			 </div>
-				<input type=\"hidden\" name=\"formulaire\" value=\"inscription\" />
-              <button class=\"btn btn-lg btn-primary btn-block text-uppercase\" type=\"submit\">S'inscrire</button>
-              <a class=\"d-block text-center mt-2 small\" href=\"#\" data-toggle=\"modal\" data-target=\".bd-example-modal-lg\">J'ai deja un compte</a>
+				<input type="hidden" name="formulaire" value="inscription" />
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">S'inscrire</button>
+			  <a class="d-block text-center mt-2 small" href="#" data-toggle="modal" data-target=".bd-example-modal-lg">J'ai deja un compte</a>
+			  <div class="text-center" id="resultat"></div>
              
            
 		   </form>
@@ -153,7 +154,38 @@ if (!isset($_SESSION['pseudo'])) {
         </div>
       </div>
     </div>
-		
+	<script>
+		$(document).on("submit", "#inscription", function(event){
+			pseudo = $(this).find("input[name=pseudo]").val();
+			email = $(this).find("input[name=email]").val();
+			password = $(this).find("input[name=password]").val();
+			formulaire = $(this).find("input[name=formulaire]").val();
+
+			$.ajax({
+				url: 'TRAITEMENT/systeme.php',
+				type: 'POST',
+				dataType: 'JSON',
+				data: {
+					formulaire: formulaire,
+					pseudo: pseudo,
+					email: email,
+					password: password
+				},
+				success: function(data){
+					console.log(data);
+					if(data.success == true && data.url != ""){
+						location.reload(true);
+					}
+					else{
+						$("#resultat").text(data.message).fadeIn(500);
+					}
+				},
+				error: function(data){
+					$('#resultat').removeClass('bg-success').addClass('bg-danger').text('Oups... une erreur est survenue!').fadeIn(500);
+				}
+			});
+			event.preventDefault();
+		});
 	</script>
-	";
-}
+<?php }
+?>

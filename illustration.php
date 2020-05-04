@@ -1,9 +1,12 @@
 <?php
+
 include "INCLUSION/header.php";
+
+include "INCLUSION/redirection1.php";
 
 include "TRAITEMENT/connexion.php";
 
-$requete = $bdd->prepare('SELECT * FROM lieu WHERE id_lieu = :id');
+$requete = $bdd->prepare('SELECT * FROM illustration WHERE id_illustration = :id');
 
 $requete->execute(array('id' => $_GET['id']));
 
@@ -17,13 +20,13 @@ $donnee = $requete->fetch();
                 <div class="card-img-left d-none d-md-flex col-md-6" style="background-image: url('');">
                     <div class="profile-img">
                         <br />
-                        <?php if($donnee['image_lieu'] != ""){ ?>
-                            <img class="avatar rounded img-fluid" src="IMAGES/LIEUX/<?php echo $donnee['image_lieu']; ?>" alt="<?php echo $donnee['image_lieu']; ?>" />
+                        <?php if($donnee['image_illustration'] != ""){ ?>
+                            <img class="avatar rounded img-fluid" src="IMAGES/ILLUSTRATIONS/<?php echo $donnee['image_illustration']; ?>" alt="<?php echo $donnee['image_illustration']; ?>" />
                         <?php }else{ ?>
                             <img class="avatar rounded img-fluid" src="IMAGES/PROFILS/STAND.jpg" alt="image par defaut" />
                         <?php } ?>
                         <div class="file btn btn-lg btn-primary">
-                            <?php echo $donnee['nom_lieu']; ?>
+                            <?php echo $donnee['titre_illustration']; ?>
                             <input type="file" name="image" class="file-upload" />
                         </div>
                     </div>
@@ -33,14 +36,14 @@ $donnee = $requete->fetch();
                         Modification
                     </h5>
                     <div class="form-label-group">
-                        <input type="text" id="lieu" class="form-control" placeholder="nom du lieu" name="nom" value="<?php echo $donnee['nom_lieu']; ?>" required />
-                        <label for="lieu">Nom du lieu</label>
+                        <input type="text" id="illustration" class="form-control" placeholder="titre de l'illustration" name="nom" value="<?php echo $donnee['titre_illustration']; ?>" required />
+                        <label for="illustration">Titre de l'illustration</label>
                     </div>
                     <div class="form-label-group">
-                        <textarea type="text" rows="7" class="form-control" placeholder="description du lieu..." name="description"><?php echo $donnee['description_lieu']; ?></textarea>
+                        <textarea type="text" rows="7" class="form-control" placeholder="description de l'illustration..." name="description"><?php echo $donnee['description_illustration']; ?></textarea>
                     </div>
                     <hr />
-                    <input type="hidden" name="modification" value="lieu" />
+                    <input type="hidden" name="modification" value="illustration" />
                     <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
                     <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Modifier</button>
                 </div>

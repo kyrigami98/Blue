@@ -11,7 +11,7 @@ $requete = $bdd->query('SELECT email_utilisateur FROM utilisateur');
 
 while ($donnee = $requete->fetch()) {
 	if ($donnee['email_utilisateur'] == $email) {
-		echo "l'email entre existe deja";
+		returnJson(false, "", "l'email entré existe déjà");
 		$existe = true;
 	}
 }
@@ -23,7 +23,7 @@ if ($existe == false) {
 
 	$requete->execute(array('pseudo' => $pseudo, 'email' => $email, 'password' => $password));
 
-	echo "l'inscription a bien ete faite";
+	returnJson(true, "index.php", "l'inscription a bien été faite");
 }
 
 $requete->closeCursor();
