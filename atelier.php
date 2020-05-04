@@ -268,6 +268,7 @@ include "TRAITEMENT/connexion.php";
 											<div class="tab-pane fade" id="Personnages" role="tabpanel" aria-labelledby="Personnages-tab">
 												<br>
 												<div class="row">
+													<div class="card-columns">
 													<?php
 													$requete = $bdd->prepare('SELECT personnage.id_personnage, nom_personnage, description_personnage, image_personnage FROM personnage, intervenir WHERE personnage.id_personnage = intervenir.id_personnage AND intervenir.id_projet = :id_projet ORDER BY id_personnage DESC');
 
@@ -275,7 +276,6 @@ include "TRAITEMENT/connexion.php";
 
 													while ($donnee = $requete->fetch()) {
 													?>
-														<div class="col-lg-4 col-sm-8 mb-4">
 															<div class="card shadow">
 																<a href="">
 																	<?php if($donnee['image_personnage'] != ""){ ?>
@@ -299,15 +299,15 @@ include "TRAITEMENT/connexion.php";
 																	</button>
 																</form>
 															</div>
-														</div>
 													<?php }
 													?>
+												</div>
 												</div>
 											</div>
 											<div class="tab-pane fade show" id="Bestiaire" role="tabpanel" aria-labelledby="Bestiaire-tab">
 												<br>
 												<div class="row">
-
+												<div class="card-columns">
 													<?php
 													$requete = $bdd->prepare('SELECT creature.id_creature, nom_creature, description_creature, image_creature FROM creature, apparaitre WHERE creature.id_creature = apparaitre.id_creature AND apparaitre.id_projet = :id_projet ORDER BY id_creature DESC');
 
@@ -315,7 +315,6 @@ include "TRAITEMENT/connexion.php";
 
 													while ($donnee = $requete->fetch()) { 
 													?>
-														<div class="col-lg-4 col-sm-8 mb-4">
 															<div class="card shadow">
 																<a href="">
 																	<?php if($donnee['image_creature'] != ""){ ?>
@@ -339,22 +338,21 @@ include "TRAITEMENT/connexion.php";
 																	</button>
 																</form>
 															</div>
-														</div>
 													<?php }
 													?>
+												</div>
 												</div>
 											</div>
 											<div class="tab-pane fade show" id="Lieux" role="tabpanel" aria-labelledby="Lieux-tab">
 												<br>
 												<div class="row">
-
+												<div class="card-columns">
 													<?php
 													$requete = $bdd->prepare('SELECT lieu.id_lieu, nom_lieu, description_lieu, image_lieu FROM lieu, visiter WHERE lieu.id_lieu = visiter.id_lieu AND visiter.id_projet = :id_projet ORDER BY id_lieu DESC');
 
 													$requete->execute(array('id_projet' => $_SESSION['id_projet']));
 
 													while ($donnee = $requete->fetch()) { ?>
-														<div class="col-lg-4 col-sm-8 mb-4">
 															<div class="card shadow">
 																<a href="">
 																	<?php if($donnee['image_lieu'] != ""){ ?>
@@ -387,14 +385,13 @@ include "TRAITEMENT/connexion.php";
 											<div class="tab-pane fade show" id="Termes" role="tabpanel" aria-labelledby="Termes-tab">
 												<br>
 												<div class="row">
-
+												<div class="card-columns">
 													<?php
 													$requete = $bdd->prepare('SELECT terme.id_terme, nom_terme, description_terme FROM terme, citer WHERE terme.id_terme = citer.id_terme AND citer.id_projet = :id_projet ORDER BY id_terme DESC');
 
 													$requete->execute(array('id_projet' => $_SESSION['id_projet']));
 
 													while ($donnee = $requete->fetch()) { ?>
-														<div class="col-xl-3 col-md-6 mb-4">
 															<div class="card border-left-primary shadow h-100 py-2">
 																<div class="card-body">
 																	<div class="row no-gutters align-items-center">
@@ -414,28 +411,27 @@ include "TRAITEMENT/connexion.php";
 																	</div>
 																</div>
 															</div>
-														</div>
 													<?php }
 													?>
+												</div>
 												</div>
 											</div>
 											<div class="tab-pane fade show" id="Illustrations" role="tabpanel" aria-labelledby="Illustrations-tab">
 												<br>
 												<div class="row">
-
+												<div class="card-columns">
 													<?php
 													$requete = $bdd->prepare('SELECT * FROM illustration WHERE id_projet = :id_projet ORDER BY id_illustration DESC');
 
 													$requete->execute(array('id_projet' => $_SESSION['id_projet']));
 
 													while ($donnee = $requete->fetch()) { ?>
-														<div class="col-lg-4 col-sm-8 mb-4">
 															<div class="card shadow">
 																<a href="">
 																	<?php if($donnee['image_illustration'] != ""){ ?>
 																		<img class="card-img-top" src="IMAGES/ILLUSTRATIONS/<?php echo $donnee['image_illustration']; ?>" alt="" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_illustration']; ?>' />
 																	<?php }else{ ?>
-																		<img class="card-img-top" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_illustration']; ?> />
+																		<img class="card-img-top" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_illustration']; ?>' />
 																	<?php } ?>
 																</a>
 																<div class="card-body btn-block">
@@ -453,10 +449,10 @@ include "TRAITEMENT/connexion.php";
 																	</button>
 																</form>
 															</div>
-														</div>
 													<?php
 													}
 													?>
+													</div>
 												</div>
 											</div>
 										</div>
