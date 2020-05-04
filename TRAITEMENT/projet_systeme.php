@@ -3,6 +3,11 @@ session_start();
 
 include "../INCLUSION/redirection2.php";
 
+include "fonctions.php";
+
+include "connexion.php";
+
+
 if (isset($_POST['formulaire'])) {
 	if ($_POST['formulaire'] == "creer") {
 		$projet = $_POST['projet'];
@@ -12,10 +17,8 @@ if (isset($_POST['formulaire'])) {
 		}
 		else
 		{
-			$visibilite = "private";
+			$visibilite = "privé";
 		}
-
-		include("connexion.php");
 
 		$requete = $bdd->prepare('INSERT INTO `projet`(`id_projet`, `titre_projet`, `visibilite`, `id_utilisateur`)VALUES(NULL, :nom, :visibilite, :id)');
 
@@ -44,7 +47,32 @@ if (isset($_POST['formulaire'])) {
 				header('Location: ../atelier.php');
 			}
 		}
-	} else {
+	} 
+	elseif($_POST['formulaire'] == "visibilite") 
+	{
+		if(isset($_POST['id']))
+		{
+			$requete = $bdd->prepare('UPDATE projet SET visibilite = :visibilite WHERE id_projet = :id_projet');
+
+			$requete->execute(array('visibilite' => $_POST['visibilite'], 'id_projet' =>$_POST['id']));
+
+			$requete->closeCursor();
+
+			$_SESSION['visibilite'] = $_POST['visibilite'];
+		}
+		else
+		{
+			$requete = $bdd->prepare('UPDATE projet SET visibilite = :visibilite WHERE id_projet = :id_projet');
+
+			$requete->execute(array('visibilite' => $_POST['visibilite'], 'id_projet' =>$_SESSION['id_projet']));
+
+			$requete->closeCursor();
+
+			$_SESSION['visibilite'] = $_POST['visibilite'];
+		}
 	}
-} else {
+} 
+else 
+{
+
 }

@@ -227,7 +227,7 @@ include("INCLUSION/nombre_projets.php");
 
 																			<div class="pull-right img-responsive">
 																				<div class="onoffswitch">
-																					<input type="checkbox" name="visibilite" data-on="public" data-off="privé" class="onoffswitch-checkbox" id="<?php echo $donnee['id_projet']; ?>" <?php if($donnee['visibilite'] == "public"){ echo "checked"; } else { } ?> />
+																					<input type="checkbox" name="visibilite" data-on="public" data-off="privé" class="onoffswitch-checkbox" id="<?php echo $donnee['id_projet']; ?>" onchange="changer(<?php echo $donnee['id_projet']; ?>);" <?php if($donnee['visibilite'] == "public"){ echo "checked"; } else { } ?> />
 																					<label class="onoffswitch-label" for="<?php echo $donnee['id_projet']; ?>">
 																						<span class="onoffswitch-inner"></span>
 																					</label>
@@ -335,20 +335,34 @@ include("INCLUSION/nombre_projets.php");
 
 
 <script>
-	$(document).ready(function() {
-		$('#myonoffswitch').on('change', function() {
-			var isChecked = $(this).is(':checked');
-			var selectedData;
-			console.log('isChecked: ' + isChecked);
+	function changer(id){
+		var valeur = '#'+id;
+		var isChecked = $(valeur).is(':checked');
+		var selectData;
 
-			if (isChecked) {
-				selectedData = $(this).attr('data-on');
-			} else {
-				selectedData = $(this).attr('data-off');
+		if(isChecked){
+			selectedData = $(valeur).attr('data-on');
+		}
+		else{
+			selectedData = $(valeur).attr('data-off');
+		}
+
+		var formulaire = "visibilite";
+
+		$.ajax({
+			url: 'TRAITEMENT/projet_systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				id: id,
+				formulaire: formulaire,
+				visibilite: selectedData
+			},
+			success: function(data){
+				alert(data.message)
 			}
-			console.log('Selected data: ' + selectedData);
 		});
-	});
+	}
 </script>
 
 <?php

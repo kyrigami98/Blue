@@ -473,6 +473,36 @@ include "TRAITEMENT/connexion.php";
 	</div>
 </div>
 
+<script>
+	$(document).ready(function() {
+		$('#<?php echo $_SESSION['id']; ?>').on('change', function() {
+			var isChecked = $(this).is(':checked');
+			var selectedData;
+
+			if (isChecked) {
+				selectedData = $(this).attr('data-on');
+			} else {
+				selectedData = $(this).attr('data-off');
+			}
+			
+			var formulaire = "visibilite";
+
+			$.ajax({
+				url: 'TRAITEMENT/projet_systeme.php',
+				type: 'POST',
+				dataType: 'JSON',
+				data: {
+					formulaire: formulaire,
+					visibilite: selectedData
+				},
+				success: function(data){
+					alert(data.message)
+				}
+			});
+		});
+	});
+</script>
+
 <?php
 include "INCLUSION/footer.php";
 ?>
