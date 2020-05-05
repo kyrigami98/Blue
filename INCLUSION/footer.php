@@ -95,7 +95,7 @@
 
 
 <div class="modal fade bd-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel2" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
+	<div class="modal-dialog modal-sm  modal-dialog-centered">
 		<div class="modal-content">
 			<br />
 			<div class="container">
@@ -244,6 +244,58 @@
 </div>
 
 
+<!-- modification projet -->
+<div class="modal fade" id="modif_projet" tabindex="-1" role="dialog" aria-labelledby="modif_projetTitle" aria-hidden="true" style=" background-color: rgba(0, 0, 0, 0.7);">
+	<div class="modal-dialog" role="document">
+		<div class="modal-dialog-centered">
+			<div class="modal-content">
+				<br />
+				<div class="container">
+
+					<form id="modif_projet_form" class="modalForm" action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
+						<div class="profile-img">
+							<img class="avatar rounded img-fluid" src="IMAGES/radiant.jpg" />
+							<div class="file btn btn-sm btn-primary">
+								Choisir une image pour le projet
+								<input type="file" name="image" class="file-upload" />
+							</div>
+							<hr>
+							<div class="form-label-group">
+								<input type="text" id="titre_Projet" value="<?php echo $_SESSION['titre_projet']; ?>" class="form-control" placeholder="Nom de l'illustration" name="nom" required>
+								<label for="titre_Projet"></label>
+							</div>
+							<div class="form-label-group">
+								<input type="text" id="synopsis" class="form-control" placeholder="description de l'illustration" name="description">
+								<label for="synopsis">Synopsis du projet</label>
+							</div>
+							<input type="hidden" name="formulaire" value="update_projet" />
+
+							<button class="btn btn-lg btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
+								<i class="fas fa-fw fa-plus"></i> Mettre à jour
+							</button>
+							<br />
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- image reader -->
+<div class="modal fade" id="imageReader" tabindex="-1" role="dialog" aria-labelledby="imageReaderTitle" aria-hidden="true" style=" background-color: rgba(0, 0, 0, 0.7);">
+	<div class="modal-dialog modal-xl" role="document">
+		<div class="modal-dialog-centered">
+			<div class="modal-body d-flex justify-content-center">
+				<div class="img-responsive">
+					<img id="imageReaderContent" src="" style="max-height:650px;" class="rounded mx-auto d-block">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 <!--*********************Inclusions et importations*********************************************-->
 
 <!-- Core plugin JavaScript-->
@@ -290,6 +342,9 @@
 		$(this).find(".deleteboutton").fadeOut();
 	});
 
+	$(".post").on('click', function() {
+		$("#imageReader").find("#imageReaderContent").attr("src", $(this).find(".card-img-top").attr("src"));
+	});
 </script>
 
 <!--*********************JQuery**************************************************************************-->
