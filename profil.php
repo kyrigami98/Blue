@@ -211,9 +211,13 @@ include("INCLUSION/nombre_projets.php");
 																<i class="fas fa-fw fa-users"></i>
 															</span>
 															<form action="TRAITEMENT/atelier_systeme.php" method="POST">
-																<div class="card h-100">
+																<div class="card h-100" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_projet']; ?>'>
 																	<a href="#">
-																		<img class="card-img-top" src="IMAGES/giphy1.gif" alt="">
+																	<?php if($donnee['image_projet'] == ""){ ?>
+																		<img class="card-img-top" src="IMAGES/giphy1.gif" alt="" />
+																	<?php }else{ ?>
+																		<img class="card-img-top" src="IMAGES/PROJETS/<?php echo $donnee['image_projet']; ?>" alt="" />
+																	<?php } ?>
 																	</a>
 																	<div class="card-body">
 																		<h4 class="card-title">

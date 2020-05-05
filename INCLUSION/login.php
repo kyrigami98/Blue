@@ -58,15 +58,14 @@ include("TRAITEMENT/connexion.php");
 			//LIMIT 6
 			$requete = $bdd->query('SELECT * FROM projet WHERE visibilite = "public" ORDER BY id_projet DESC');
 			while ($donnee = $requete->fetch()) { ?>
-				<div class="card">
-					<?php if ($donnee['image_projet'] == "") { ?>
+				<div class="card" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_projet']; ?>'>
+					<?php if ($donnee['image_projet'] == NULL) { ?>
 						<a href="#"><img class="card-img-top" src="IMAGES/PROJETS/STAND.jpg" alt=""></a>
 					<?php 	} else { ?>
-						<a href="#"><img class="card-img-top" src="../IMAGES/PROJETS/<?= $donnee['image_projet'] ?>" alt=""></a>
+						<a href="#"><img class="card-img-top" src="IMAGES/PROJETS/<?= $donnee['image_projet'] ?>" alt="<?= $donnee['image_projet'] ?>"></a>
 					<?php 	} ?>
 					<div class="card-body">
 						<h5 class="card-title"><?= $donnee['titre_projet'] ?></h5>
-						<p class="card-text"><?= $donnee['description_projet'] ?></p>
 						<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
 					</div>
 				</div>

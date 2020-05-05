@@ -71,6 +71,50 @@ if (isset($_POST['formulaire'])) {
 			$_SESSION['visibilite'] = $_POST['visibilite'];
 		}
 	}
+	elseif($_POST['formulaire'] == "update_projet")
+	{
+
+		if(isset($_FILES['image']) and $_FILES['image']['error'] == 0)
+		{
+			if($_FILES['image']['size'] <= $taille_max)
+			{
+				$image = pathinfo($_FILES['image']['name']);
+				$extension = $image['extension'];
+
+				if(in_array($extension, $extensions_autorisees))
+				{
+					$image = $_SESSION['pseudo'].basename($_FILES['image']['name']);
+					move_uploaded_file($_FILES['image']['tmp_name'], '../IMAGES/PROJETS/'.$image);
+				}
+			}
+		}
+		else
+		{
+			$image = "";
+		}
+
+		if($image == "")
+		{
+			$requete = $bdd->prepare('UPDATE projet SET titre_projet = :titre, description_projet = :description WHERE id_projet = :id');
+
+			$requete->execute(array('titre' => $_POST['titre'], 'description' => $_POST['synopsis'], 'id' => $_SESSION['id_projet']));
+		}
+		else
+		{
+			$requete = $bdd->prepare('UPDATE projet SET titre_projet = :titre, description_projet = :description, image_projet = :image WHERE id_projet = :id');
+
+			$requete->execute(array('titre' => $_POST['titre'], 'description' => $_POST['synopsis'], 'image' => $image, 'id' => $_SESSION['id_projet']));
+
+			$_SESSION['image_projet'] = $image;
+		}
+		$_SESSION['titre_projet'] = $_POST['titre'];
+
+		$_SESSION['synopsis'] = $_POST['synopsis'];
+
+		$requete->closeCursor();
+
+		header('Location: ../atelier.php');
+	}
 } 
 else 
 {

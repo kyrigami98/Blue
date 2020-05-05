@@ -161,9 +161,13 @@ $user = $requete1->fetch();
                                                 ?>
                                                 <i class="fas fa-fw fa-users"></i>
                                             </span>
-                                            <div class="card h-100">
+                                            <div class="card h-100" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_projet']; ?>'>
                                                 <a href="#">
+                                                <?php if($donnee['image_projet'] == ""){ ?>
                                                     <img class="card-img-top" src="IMAGES/giphy1.gif" alt="" />
+                                                <?php }else{ ?>
+                                                    <img class="card-img-top" src="IMAGES/PROJETS/<?php echo $donnee['image_projet']; ?>" alt="" />
+                                                <?php } ?>
                                                 </a>
                                                 <div class="card-body">
                                                     <h4 class="card-title">
@@ -192,7 +196,7 @@ $user = $requete1->fetch();
                                     </h4>
                                     <div class="row">
                                         <?php
-                                            $requete2 = $bdd->prepare('SELECT projet.id_projet, titre_projet, likes_projet, followers_projet FROM collaborer, projet WHERE collaborer.id_projet = projet.id_projet AND collaborer.id_utilisateur = :id ORDER BY collaborer.id_projet DESC');
+                                            $requete2 = $bdd->prepare('SELECT projet.id_projet, image_projet, description_projet, titre_projet, likes_projet, followers_projet FROM collaborer, projet WHERE collaborer.id_projet = projet.id_projet AND collaborer.id_utilisateur = :id ORDER BY collaborer.id_projet DESC');
 
                                             $requete2->execute(array('id' => $_GET['id']));
 
@@ -212,9 +216,13 @@ $user = $requete1->fetch();
                                                 ?>
                                                 <i class="fas fa-fw fa-users"></i>
                                             </span>
-                                            <div class="card h-100">
+                                            <div class="card h-100" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_projet']; ?>'>
                                                 <a href="#">
+                                                <?php if($donnee['image_projet'] == ""){ ?>
                                                     <img class="card-img-top" src="IMAGES/giphy1.gif" alt="" />
+                                                <?php }else{ ?>
+                                                    <img class="card-img-top" src="IMAGES/PROJETS/<?php echo $donnee['image_projet']; ?>" alt="" />
+                                                <?php } ?>
                                                 </a>
                                                 <div class="card-body">
                                                     <h4 class="card-title">

@@ -35,10 +35,6 @@ if ($_POST['formulaire'] == "projet") {
 	$nom = $_POST['nom'];
 	$desc = $_POST['description'];
 
-	$extensions_autorisees = array('jpg', 'jpeg', 'png', 'bmp', 'jpeg', 'gif', 'JPG', 'JPEG', 'PNG', 'BMP', 'JPEG', 'GIF');
-
-	$taille_max = 4000000;
-
 	if ($_POST['formulaire'] == "chapitre") {
 		include("ajouter_chapitre.php");
 	} elseif ($_POST['formulaire'] == "personnage") {
