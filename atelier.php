@@ -117,13 +117,13 @@ include "TRAITEMENT/connexion.php";
 							<div class="bg-white py-2 collapse-inner rounded">
 								<h6 class="collapse-header">Mes collaborateurs:</h6>
 								<?php
-								$requete = $bdd->prepare('SELECT image_utilisateur, nom_utilisateur FROM collaborer, (SELECT id_utilisateur, image_utilisateur, nom_utilisateur FROM utilisateur)collaborateur WHERE collaborer.id_utilisateur = collaborateur.id_utilisateur AND collaborer.id_projet = :id_projet');
+								$requete = $bdd->prepare('SELECT collaborer.id_utilisateur, image_utilisateur, nom_utilisateur FROM collaborer, (SELECT id_utilisateur, image_utilisateur, nom_utilisateur FROM utilisateur)collaborateur WHERE collaborer.id_utilisateur = collaborateur.id_utilisateur AND collaborer.id_projet = :id_projet');
 
 								$requete->execute(array('id_projet' => $_SESSION['id_projet']));
 
 								while ($donnee = $requete->fetch()) {
 								?>
-									<a class="collapse-item" href="#">
+									<a class="collapse-item" href="utilisateur.php?id=<?php echo $donnee['id_utilisateur']; ?>">
 										<?php if (($donnee['image_utilisateur'] != "")) { ?>
 											<img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/<?php echo $donnee['image_utilisateur']; ?>" />
 										<?php } else { ?>
