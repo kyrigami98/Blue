@@ -27,8 +27,6 @@
 			$_SESSION['followers'] = $donnee2['followers_projet'];
 			$_SESSION['visibilite'] = $donnee2['visibilite'];
 
-			die($_SESSION['visibilite']);
-
 			$requete1->closeCursor();
 
 			$requete2->closeCursor();

@@ -17,16 +17,17 @@ $donnee = $requete->fetch();
     <div class="col-lg-10 col-xl-9 mx-auto">
         <div class="card card-signin flex-row my-5" style="background-color: rgba(0, 0, 10, 0.8);">
             <form class="form-signin row" action="TRAITEMENT/modification.php" method="POST" enctype="multipart/form-data">
-                <div class="card-img-left d-none d-md-flex col-md-6" style="background-image: url('');">
-                    <div class="profile-img">
+                <div class="card-img-left d-none d-md-flex col-md-6" style="background-image: url('<?php echo "IMAGES/PERSONNAGES/" . $donnee['image_personnage'] ?>');">
+                    <div class="blur"></div>
+                    <div class="profile-img container align-self-center" style=" z-index:1;">
                         <br />
-                        <?php if($donnee['image_personnage'] != ""){ ?>
+                        <?php if ($donnee['image_personnage'] != "") { ?>
                             <img class="avatar rounded img-fluid" src="IMAGES/PERSONNAGES/<?php echo $donnee['image_personnage']; ?>" alt="<?php echo $donnee['image_personnage']; ?>" />
-                        <?php }else{ ?>
+                        <?php } else { ?>
                             <img class="avatar rounded img-fluid" src="IMAGES/PROFILS/STAND.jpg" alt="image par defaut" />
                         <?php } ?>
                         <div class="file btn btn-lg btn-primary">
-                            <?php echo $donnee['nom_personnage']; ?>
+                            Changer l'image
                             <input type="file" name="image" class="file-upload" />
                         </div>
                     </div>
