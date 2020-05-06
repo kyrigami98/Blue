@@ -345,6 +345,11 @@
 	$(".post").on('click', function() {
 		$("#imageReader").find("#imageReaderContent").attr("src", $(this).find(".card-img-top").attr("src"));
 	});
+
+	$(".zoom").on('click', function() {
+		$("#imageReader").find("#imageReaderContent").attr("src", $(this).attr("src"));
+	});
+
 </script>
 
 <!--*********************JQuery**************************************************************************-->
