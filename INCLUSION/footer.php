@@ -251,21 +251,24 @@
 			<div class="modal-content">
 				<br />
 				<div class="container">
-
-					<form id="modif_projet_form" class="modalForm" action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
+					<form id="modif_projet_form" class="modalForm" action="TRAITEMENT/projet_systeme.php" method="POST" enctype="multipart/form-data">
 						<div class="profile-img">
-							<img class="avatar rounded img-fluid" src="IMAGES/radiant.jpg" />
+							<?php if(isset($_SESSION['image_projet'])){ ?>
+							<img class="avatar rounded img-fluid" src="IMAGES/PROJETS/<?php echo $_SESSION['image_projet']; ?>" alt="<?php echo $_SESSION['titre_projet']; ?>" />
+							<?php }else{ ?>
+								<img class="avatar rounded img-fluid" src="IMAGES/PROJETS/STAND.jpg" alt="" />
+							<?php } ?>
 							<div class="file btn btn-sm btn-primary">
 								Choisir une image pour le projet
 								<input type="file" name="image" class="file-upload" />
 							</div>
 							<hr>
 							<div class="form-label-group">
-								<input type="text" id="titre_Projet" value="<?php echo $_SESSION['titre_projet']; ?>" class="form-control" placeholder="Nom de l'illustration" name="nom" required>
+								<input type="text" id="titre_Projet" value="<?php echo $_SESSION['titre_projet']; ?>" class="form-control" placeholder="titre du projet" name="titre" required>
 								<label for="titre_Projet"></label>
 							</div>
 							<div class="form-label-group">
-								<input type="text" id="synopsis" class="form-control" placeholder="description de l'illustration" name="description">
+								<input type="text" id="synopsis" value="<?php echo $_SESSION['synopsis']; ?>" class="form-control" placeholder="synopsis du projet" name="synopsis">
 								<label for="synopsis">Synopsis du projet</label>
 							</div>
 							<input type="hidden" name="formulaire" value="update_projet" />
@@ -276,7 +279,6 @@
 							<br />
 						</div>
 					</form>
-
 				</div>
 			</div>
 		</div>

@@ -21,4 +21,8 @@ $requete->execute(array('nom' => $nom, 'description' => $desc, 'image' => $image
 
 $requete->closeCursor();
 
+historique($nom, "ILLUSTRATION", "AJOUT", $_SESSION['id_projet'], $_SESSION['id']);
+
 header('Location: ../atelier.php');
+
+?>

@@ -1,9 +1,7 @@
 <?php
     include "connexion.php";
 
-    $extensions_autorisees = array('jpg', 'jpeg', 'png', 'bmp', 'jpeg', 'gif', 'JPG', 'JPEG', 'PNG', 'BMP', 'JPEG', 'GIF');
-
-    $taille_max = 4000000;
+    include "fonctions.php";
 
     if(isset($_POST['modification']))
     {

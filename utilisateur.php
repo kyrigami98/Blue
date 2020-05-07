@@ -6,7 +6,11 @@ include("INCLUSION/redirection1.php");
 
 include("TRAITEMENT/connexion.php");
 
-include("INCLUSION/nombre_projets.php");
+include("TRAITEMENT/fonctions.php");
+
+$projets = nombre_de_projets($_GET['id']);
+
+$followers = nombre_de_followers($_GET['id']);
 
 $requete1 = $bdd->prepare('SELECT image_utilisateur, nom_utilisateur, type_utilisateur, likes_projet, followers_projet FROM utilisateur, projet WHERE utilisateur.id_utilisateur = projet.id_utilisateur AND utilisateur.id_utilisateur = :id');
 
@@ -48,6 +52,23 @@ $user = $requete1->fetch();
                         <?php } ?>
                         <br />
                     </div>
+                    <br />
+                    <?php
+                        $requete3 = $bdd->prepare('SELECT * FROM suivre WHERE id_artiste = :artiste AND id_abonne = :abonne');
+
+                        $requete3->execute(array('artiste' => $_GET['id'], 'abonne' => $_SESSION['id']));
+
+                        $suivi = $requete3->fetch();
+                    ?>
+                    <div class="col-md-12">
+                        <button class="btn btn-md btn-primary" <?php if($suivi == NULL){ echo "style='visibility:visible;position: absolute;'"; }else{ echo "style='visibility:hidden;position: absolute;'"; } ?> id="suivre" onclick="suivre();">
+                            Suivre l'artiste <i class="fas fa-check fa-md"></i>
+                        </button>
+                        <button class="btn btn-md btn-danger" <?php if($suivi == NULL){ echo "style='visibility:hidden;'"; }else{ echo "style='visibility:visible;'"; } ?> id="ne_plus_suivre" onclick="ne_plus_suivre();">
+                            Ne plus suivre <i class="fas fa-ban fa-md"></i>
+                        </button>
+                    </div>
+                    <br />
                     <div class="row">
                         <div class="col-md-12">
                             <div class="profile-work">
@@ -97,9 +118,9 @@ $user = $requete1->fetch();
                                             </strong>
                                         </span>
                                         <?php
-                                            if(isset($user['projets']))
+                                            if(isset($projets))
                                             {
-                                                echo $user['projets'];
+                                                echo $projets;
                                             }
                                             else
                                             {
@@ -114,9 +135,9 @@ $user = $requete1->fetch();
                                             </strong>
                                         </span>
                                         <?php
-                                            if(isset($user['followers_projet']))
+                                            if(isset($followers))
                                             {
-                                                echo $user['followers_projet'];
+                                                echo $followers;
                                             }
                                             else
                                             {
@@ -161,9 +182,13 @@ $user = $requete1->fetch();
                                                 ?>
                                                 <i class="fas fa-fw fa-users"></i>
                                             </span>
-                                            <div class="card h-100">
+                                            <div class="card h-100" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_projet']; ?>'>
                                                 <a href="#">
+                                                <?php if($donnee['image_projet'] == ""){ ?>
                                                     <img class="card-img-top" src="IMAGES/giphy1.gif" alt="" />
+                                                <?php }else{ ?>
+                                                    <img class="card-img-top" src="IMAGES/PROJETS/<?php echo $donnee['image_projet']; ?>" alt="" />
+                                                <?php } ?>
                                                 </a>
                                                 <div class="card-body">
                                                     <h4 class="card-title">
@@ -192,7 +217,7 @@ $user = $requete1->fetch();
                                     </h4>
                                     <div class="row">
                                         <?php
-                                            $requete2 = $bdd->prepare('SELECT projet.id_projet, titre_projet, likes_projet, followers_projet FROM collaborer, projet WHERE collaborer.id_projet = projet.id_projet AND collaborer.id_utilisateur = :id ORDER BY collaborer.id_projet DESC');
+                                            $requete2 = $bdd->prepare('SELECT projet.id_projet, image_projet, description_projet, titre_projet, likes_projet, followers_projet FROM collaborer, projet WHERE collaborer.id_projet = projet.id_projet AND collaborer.id_utilisateur = :id ORDER BY collaborer.id_projet DESC');
 
                                             $requete2->execute(array('id' => $_GET['id']));
 
@@ -212,9 +237,13 @@ $user = $requete1->fetch();
                                                 ?>
                                                 <i class="fas fa-fw fa-users"></i>
                                             </span>
-                                            <div class="card h-100">
+                                            <div class="card h-100" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_projet']; ?>'>
                                                 <a href="#">
+                                                <?php if($donnee['image_projet'] == ""){ ?>
                                                     <img class="card-img-top" src="IMAGES/giphy1.gif" alt="" />
+                                                <?php }else{ ?>
+                                                    <img class="card-img-top" src="IMAGES/PROJETS/<?php echo $donnee['image_projet']; ?>" alt="" />
+                                                <?php } ?>
                                                 </a>
                                                 <div class="card-body">
                                                     <h4 class="card-title">

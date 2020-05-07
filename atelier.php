@@ -100,7 +100,7 @@ include "TRAITEMENT/connexion.php";
 					<li class="nav-item">
 						<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
 							<i class="fas fa-fw fa-cog"></i>
-							<span>Collabotations</span>
+							<span>Collaborations</span>
 						</a>
 						<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 							<div class="bg-white py-2 collapse-inner rounded">
@@ -155,14 +155,19 @@ include "TRAITEMENT/connexion.php";
 							<div class="" style="position: relative;">
 								<div style="height: 100%; width: 100%; z-index:0;position:absolute; background: linear-gradient(to left, transparent, rgba(0,0,0,0.8));"></div>
 
-								<div class="d-sm-flex align-items-center justify-content-between mb-4" style='z-index:1; background-image: url("IMAGES/PROFILS/<?php echo $_SESSION['image']; ?>");background-repeat:no-repeat; background-size:cover;'>
+								<div class="d-sm-flex align-items-center justify-content-between mb-4" style='z-index:1; background-image: url("IMAGES/PROFILS/<?php echo $_SESSION['image']; ?>");background-repeat:no-repeat; background-size:cover;' >
 
 									<a class="nav-link nav-item" href="#" style="z-index:0;">
 										<h1 class="font-weight-light text-white" style="text-shadow: 2px 2px black;">
-											<?php if (isset($_SESSION['titre_projet'])) { ?>
-												<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />
+											<?php if (isset($_SESSION['titre_projet'])) 
+												  {
+													  if(isset($_SESSION['image_projet'])){ 
+											?>
+												<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/PROJETS/<?php echo $_SESSION['image_projet']; ?>" alt="<?php echo $_SESSION['titre_projet']; ?>" />
+											<?php } ?>
+												<span data-toggle="tooltip" data-placement="bottom" data-html="false" title='<?php echo $_SESSION['synopsis']; ?>'>
 												<?php echo $_SESSION['titre_projet']; ?>
-
+												</span>
 												<button type="button" data-toggle="modal" data-target="#modif_projet" class="btn btn-primary btn-circle shadow-lg">
 													<i class="fas fa-pen"></i>
 												</button>

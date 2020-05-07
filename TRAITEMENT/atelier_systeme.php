@@ -5,6 +5,8 @@ include "../INCLUSION/redirection2.php";
 
 include "connexion.php";
 
+include "fonctions.php";
+
 if ($_POST['formulaire'] == "projet") {
 	$id = $_POST['id'];
 
@@ -35,10 +37,6 @@ if ($_POST['formulaire'] == "projet") {
 	$nom = $_POST['nom'];
 	$desc = $_POST['description'];
 
-	$extensions_autorisees = array('jpg', 'jpeg', 'png', 'bmp', 'jpeg', 'gif', 'JPG', 'JPEG', 'PNG', 'BMP', 'JPEG', 'GIF');
-
-	$taille_max = 4000000;
-
 	if ($_POST['formulaire'] == "chapitre") {
 		include("ajouter_chapitre.php");
 	} elseif ($_POST['formulaire'] == "personnage") {
@@ -53,3 +51,5 @@ if ($_POST['formulaire'] == "projet") {
 		include("ajouter_illustration.php");
 	}
 }
+
+?>
