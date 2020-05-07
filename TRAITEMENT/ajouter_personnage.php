@@ -35,4 +35,8 @@ $requete->execute(array('id_personnage' => $donnee['id_personnage'], 'id_projet'
 
 $requete->closeCursor();
 
+historique($nom, "PERSONNAGE", "AJOUT", $_SESSION['id_projet'], $_SESSION['id']);
+
 header('Location: ../atelier.php');
+
+?>

@@ -26,27 +26,29 @@ if (isset($_POST['formulaire'])) {
 
 		$requete->closeCursor();
 
-		$requete = $bdd->query('SELECT * FROM projet');
+		$requete = $bdd->query('SELECT * FROM projet WHERE titre_projet = :titre AND id_utilisateur = id');
+
+		$requete->execute(array('titre' => $projet, 'id' => $_SESSION['id']));
 
 		while ($donnee = $requete->fetch()) {
-			if ($donnee['titre_projet'] == $projet) {
-				$_SESSION['id_projet'] = $donnee['id_projet'];
-				$_SESSION['titre_projet'] = $donnee['titre_projet'];
-				$_SESSION['likes'] = $donnee['likes_projet'];
-				$_SESSION['followers'] = $donnee['followers_projet'];
-				$_SESSION['visibilite'] = $donnee['visibilite'];
-
-				$requete->closeCursor();
-
-				$requete = $bdd->prepare('UPDATE `utilisateur` SET `projet_en_cours` = :id_projet WHERE `id_utilisateur` = :id_utilisateur');
-
-				$requete->execute(array('id_projet' => $_SESSION['id_projet'], 'id_utilisateur' => $_SESSION['id']));
-
-				$requete->closeCursor();
-
-				header('Location: ../atelier.php');
-			}
+			$_SESSION['id_projet'] = $donnee['id_projet'];
+			$_SESSION['titre_projet'] = $donnee['titre_projet'];
+			$_SESSION['likes'] = $donnee['likes_projet'];
+			$_SESSION['followers'] = $donnee['followers_projet'];
+			$_SESSION['visibilite'] = $donnee['visibilite'];
 		}
+
+		$requete->closeCursor();
+
+		historique($projet, "PROJET", "CREATION", $_SESSION['id_projet'], $_SESSION['id']);
+
+		$requete = $bdd->prepare('UPDATE `utilisateur` SET `projet_en_cours` = :id_projet WHERE `id_utilisateur` = :id_utilisateur');
+
+		$requete->execute(array('id_projet' => $_SESSION['id_projet'], 'id_utilisateur' => $_SESSION['id']));
+
+		$requete->closeCursor();
+
+		header('Location: ../atelier.php');
 	} 
 	elseif($_POST['formulaire'] == "visibilite") 
 	{
@@ -59,6 +61,8 @@ if (isset($_POST['formulaire'])) {
 			$requete->closeCursor();
 
 			$_SESSION['visibilite'] = $_POST['visibilite'];
+
+			historique($_POST['visibilite'], "CONFIDENTIALITE", "MODIFICATION", $_POST['id'], $_SESSION['id']);
 		}
 		else
 		{
@@ -69,6 +73,8 @@ if (isset($_POST['formulaire'])) {
 			$requete->closeCursor();
 
 			$_SESSION['visibilite'] = $_POST['visibilite'];
+
+			historique($_POST['visibilite'], "CONFIDENTIALITE", "MODIFICATION", $_SESSION['id_projet'], $_SESSION['id']);
 		}
 	}
 	elseif($_POST['formulaire'] == "update_projet")
@@ -113,6 +119,8 @@ if (isset($_POST['formulaire'])) {
 
 		$requete->closeCursor();
 
+		historique("Informations du projet", "Projet", "MODIFICATION", $_SESSION['id_projet'], $_SESSION['id']);
+		
 		header('Location: ../atelier.php');
 	}
 } 

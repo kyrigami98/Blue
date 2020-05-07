@@ -5,6 +5,8 @@ include "../INCLUSION/redirection2.php";
 
 include "connexion.php";
 
+include "fonctions.php";
+
 if ($_POST['formulaire'] == "projet") {
 	$id = $_POST['id'];
 
@@ -49,3 +51,5 @@ if ($_POST['formulaire'] == "projet") {
 		include("ajouter_illustration.php");
 	}
 }
+
+?>

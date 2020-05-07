@@ -57,7 +57,14 @@ include("TRAITEMENT/connexion.php");
 			<?php
 			//LIMIT 6
 			$requete = $bdd->query('SELECT * FROM projet WHERE visibilite = "public" ORDER BY id_projet DESC');
-			while ($donnee = $requete->fetch()) { ?>
+			while ($donnee = $requete->fetch()) 
+			{ 
+				$requete_modif = $bdd->prepare('SELECT date_modif FROM historique WHERE id_projet = :id ORDER BY date_modif DESC LIMIT 1');
+
+				$requete_modif->execute(array('id' => $donnee['id_projet']));
+
+				$date = $requete_modif->fetch();
+				?>
 				<div class="card" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_projet']; ?>'>
 					<?php if ($donnee['image_projet'] == NULL) { ?>
 						<a href="#"><img class="card-img-top" src="IMAGES/PROJETS/STAND.jpg" alt=""></a>
@@ -66,7 +73,7 @@ include("TRAITEMENT/connexion.php");
 					<?php 	} ?>
 					<div class="card-body">
 						<h5 class="card-title"><?= $donnee['titre_projet'] ?></h5>
-						<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+						<p class="card-text"><small class="text-muted">dernière modification <?php echo $date['date_modif']; ?></small></p>
 					</div>
 				</div>
 			<?php } ?>

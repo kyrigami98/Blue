@@ -25,4 +25,67 @@ function returnJson($success, $url, $message)
     echo json_encode($myArr);
 }
 
+/**
+* @param String $nom
+* //le nom de l'element modifie
+* @param String $categorie
+* //la categorie a laquelle appartient l'element modifie
+* @param String $type
+* //SUPPRESSION, MODIFICATION, AJOUT, 
+* @param Int $projet
+* //l'id du projet qui subit des modifications
+* @param Int $collaborateur
+* //l'id de l'utilisateur qui applique des modifications
+* @return void
+*/
+function historique($nom, $categorie, $type, $projet, $collaborateur)
+{
+    include "connexion.php";
+
+    $requete = $bdd->prepare('INSERT INTO historique(`nom_modif`, `categorie_modif`, `type_modif`, `id_projet`, `id_collaborateur`)VALUES(:nom, :categorie, :type, :projet, :collaborateur)');
+
+	$requete->execute(array('nom' => $nom, 'categorie' => $categorie, 'type' => $type, 'projet' => $projet ,'collaborateur' => $collaborateur));
+
+	$requete->closeCursor();
+}
+
+/** 
+ * @param Int $id
+ * //l'id de l'utilisateur
+ * @return Int
+*/
+function nombre_de_projets($id)
+{
+    include "connexion.php";
+
+    $requete = $bdd->prepare('SELECT COUNT(*) FROM projet WHERE id_utilisateur = :id');
+
+    $requete->execute(array('id' => $id));
+
+    $donnee = $requete->fetch();
+
+    $requete->closeCursor();
+
+    return $donnee['COUNT(*)'];
+}
+
+/**
+ * @param Int $id
+ * //l'id de l'utilisateur
+ * @return Int
+ */
+function nombre_de_followers($id)
+{
+    include "connexion.php";
+
+    $requete = $bdd->prepare('SELECT COUNT(*) FROM suivre WHERE id_artiste = :id');
+
+    $requete->execute(array('id' => $id));
+
+    $donnee = $requete->fetch();
+
+    $requete->closeCursor();
+
+    return $donnee['COUNT(*)'];
+}
 ?>

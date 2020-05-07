@@ -47,6 +47,8 @@ if ($donnee == NULL) {
 
 	$requete_chapitre->closeCursor();
 
+	historique($nom, "CHAPITRE", "AJOUT", $_SESSION['id_projet'], $_SESSION['id']);
+
 	$cree = true;
 
 	header('Location: ../atelier.php');

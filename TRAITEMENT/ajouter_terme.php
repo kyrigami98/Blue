@@ -20,4 +20,8 @@ $requete->execute(array('id_terme' => $donnee['id_terme'], 'id_projet' => $_SESS
 
 $requete->closeCursor();
 
+historique($nom, "TERME", "AJOUT", $_SESSION['id_projet'], $_SESSION['id']);
+
 header('Location: ../atelier.php');
+
+?>

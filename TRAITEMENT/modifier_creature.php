@@ -33,5 +33,7 @@
     }
     $requete->closeCursor();
 
+    historique($_POST['nom'], "CREATURE", "MODIFICATION", $_SESSION['id_projet'], $_SESSION['id']);
+
     header('Location: ../atelier.php');
 ?>

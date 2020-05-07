@@ -6,7 +6,11 @@ include("INCLUSION/redirection1.php");
 
 include("TRAITEMENT/connexion.php");
 
-include("INCLUSION/nombre_projets.php");
+include("TRAITEMENT/fonctions.php");
+
+$_SESSION['projets'] = nombre_de_projets($_SESSION['id']);
+
+$_SESSION['followers'] = nombre_de_followers($_SESSION['id']);
 
 ?>
 <div class="container">
@@ -361,9 +365,6 @@ include("INCLUSION/nombre_projets.php");
 				id: id,
 				formulaire: formulaire,
 				visibilite: selectedData
-			},
-			success: function(data){
-				alert(data.message)
 			}
 		});
 	}

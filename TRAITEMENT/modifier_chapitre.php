@@ -1,5 +1,9 @@
 <?php
+    session_start();
+
     include "connexion.php";
+
+    include "fonctions.php";
 
     if(isset($_POST['chapitre']))
     {
@@ -40,6 +44,8 @@
                 $requete->execute(array('titre' => $_POST['titre'], 'description' => $_POST['description'], 'image' => $image, 'id' => $_POST['id']));
             }
             $requete->closeCursor();
+
+            historique($_POST['titre'], "CHAPITRE", "MODIFICATION", $_SESSION['id_projet'], $_SESSION['id']);
 
             header('Location: ../story.php?id='.$_POST['id']);
         }

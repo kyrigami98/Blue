@@ -19,10 +19,6 @@
         $image = "";
     }
 
-    /*die(var_dump($_FILES));
-
-    die("secours");*/
-
     if($image == "")
     {
         $requete = $bdd->prepare('UPDATE personnage SET nom_personnage = :nom, description_personnage = :description WHERE id_personnage = :id');
@@ -36,6 +32,8 @@
         $requete->execute(array('nom' => $_POST['nom'], 'description' => $_POST['description'], 'image' => $image, 'id' => $_POST['id']));
     }
     $requete->closeCursor();
+
+    historique($_POST['nom'], "PERSONNAGE", "MODIFICATION", $_SESSION['id_projet'], $_SESSION['id']);
 
     header('Location: ../atelier.php');
 ?>
