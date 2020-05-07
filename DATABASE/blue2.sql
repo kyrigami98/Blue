@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  lun. 04 mai 2020 à 11:12
+-- Généré le :  jeu. 07 mai 2020 à 10:12
 -- Version du serveur :  10.4.8-MariaDB
 -- Version de PHP :  7.3.10
 
@@ -62,7 +62,7 @@ CREATE TABLE `chapitre` (
 
 INSERT INTO `chapitre` (`id_chapitre`, `titre_chapitre`, `description_chapitre`, `texte_chapitre`, `image_chapitre`, `id_tome`) VALUES
 (51, 'Blessure', 'Le prologue de Spiritual Cross...', '', 'c88de6df84d3a9fe26a13a586b0bde71.jpg', 19),
-(52, 'cache dans l\'ombre d\'un autre', '', '', 'Daniels6f3d29f87e004abcdaf63bf606f56c7a.jpg', 19),
+(52, 'Cache dans l\'ombre d\'un autre', 'le deuxieme chapitre de Spiritual Cross par Daniels...', '', 'Daniels6f3d29f87e004abcdaf63bf606f56c7a.jpg', 19),
 (54, 'Mon chez moi', '\"mon chez moi\"', '', 'EEE-DEF-with-lines-legalline.jpg', 20),
 (55, 'moi', 'description', '', 'd0f6cc250c466724992136933b9a9668.jpg', 21);
 
@@ -103,6 +103,8 @@ CREATE TABLE `collaborer` (
 --
 
 INSERT INTO `collaborer` (`id_projet`, `id_utilisateur`, `type_collaborateur`) VALUES
+(8, 6, 'Scenariste'),
+(8, 17, NULL),
 (9, 1, 'Scenariste & Dessinateur'),
 (9, 17, NULL);
 
@@ -130,6 +132,34 @@ INSERT INTO `creature` (`id_creature`, `nom_creature`, `description_creature`, `
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `historique`
+--
+
+CREATE TABLE `historique` (
+  `id_modif` int(11) NOT NULL,
+  `nom_modif` varchar(30) NOT NULL,
+  `categorie_modif` varchar(30) DEFAULT NULL,
+  `type_modif` varchar(30) DEFAULT NULL,
+  `date_modif` datetime DEFAULT current_timestamp(),
+  `id_projet` int(11) DEFAULT NULL,
+  `id_collaborateur` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `historique`
+--
+
+INSERT INTO `historique` (`id_modif`, `nom_modif`, `categorie_modif`, `type_modif`, `date_modif`, `id_projet`, `id_collaborateur`) VALUES
+(2, 'public', 'CONFIDENTIALITE', 'MODIFICATION', '2020-05-06 19:46:45', 9, 6),
+(3, 'privé', 'CONFIDENTIALITE', 'MODIFICATION', '2020-05-06 19:46:46', 9, 6),
+(5, 'Cache dans l\'ombre d\'un autre', 'CHAPITRE', 'MODIFICATION', '2020-05-06 20:13:18', 8, 1),
+(6, 'illustration 8', 'ILLUSTRATION', 'SUPPRESSION', '2020-05-06 20:28:16', 9, 6),
+(7, 'public', 'CONFIDENTIALITE', 'MODIFICATION', '2020-05-06 21:55:26', 8, 1),
+(8, 'public', 'CONFIDENTIALITE', 'MODIFICATION', '2020-05-06 22:03:06', 9, 6);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `illustration`
 --
 
@@ -147,7 +177,15 @@ CREATE TABLE `illustration` (
 
 INSERT INTO `illustration` (`id_illustration`, `titre_illustration`, `description_illustration`, `image_illustration`, `id_projet`) VALUES
 (23, 'chara-design', 'description', 'DanielsSTAND.jpg', 8),
-(24, 'Illustration 1', '\"Une illustration...\"', 'DanielsSTAND.jpg', 9);
+(24, 'Illustration 1', '\"Une illustration...\"', 'DanielsSTAND.jpg', 9),
+(25, 'Illustration 2', 'description', 'Black00qMahP.jpg', 9),
+(26, 'illustration 3', 'description', 'Black6f3d29f87e004abcdaf63bf606f56c7a.jpg', 9),
+(27, 'illustration 4', 'description', 'Black4028b9172df236e57c97904108d8a7fd.jpg', 9),
+(28, 'illustration 5', 'description', 'Black343064.jpg', 9),
+(29, 'illustration 6', '', 'BlackAmphibia_logo.jpg', 9),
+(30, 'illustration 7', 'description', 'draw.gif', 9),
+(32, 'illustration 9', 'description', 'Blackb0f09c8019563a5ff8983e99e40dad67.jpg', 9),
+(33, 'Illustration 10', 'description', '60-603760_adventure-time-cartoon-network-iphone-8-wallpaper-adventure.jpg', 9);
 
 -- --------------------------------------------------------
 
@@ -234,11 +272,32 @@ CREATE TABLE `projet` (
 --
 
 INSERT INTO `projet` (`id_projet`, `titre_projet`, `description_projet`, `image_projet`, `likes_projet`, `followers_projet`, `visibilite`, `id_utilisateur`) VALUES
-(8, 'Spiritual Cross', NULL, NULL, 0, 0, 'public', 1),
+(8, 'Spiritual Cross', 'Une histoire de templiers...', 'DanielsEEE-DEF-with-lines-legalline.jpg', 0, 0, 'public', 1),
 (9, 'Book Of Death', NULL, NULL, 0, 0, 'public', 6),
 (10, 'Cross of GOD', NULL, NULL, 0, 0, 'public', 6),
 (11, 'Spiritual Cross', NULL, NULL, 0, 0, 'public', 6),
-(12, 'Spiritual Cross : The Begining', NULL, NULL, 0, 0, 'private', 6);
+(12, 'Spiritual Cross : The Begining', NULL, NULL, 0, 0, 'public', 6);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `suivre`
+--
+
+CREATE TABLE `suivre` (
+  `id_suivi` int(11) NOT NULL,
+  `id_artiste` int(11) DEFAULT NULL,
+  `id_abonne` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `suivre`
+--
+
+INSERT INTO `suivre` (`id_suivi`, `id_artiste`, `id_abonne`) VALUES
+(3, 17, 6),
+(7, 1, 6),
+(10, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -367,6 +426,12 @@ ALTER TABLE `creature`
   ADD PRIMARY KEY (`id_creature`);
 
 --
+-- Index pour la table `historique`
+--
+ALTER TABLE `historique`
+  ADD PRIMARY KEY (`id_modif`);
+
+--
 -- Index pour la table `illustration`
 --
 ALTER TABLE `illustration`
@@ -398,6 +463,12 @@ ALTER TABLE `personnage`
 ALTER TABLE `projet`
   ADD PRIMARY KEY (`id_projet`),
   ADD KEY `id_utilisateur` (`id_utilisateur`);
+
+--
+-- Index pour la table `suivre`
+--
+ALTER TABLE `suivre`
+  ADD PRIMARY KEY (`id_suivi`);
 
 --
 -- Index pour la table `terme`
@@ -442,10 +513,16 @@ ALTER TABLE `creature`
   MODIFY `id_creature` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
+-- AUTO_INCREMENT pour la table `historique`
+--
+ALTER TABLE `historique`
+  MODIFY `id_modif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT pour la table `illustration`
 --
 ALTER TABLE `illustration`
-  MODIFY `id_illustration` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_illustration` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT pour la table `lieu`
@@ -464,6 +541,12 @@ ALTER TABLE `personnage`
 --
 ALTER TABLE `projet`
   MODIFY `id_projet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT pour la table `suivre`
+--
+ALTER TABLE `suivre`
+  MODIFY `id_suivi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `terme`

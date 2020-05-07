@@ -345,6 +345,11 @@
 	$(".post").on('click', function() {
 		$("#imageReader").find("#imageReaderContent").attr("src", $(this).find(".card-img-top").attr("src"));
 	});
+
+	$(".zoom").on('click', function() {
+		$("#imageReader").find("#imageReaderContent").attr("src", $(this).attr("src"));
+	});
+
 </script>
 
 <!--*********************JQuery**************************************************************************-->
@@ -391,6 +396,43 @@
 	 }); */
 	//voici le script pour le champ text de la page story
 
+	function suivre()
+	{
+		document.getElementById("ne_plus_suivre").style.visibility = "visible";
+		document.getElementById("suivre").style.visibility = "hidden";
+
+		var formulaire = "suivre";
+		var id = <?php echo $_GET['id']; ?>;
+
+		$.ajax({
+			url: 'TRAITEMENT/systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				formulaire: formulaire,
+				id: id
+			}
+		});
+	}
+
+	function ne_plus_suivre()
+	{
+		document.getElementById('ne_plus_suivre').style.visibility = "hidden";
+		document.getElementById('suivre').style.visibility = "visible";
+
+		var formulaire = "ne_plus_suivre";
+		var id = <?php echo $_GET['id']; ?>;
+
+		$.ajax({
+			url: 'TRAITEMENT/systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				formulaire: formulaire,
+				id: id
+			}
+		});
+	}
 
 	$(function() {
 		$('[data-toggle="tooltip"]').tooltip()
