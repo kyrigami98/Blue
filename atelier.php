@@ -3,6 +3,8 @@ include "INCLUSION/header.php";
 
 include "INCLUSION/redirection1.php";
 
+include "TRAITEMENT/fonctions.php";
+
 include "TRAITEMENT/connexion.php";
 ?>
 
@@ -177,8 +179,8 @@ include "TRAITEMENT/connexion.php";
 										</h1>
 									</a>
 									<div class="d-sm-flex align-items-center justify-content-end">
-										<span style="font-size:13px;margin-right:10px;z-index:1;" class="badge badge-primary badge-counter"><?php echo $_SESSION['likes']; ?> <i class="fas fa-fw fa-thumbs-up"></i></span>
-										<span style="font-size:13px; margin-right:10px;z-index:1;" class="badge badge-primary badge-counter"><?php echo $_SESSION['followers']; ?> <i class="fas fa-fw fa-users"></i></span>
+										<span style="font-size:13px;margin-right:10px;z-index:1;" class="badge badge-primary badge-counter"><?php if(isset($_SESSION['id_projet'])){ echo likes_projet($_SESSION['id_projet']); } ?> <i class="fas fa-fw fa-thumbs-up"></i></span>
+										<span style="font-size:13px; margin-right:10px;z-index:1;" class="badge badge-primary badge-counter"><?php if(isset($_SESSION['id_projet'])){ echo followers_projet($_SESSION['id_projet']); } ?> <i class="fas fa-fw fa-users"></i></span>
 										<?php if (isset($_SESSION['titre_projet'])) { ?><a href="#" style="z-index:1;margin-right:10px;" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>Télécharger le projet en pdf</a><?php } ?>
 									</div>
 								</div>

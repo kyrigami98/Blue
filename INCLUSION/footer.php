@@ -251,24 +251,21 @@
 			<div class="modal-content">
 				<br />
 				<div class="container">
-					<form id="modif_projet_form" class="modalForm" action="TRAITEMENT/projet_systeme.php" method="POST" enctype="multipart/form-data">
+
+					<form id="modif_projet_form" class="modalForm" action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
 						<div class="profile-img">
-							<?php if(isset($_SESSION['image_projet'])){ ?>
-							<img class="avatar rounded img-fluid" src="IMAGES/PROJETS/<?php echo $_SESSION['image_projet']; ?>" alt="<?php echo $_SESSION['titre_projet']; ?>" />
-							<?php }else{ ?>
-								<img class="avatar rounded img-fluid" src="IMAGES/PROJETS/STAND.jpg" alt="" />
-							<?php } ?>
+							<img class="avatar rounded img-fluid" src="IMAGES/radiant.jpg" />
 							<div class="file btn btn-sm btn-primary">
 								Choisir une image pour le projet
 								<input type="file" name="image" class="file-upload" />
 							</div>
 							<hr>
 							<div class="form-label-group">
-								<input type="text" id="titre_Projet" value="<?php echo $_SESSION['titre_projet']; ?>" class="form-control" placeholder="titre du projet" name="titre" required>
+								<input type="text" id="titre_Projet" value="<?php echo $_SESSION['titre_projet']; ?>" class="form-control" placeholder="Nom de l'illustration" name="nom" required>
 								<label for="titre_Projet"></label>
 							</div>
 							<div class="form-label-group">
-								<input type="text" id="synopsis" value="<?php echo $_SESSION['synopsis']; ?>" class="form-control" placeholder="synopsis du projet" name="synopsis">
+								<input type="text" id="synopsis" class="form-control" placeholder="description de l'illustration" name="description">
 								<label for="synopsis">Synopsis du projet</label>
 							</div>
 							<input type="hidden" name="formulaire" value="update_projet" />
@@ -279,6 +276,7 @@
 							<br />
 						</div>
 					</form>
+
 				</div>
 			</div>
 		</div>
@@ -423,6 +421,82 @@
 		document.getElementById('suivre').style.visibility = "visible";
 
 		var formulaire = "ne_plus_suivre";
+		var id = <?php echo $_GET['id']; ?>;
+
+		$.ajax({
+			url: 'TRAITEMENT/systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				formulaire: formulaire,
+				id: id
+			}
+		});
+	}
+
+	function suivre_projet()
+	{
+		document.getElementById("ne_plus_suivre_projet").style.visibility = "visible";
+		document.getElementById("suivre_projet").style.visibility = "hidden";
+
+		var formulaire = "suivre_projet";
+		var id = <?php echo $_GET['id']; ?>;
+
+		$.ajax({
+			url: 'TRAITEMENT/systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				formulaire: formulaire,
+				id: id
+			}
+		});
+	}
+
+	function ne_plus_suivre_projet()
+	{
+		document.getElementById('ne_plus_suivre_projet').style.visibility = "hidden";
+		document.getElementById('suivre_projet').style.visibility = "visible";
+
+		var formulaire = "ne_plus_suivre_projet";
+		var id = <?php echo $_GET['id']; ?>;
+
+		$.ajax({
+			url: 'TRAITEMENT/systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				formulaire: formulaire,
+				id: id
+			}
+		});
+	}
+
+	function aimer_projet()
+	{
+		document.getElementById("ne_plus_aimer_projet").style.visibility = "visible";
+		document.getElementById("aimer_projet").style.visibility = "hidden";
+
+		var formulaire = "aimer_projet";
+		var id = <?php echo $_GET['id']; ?>;
+
+		$.ajax({
+			url: 'TRAITEMENT/systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				formulaire: formulaire,
+				id: id
+			}
+		});
+	}
+
+	function ne_plus_aimer_projet()
+	{
+		document.getElementById('ne_plus_aimer_projet').style.visibility = "hidden";
+		document.getElementById('aimer_projet').style.visibility = "visible";
+
+		var formulaire = "ne_plus_aimer_projet";
 		var id = <?php echo $_GET['id']; ?>;
 
 		$.ajax({

@@ -10,7 +10,9 @@ include("TRAITEMENT/fonctions.php");
 
 $projets = nombre_de_projets($_GET['id']);
 
-$followers = nombre_de_followers($_GET['id']);
+$followers_user = nombre_de_followers($_GET['id']);
+
+
 
 $requete1 = $bdd->prepare('SELECT image_utilisateur, nom_utilisateur, type_utilisateur, likes_projet, followers_projet FROM utilisateur, projet WHERE utilisateur.id_utilisateur = projet.id_utilisateur AND utilisateur.id_utilisateur = :id');
 
@@ -61,7 +63,7 @@ $user = $requete1->fetch();
                         $suivi = $requete3->fetch();
                     ?>
                     <div class="col-md-12">
-                        <button class="btn btn-md btn-primary" <?php if($suivi == NULL){ echo "style='visibility:visible;position: absolute;'"; }else{ echo "style='visibility:hidden;position: absolute;'"; } ?> id="suivre" onclick="suivre();">
+                        <button class="btn btn-md btn-primary" <?php if($suivi == NULL){ echo "style='visibility:visible;position: absolute;'"; }else{ echo "style='visibility:hidden;position: absolute;'"; } ?> id="suivre" onclick="suivre(1);">
                             Suivre l'artiste <i class="fas fa-check fa-md"></i>
                         </button>
                         <button class="btn btn-md btn-danger" <?php if($suivi == NULL){ echo "style='visibility:hidden;'"; }else{ echo "style='visibility:visible;'"; } ?> id="ne_plus_suivre" onclick="ne_plus_suivre();">
@@ -135,9 +137,9 @@ $user = $requete1->fetch();
                                             </strong>
                                         </span>
                                         <?php
-                                            if(isset($followers))
+                                            if(isset($followers_user))
                                             {
-                                                echo $followers;
+                                                echo $followers_user;
                                             }
                                             else
                                             {
@@ -172,13 +174,13 @@ $user = $requete1->fetch();
                                         <div class="col-lg-6 col-sm-6 mb-4">
                                             <span style="font-size:10px;" class="badge badge-primary badge-counter">
                                                 <?php
-                                                    echo $donnee['likes_projet'];
+                                                    echo likes_projet($donnee['id_projet']);
                                                 ?>
                                                 <i class="fas fa-fw fa-thumbs-up"></i>
                                             </span>
                                             <span style="font-size:10px;" class="badge badge-primary badge-counter">
                                                 <?php
-                                                    echo $donnee['followers_projet'];
+                                                    echo followers_projet($donnee['id_projet']);
                                                 ?>
                                                 <i class="fas fa-fw fa-users"></i>
                                             </span>
@@ -192,11 +194,11 @@ $user = $requete1->fetch();
                                                 </a>
                                                 <div class="card-body">
                                                     <h4 class="card-title">
-                                                        <button class="btn btn-md" href="#">
+                                                        <a class="btn btn-md" href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>">
                                                             <?php
                                                                 echo $donnee['titre_projet'];
                                                             ?>
-                                                        </button>
+                                                        </a>
                                                     </h4>
                                                 </div>
                                             </div>
