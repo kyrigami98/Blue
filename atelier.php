@@ -426,7 +426,7 @@ include "TRAITEMENT/connexion.php";
 
 															while ($donnee = $requete->fetch()) {
 															?>
-																<div class="card shadow post">
+																<div class="card shadow post ">
 																	<a href="#" data-toggle="modal" data-target="#imageReader">
 																		<?php if ($donnee['image_illustration'] != "") { ?>
 																			<img class="card-img-top" src="IMAGES/ILLUSTRATIONS/<?php echo $donnee['image_illustration']; ?>" alt="" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_illustration']; ?>' />

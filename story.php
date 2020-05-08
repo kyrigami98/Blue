@@ -63,38 +63,112 @@ $donnee = $requete->fetch();
             </div>
         </div>
 
-        <div class="container mt-4 mb-4 text-center">
-            Resultats trouvés :
-            <button class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />
-            <hr><span>
-            Madara Uchiha (うちはマダラ, Uchiha Madara) was the legendary leader of the Uchiha clan. He founded Konohagakure alongside his childhood friend and rival, Hashirama Senju, with the intention of beginning an era of peace. ... Madara, however, rewrote his death and went into hiding to work on his own plans.
-            </span>
-            <hr>' type="submit"><i class="fas fa-user-ninja fa-plus"></i> Madara
-            </button>
 
-            <button class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw fa-dragon"></i> Illustration </button>
-
-            <button class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw  fa-globe-africa"></i> Maison de luxe</button>
-
-            <button class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw fa-paw"></i> Tigre</button>
-
-            <button class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw fa-list-alt"></i> Haki</button>
-
+        <div class="profile-head container">
+            <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+                        <i class="fas fa-feather"></i> Ecrire mon histoire
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                        <i class="fab fa-accusoft"> </i> Ajouter des planches
+                    </a>
+                </li>
+            </ul>
         </div>
 
-        <div class="form-group">
+        <div class="row">
+            <div class="tab-content profile-tab container" id="myTabContent">
 
-            <div class="container mt-4 mb-4">
-                <div class="row justify-content-md-center">
-                    <div class="col-md-12 col-lg-12">
-                        <div class="form-group">
-                            <textarea id="editor"><?php echo $donnee['texte_chapitre']; ?></textarea>
-                        </div>
+                <!-- ecriture -->
+                <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <br>
+
+                    <div class="container text-center">
+                        <button class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />
+                        <hr><span>
+                        Madara Uchiha (うちはマダラ, Uchiha Madara) was the legendary leader of the Uchiha clan. He founded Konohagakure alongside his childhood friend and rival, Hashirama Senju, with the intention of beginning an era of peace. ... Madara, however, rewrote his death and went into hiding to work on his own plans.
+                        </span>
+                        <hr>' type="submit"><i class="fas fa-user-ninja fa-plus"></i> Madara
+                        </button>
+
+                        <button class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw fa-dragon"></i> Illustration </button>
+
+                        <button class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw  fa-globe-africa"></i> Maison de luxe</button>
+
+                        <button class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw fa-paw"></i> Tigre</button>
+
+                        <button class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw fa-list-alt"></i> Haki</button>
+
                     </div>
+
+                    <div class="form-group">
+
+                        <div class="mt-4 mb-4">
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <textarea id="editor"><?php echo $donnee['texte_chapitre']; ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- planches -->
+                <div class="tab-pane fade container" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <br>
+                    <div class="row">
+
+                        <div class="col-md-2">
+                            <form action="TRAITEMENT/systeme.php" method="POST" enctype="multipart/form-data">
+                                <div class="profile-img">
+                                    <img class="avatar rounded img-fluid" src="IMAGES/PROFILS/STAND.jpg" alt="Image par defaut" />
+
+                                    <div class="file btn btn-lg btn-primary">
+                                        Choisir
+                                        <input type="file" name="image" class="file-upload" required />
+                                    </div>
+                                    <div class="form-label-group">
+                                        <input type="number" value="0" min="0" id="inputProjet" class="form-control" placeholder="" name="projet" required>
+                                        <label for="inputProjet">Numéro de page</label>
+                                    </div>
+                                    <input type="hidden" name="formulaire" value="image" />
+                                    <button class="btn btn-sm btn-primary btn-block" type="submit">
+                                        <i class="fa fa-plus"></i>
+                                        Importer
+                                    </button>
+                                    <br />
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col-md-2 align-self-center post rounded">
+                            <img class="avatar rounded zoomer img-fluid border border-info" style="max-height:320px;" src="IMAGES/radiant.jpg" alt="Image par defaut" />
+                            <p class="text-muted text-center">Page 1</p>
+                            <form action="" method="POST">
+                                <input type="hidden" name="id" value="" />
+                                <input type="hidden" name="supprimer" value="chapitre" />
+                                <button type="submit" class="btn btn-danger btn-circle shadow-lg deleteboutton">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </div>
+
+
+                    </div>
+
+                    <br>
                 </div>
             </div>
 
         </div>
+
 
     </div>
 </div>
