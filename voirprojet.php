@@ -66,23 +66,23 @@ $projet = $requete_projet->fetch();
                         <br />
                         <hr class="" style="background:gray;">
                         <?php
-                            if(isset($_SESSION['id']))
+                            if(isset($_SESSION['id']) AND $_SESSION['id'] != $projet['id_utilisateur'])
                             {
-                            $requete_suivre = $bdd->prepare('SELECT * FROM suivre_projet WHERE id_projet = :projet AND id_abonne = :abonne');
+                                $requete_suivre = $bdd->prepare('SELECT * FROM suivre_projet WHERE id_projet = :projet AND id_abonne = :abonne');
 
-                            $requete_suivre->execute(array('projet' => $_GET['id'], 'abonne' => $_SESSION['id']));
+                                $requete_suivre->execute(array('projet' => $_GET['id'], 'abonne' => $_SESSION['id']));
 
-                            $suivre = $requete_suivre->fetch();
+                                $suivre = $requete_suivre->fetch();
 
-                            $requete_suivre->closeCursor();
+                                $requete_suivre->closeCursor();
 
-                            $requete_aimer = $bdd->prepare('SELECT * FROM aimer_projet WHERE id_projet = :projet AND id_abonne = :abonne');
+                                $requete_aimer = $bdd->prepare('SELECT * FROM aimer_projet WHERE id_projet = :projet AND id_abonne = :abonne');
 
-                            $requete_aimer->execute(array('projet' => $_GET['id'], 'abonne' => $_SESSION['id']));
+                                $requete_aimer->execute(array('projet' => $_GET['id'], 'abonne' => $_SESSION['id']));
 
-                            $aimer = $requete_aimer->fetch();
+                                $aimer = $requete_aimer->fetch();
 
-                            $requete_aimer->closeCursor();
+                                $requete_aimer->closeCursor();
                         ?>
                         <div class="col-12">
                             <div class="row">
@@ -111,9 +111,20 @@ $projet = $requete_projet->fetch();
                         </div>
                         <?php 
                             }
+                            elseif(isset($_SESSION['id']) AND $_SESSION['id'] == $projet['id_utilisateur'])
+                            {
+                                echo "Vous pouvez voir ce projet dans l'atelier";
+                        ?>
+                                <form action="TRAITEMENT/atelier_systeme.php" method="POST">
+								    <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
+								    <input type="hidden" name="formulaire" value="projet" />
+								    <h5 class="card-title"><button class="btn btn-md btn-secondary" href="#" >Ouvrir dans l'atelier</button></h5>
+							    </form>
+                        <?php 
+                            }
                             else
                             {
-                                echo "Connectez-vous pour suivre cet artiste";
+                                echo "Connectez-vous pour suivre ce projet";
                             }
                         ?>
                         </hr>
@@ -218,11 +229,6 @@ $projet = $requete_projet->fetch();
 
                                         $requete_illustration->execute(array('id' => $_GET['id']));
 
-                                        if($requete_illustration->fetch() == NULL)
-                                        {
-                                            echo "Aucune illustration";
-                                        }
-
                                         while($illustration = $requete_illustration->fetch())
                                         {
                                     ?>
@@ -254,11 +260,6 @@ $projet = $requete_projet->fetch();
 
                                             $requete_personnage->execute(array('id' => $_GET['id']));
 
-                                            if($requete_personnage->fetch() == NULL)
-                                            {
-                                                echo "Aucun personnage";
-                                            }
-
                                             while($personnage = $requete_personnage->fetch())
                                             {
                                         ?>
@@ -289,11 +290,6 @@ $projet = $requete_projet->fetch();
                                             $requete_creature = $bdd->prepare('SELECT creature.id_creature, nom_creature, description_creature, image_creature FROM creature, apparaitre WHERE creature.id_creature = apparaitre.id_creature AND apparaitre.id_projet = :id ORDER BY id_creature DESC');
 
                                             $requete_creature->execute(array('id' => $_GET['id']));
-
-                                            if($requete_creature->fetch() == NULL)
-                                            {
-                                                echo "Aucune creature";
-                                            }
 
                                             while($creature = $requete_creature->fetch())
                                             {

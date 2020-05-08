@@ -388,6 +388,10 @@
 
 	});
 
+	$(document).on("keyup", "#navbarDropdown", function(){
+		alert('tu as ecrit un truc...');
+	});
+
 	//voici le script Ajax pour l'inscription
 	/*  $(document).on("submit", "#inscription", function(event) {
 

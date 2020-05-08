@@ -88,11 +88,7 @@ $followers = nombre_de_followers($_SESSION['id']);
 											</strong>
 										</span>
 										<?php
-										if (isset($_SESSION['likes'])) {
-											echo $_SESSION['likes'];
-										} else {
-											echo "0";
-										}
+											echo nombre_de_likes($_SESSION['id']);
 										?>
 									</li>
 									<li class="list-group-item text-right">

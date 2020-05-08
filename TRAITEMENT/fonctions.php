@@ -128,4 +128,25 @@ function likes_projet($id)
 
     return $donnee['COUNT(*)'];
 }
+
+/**
+ * @param Int $id
+ * //l'id de l'utilisateur
+ * @return Int
+ */
+function nombre_de_likes($id)
+{
+    include "connexion.php";
+
+    $requete = $bdd->prepare('SELECT COUNT(*) FROM utilisateur, projet WHERE utilisateur.id_utilisateur = projet.id_utilisateur AND utilisateur.id_utilisateur = :id');
+
+    $requete->execute(array('id' => $id));
+
+    $donnee = $requete->fetch();
+
+    $requete->closeCursor();
+
+    return $donnee['COUNT(*)'];
+}
 ?>
+
