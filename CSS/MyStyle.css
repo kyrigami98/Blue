@@ -110,6 +110,14 @@ body {
   overflow: hidden;
 }
 
+.zoomer {
+  transition: transform .2s; /* Animation */
+}
+
+.zoomer:hover {
+  transform: scale(1.07); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
 .card-signin .card-title {
   margin-bottom: 2rem;
   font-weight: 300;

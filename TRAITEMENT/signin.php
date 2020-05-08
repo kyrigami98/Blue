@@ -25,8 +25,6 @@
 			$_SESSION['titre_projet'] = $donnee2['titre_projet'];
 			$_SESSION['image_projet'] = $donnee2['image_projet'];
 			$_SESSION['synopsis'] = $donnee2['description_projet'];
-			$_SESSION['likes'] = $donnee2['likes_projet'];
-			$_SESSION['followers'] = $donnee2['followers_projet'];
 			$_SESSION['visibilite'] = $donnee2['visibilite'];
 
 			$requete1->closeCursor();

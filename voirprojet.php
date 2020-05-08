@@ -1,66 +1,132 @@
 <?php
 include "INCLUSION/header.php";
+
+include "TRAITEMENT/connexion.php";
+
+include "TRAITEMENT/fonctions.php";
+
+$followers = followers_projet($_GET['id']);
+
+$likes = likes_projet($_GET['id']);
+
+$requete_projet = $bdd->prepare('SELECT titre_projet, image_projet, description_projet, image_utilisateur, nom_utilisateur, utilisateur.id_utilisateur FROM utilisateur, projet WHERE utilisateur.id_utilisateur = projet.id_utilisateur AND id_projet = :id');
+
+$requete_projet->execute(array('id' => $_GET['id']));
+
+$projet = $requete_projet->fetch();
 ?>
 
 
 <div class="container" style="margin-top:50px;">
     <div class="card border-0 shadow my-5">
         <div class="card-body">
-
+            <?php //die(var_dump($projet)); ?>
             <div class="" style="position: relative;">
                 <div style="height: 100%; width: 100%; z-index:0;position:absolute; background: linear-gradient(to left, transparent, rgba(0,0,0,0.8));"></div>
 
-                <div class="d-sm-flex align-items-center justify-content-start mb-4" style='min-height:300px;z-index:1; background-image: url("IMAGES/PROFILS/<?php echo $_SESSION['image']; ?>");background-repeat:no-repeat; background-size:cover;'>
+                <div class="d-sm-flex align-items-center justify-content-start mb-4" style='min-height:300px;z-index:1; background-image: url("IMAGES/PROJETS/<?php echo $projet['image_projet']; ?>");background-repeat:no-repeat; background-size:cover;'>
 
                     <a class="nav-link nav-item" href="#" style="z-index:0;" data-toggle="modal" data-target="#imageReader">
-                        <img class="avatar rounded zoom" style="height:250px;" src="IMAGES/radiant.jpg" />
+                    <?php if($projet['image_projet'] == ""){ ?>
+                        <img class="avatar rounded zoom" style="height:250px;" src="IMAGES/PROJETS/STAND.jpg" />
+                    <?php }else{ ?>
+                        <img class="avatar rounded zoom" style="height:250px;" src="IMAGES/PROJETS/<?php echo $projet['image_projet']; ?>" />
+                    <?php } ?>
                     </a>
 
                     <div class="text-white" style="z-index:0;text-shadow: 2px 2px black;">
 
                         <div class="col-12">
                             <h1 class="font-weight-light text-white" style="text-shadow: 2px 2px black;">
-                                <?php if (isset($_SESSION['titre_projet'])) { ?>
-                                    <?php echo $_SESSION['titre_projet']; ?>
+                                <?php if (isset($projet['titre_projet'])) { ?>
+                                    <?php echo $projet['titre_projet']; ?>
                                 <?php } else { ?>
                                     <h1>Lire</h1>
                                 <?php } ?>
 
-                                <span style="font-size:13px;margin-right:10px;z-index:1;" class="badge badge-primary badge-counter"><?php echo $_SESSION['likes']; ?> <i class="fas fa-fw fa-thumbs-up"></i></span>
-                                <span style="font-size:13px; margin-right:10px;z-index:1;" class="badge badge-primary badge-counter"><?php echo $_SESSION['followers']; ?> <i class="fas fa-fw fa-users"></i></span>
+                                <span style="font-size:13px;margin-right:10px;z-index:1;" class="badge badge-primary badge-counter"><?php if(isset($likes)){ echo $likes; }else{ echo 0;} ?> <i class="fas fa-fw fa-thumbs-up"></i></span>
+                                <span style="font-size:13px; margin-right:10px;z-index:1;" class="badge badge-primary badge-counter"><?php if(isset($followers)){ echo $followers; }else{ echo 0;} ?> <i class="fas fa-fw fa-users"></i></span>
 
                             </h1>
                         </div>
 
                         <div class="col-12">
-                            <?php if (isset($_SESSION['synopsis'])) { ?>
-                                <?php echo $_SESSION['synopsis']; ?>
+                            <?php if (isset($projet['description_projet'])) { ?>
+                                <?php echo $projet['description_projet']; ?>
                             <?php } else { ?>
                                 <h1>Pas de synopsis</h1>
                             <?php } ?>
                         </div>
 
 
-                        <a class="btn" href="#">
-                            <img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/<?php echo $_SESSION['image']; ?>" />
-                            Créer par <span class="mr-2 d-none d-lg-inline text-gray-600 small"><strong><?php echo $_SESSION['pseudo']; ?></strong></span>
+                        <a class="btn" href="utilisateur.php?id=<?php echo $projet['id_utilisateur']; ?>">
+                            <img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/<?php echo $projet['image_utilisateur']; ?>" alt="<?php echo $projet['image_utilisateur']; ?>" />
+                            Créer par <span class="mr-2 d-none d-lg-inline text-gray-600 small"><strong><?php echo $projet['nom_utilisateur']; ?></strong></span>
                         </a>
                         <br />
                         <hr class="" style="background:gray;">
+                        <?php
+                            if(isset($_SESSION['id']) AND $_SESSION['id'] != $projet['id_utilisateur'])
+                            {
+                                $requete_suivre = $bdd->prepare('SELECT * FROM suivre_projet WHERE id_projet = :projet AND id_abonne = :abonne');
 
+                                $requete_suivre->execute(array('projet' => $_GET['id'], 'abonne' => $_SESSION['id']));
 
+                                $suivre = $requete_suivre->fetch();
+
+                                $requete_suivre->closeCursor();
+
+                                $requete_aimer = $bdd->prepare('SELECT * FROM aimer_projet WHERE id_projet = :projet AND id_abonne = :abonne');
+
+                                $requete_aimer->execute(array('projet' => $_GET['id'], 'abonne' => $_SESSION['id']));
+
+                                $aimer = $requete_aimer->fetch();
+
+                                $requete_aimer->closeCursor();
+                        ?>
                         <div class="col-12">
-                            <a href="#" class="btn btn-danger">
-                                <i class="fas fa-fw fa-thumbs-up"></i> J'aime
-                            </a>
-                            <a href="#" class="btn btn-primary">
-                                <i class="fas fa-fw fa-plus"></i> Suivre le projet
-                            </a>
-
-                            <a href="#" class="btn btn-lg btn-success pull-right">
-                                <i class="fas fa-fw fa-book-reader"></i> Commencer la lecture
-                            </a>
+                            <div class="row">
+                                <div>
+                                    <button class="btn btn-danger" <?php if($aimer == NULL){ echo "style='visibility:visible;position: absolute;width:150px;margin-right:5px;'"; }else{ echo "style='visibility:hidden;position: absolute;width:150px;margin-right:5px;'"; } ?> id="aimer_projet" onclick="aimer_projet();">
+                                        <i class="fas fa-fw fa-thumbs-up"></i> J'aime
+                                    </button>
+                                    <button class="btn btn-danger" <?php if($aimer == NULL){ echo "style='visibility:hidden;width:150px;margin-right:5px;'"; }else{ echo "style='visibility:visible;width:150px;margin-right:5px;'"; } ?> id="ne_plus_aimer_projet" onclick="ne_plus_aimer_projet();">
+                                        <i class="fas fa-fw fa-thumbs-down"></i> Je n'aime plus
+                                    </button>
+                                </div>
+                                <div>
+                                    <button class="btn btn-primary" <?php if($suivre == NULL){ echo "style='visibility:visible;position: absolute;width:160px;margin-right:5px;'"; }else{ echo "style='visibility:hidden;position: absolute;width:160px;margin-right:5px;'"; } ?> id="suivre_projet" onclick="suivre_projet();">
+                                        <i class="fas fa-fw fa-plus"></i> Suivre le projet
+                                    </button>
+                                    <button class="btn btn-primary" <?php if($suivre == NULL){ echo "style='visibility:hidden;width:160px;margin-right:5px;'"; }else{ echo "style='visibility:visible;width:160px;margin-right:5px;'"; } ?> id="ne_plus_suivre_projet" onclick="ne_plus_suivre_projet();">
+                                        <i class="fas fa-fw fa-minus"></i> Ne plus suivre
+                                    </button>
+                                </div>
+                                <div>
+                                    <a href="#" class="btn btn-success">
+                                        <i class="fas fa-fw fa-book-reader"></i> Commencer la lecture
+                                    </a>
+                                </div>
+                            </div>
                         </div>
+                        <?php 
+                            }
+                            elseif(isset($_SESSION['id']) AND $_SESSION['id'] == $projet['id_utilisateur'])
+                            {
+                                echo "Vous pouvez voir ce projet dans l'atelier";
+                        ?>
+                                <form action="TRAITEMENT/atelier_systeme.php" method="POST">
+								    <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
+								    <input type="hidden" name="formulaire" value="projet" />
+								    <h5 class="card-title"><button class="btn btn-md btn-secondary" href="#" >Ouvrir dans l'atelier</button></h5>
+							    </form>
+                        <?php 
+                            }
+                            else
+                            {
+                                echo "Connectez-vous pour suivre ce projet";
+                            }
+                        ?>
                         </hr>
                     </div>
 
@@ -79,12 +145,27 @@ include "INCLUSION/header.php";
                             <h6 class="m-0 font-weight-bold text-primary">Liste des chapitres </h6>
                         </div>
                         <div class="card-body">
-                            <a class="btn" rel="nofollow" href="#"><strong>Chapitre 3:</strong> Anarchie →</a>
+                            <?php
+                                $requete_chapitre = $bdd->prepare('SELECT id_chapitre, titre_chapitre FROM chapitre, (SELECT id_tome FROM tome WHERE id_projet = :id)resultat WHERE chapitre.id_tome = resultat.id_tome');
+                            
+                                $requete_chapitre->execute(array('id' => $_GET['id']));
+
+                                $count = 0;
+
+                                if($requete_chapitre->fetch() == NULL)
+                                {
+                                    echo "Il n'y a aucun chapitre pour l'instant<br /><br />";
+                                }
+
+                                while($chapitre = $requete_chapitre->fetch())
+                                {
+                            ?>
+                            <a class="btn" rel="nofollow" href="#"><strong>Chapitre <?php echo ++$count; ?>:</strong> <?php echo $chapitre['titre_chapitre']; ?> →</a>
                             <hr>
-                            <a class="btn" rel="nofollow" href="#"><strong> Chapitre 2:</strong> Monarchie →</a>
-                            <hr>
-                            <a class="btn" rel="nofollow" href="#"><strong> Chapitre 1:</strong> Subarashi →</a>
-                            <hr>
+                            <?php 
+                                }
+                                $requete_chapitre->closeCursor();
+                            ?>
 
                             <a class="btn btn-block btn-primary" rel="nofollow" href="#">Voir plus →</a>
                         </div>
@@ -96,23 +177,35 @@ include "INCLUSION/header.php";
                         </div>
 
                         <div class="card-body">
+                            <?php
+								$requete_terme = $bdd->prepare('SELECT terme.id_terme, nom_terme, description_terme FROM terme, citer WHERE terme.id_terme = citer.id_terme AND citer.id_projet = :id ORDER BY id_terme DESC');
+                            
+                                $requete_terme->execute(array('id' => $_GET['id']));
+
+                                $count = 0;
+
+                                if($requete_terme->fetch() == NULL)
+                                {
+                                    echo "Il n'y a aucun mot propre au projet pour l'instant<br /><br />";
+                                }
+
+                                while($terme = $requete_terme->fetch())
+                                {
+                            ?>
                             <div class="col-lg-12 mb-4">
                                 <div class="card shadow">
                                     <div class="card-body">
-                                    <strong> haki</strong>
-                                        <div class="small">Le Haki (覇気, Haki, traduit littéralement par "Ambition"), aussi nommé Fluide, est un concept mystérieux que certains personnages peuvent utiliser. Il est présent ...</div>
+                                    <strong> <?php echo $terme['nom_terme']; ?></strong>
+                                        <div class="small"><?php echo $terme['description_terme']; ?></div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-lg-12 mb-4">
-                                <div class="card shadow">
-                                    <div class="card-body">
-                                        <strong>bankai</strong>
-                                        <div class="small">Si le Shinigami remporte le combat, son Zanpakutō lui donne accès à ses pouvoirs cachés via son vrai nom. Atteindre le Bankai est rare et même une fois obtenu, ...</div>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php
+                                }
+
+                                $requete_terme->closeCursor();
+                            ?>
                             <a class="btn btn-block btn-primary" rel="nofollow" href="#">Voir plus →</a>
                         </div>
 
@@ -131,16 +224,21 @@ include "INCLUSION/header.php";
                             <div class="text-center">
                                 <div class="row">
                                     <div class="card-columns">
-                                        <a href="#" data-toggle="modal" data-target="#imageReader">
-                                            <img class="img-fluid card zoom" style="width: 25rem;" src="IMAGES/radiant.jpg" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo 'ok'; ?>' alt="">
-                                        </a>
-                                        <a href="#" data-toggle="modal" data-target="#imageReader">
-                                            <img class="img-fluid card zoom" style="width: 25rem;" src="IMAGES/giphy.gif" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo 'ok'; ?>' alt="">
-                                        </a>
-                                        <a href="#" data-toggle="modal" data-target="#imageReader">
-                                            <img class="img-fluid card zoom" style="width: 25rem;" src="IMAGES/hammer.jpg" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo 'ok'; ?>' alt="">
-                                        </a>
+                                    <?php
+                                        $requete_illustration = $bdd->prepare('SELECT * FROM illustration WHERE id_projet = :id ORDER BY id_illustration DESC');
 
+                                        $requete_illustration->execute(array('id' => $_GET['id']));
+
+                                        while($illustration = $requete_illustration->fetch())
+                                        {
+                                    ?>
+                                        <a href="#" data-toggle="modal" data-target="#imageReader">
+                                            <img class="img-fluid card zoom" style="width: 25rem;" src="IMAGES/ILLUSTRATIONS/<?php echo $illustration['image_illustration']; ?>" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $illustration['description_illustration']; ?>' alt="">
+                                        </a>
+                                    <?php
+                                        }        
+                                        $requete_illustration->closeCursor();
+                                    ?>
                                     </div>
                                     <a class="btn btn-block btn-primary" rel="nofollow" href="#">Voir plus →</a>
                                 </div>
@@ -157,15 +255,21 @@ include "INCLUSION/header.php";
                             <div class="text-center">
                                 <div class="row">
                                     <div class="card-columns">
+                                        <?php
+                                            $requete_personnage = $bdd->prepare('SELECT personnage.id_personnage, nom_personnage, description_personnage, image_personnage FROM personnage, intervenir WHERE personnage.id_personnage = intervenir.id_personnage AND intervenir.id_projet = :id ORDER BY id_personnage DESC');
+
+                                            $requete_personnage->execute(array('id' => $_GET['id']));
+
+                                            while($personnage = $requete_personnage->fetch())
+                                            {
+                                        ?>
                                         <a href="#" data-toggle="modal" data-target="#imageReader">
-                                            <img class="img-fluid card zoom" style="width: 25rem;" src="IMAGES/radiant.jpg" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo 'ok'; ?>' alt="">
+                                            <img class="img-fluid card zoom" style="width: 25rem;" src="IMAGES/PERSONNAGES/<?php echo $personnage['image_personnage']; ?>" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $personnage['description_personnage']; ?>' alt="">
                                         </a>
-                                        <a href="#" data-toggle="modal" data-target="#imageReader">
-                                            <img class="img-fluid card zoom" style="width: 25rem;" src="IMAGES/giphy.gif" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo 'ok'; ?>' alt="">
-                                        </a>
-                                        <a href="#" data-toggle="modal" data-target="#imageReader">
-                                            <img class="img-fluid card zoom" style="width: 25rem;" src="IMAGES/hammer.jpg" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo 'ok'; ?>' alt="">
-                                        </a>
+                                        <?php
+                                            }
+                                            $requete_personnage->closeCursor();
+                                        ?>
                                     </div>
                                     <a class="btn btn-block btn-primary" rel="nofollow" href="#">Voir plus →</a>
                                 </div>
@@ -182,16 +286,21 @@ include "INCLUSION/header.php";
                             <div class="text-center">
                                 <div class="row">
                                     <div class="card-columns">
-                                        <a href="#" data-toggle="modal" data-target="#imageReader">
-                                            <img class="img-fluid card zoom" style="width: 25rem;" src="IMAGES/radiant.jpg" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo 'ok'; ?>' alt="">
-                                        </a>
-                                        <a href="#" data-toggle="modal" data-target="#imageReader">
-                                            <img class="img-fluid card zoom" style="width: 25rem;" src="IMAGES/giphy.gif" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo 'ok'; ?>' alt="">
-                                        </a>
-                                        <a href="#" data-toggle="modal" data-target="#imageReader">
-                                            <img class="img-fluid card zoom" style="width: 25rem;" src="IMAGES/hammer.jpg" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo 'ok'; ?>' alt="">
-                                        </a>
+                                        <?php
+                                            $requete_creature = $bdd->prepare('SELECT creature.id_creature, nom_creature, description_creature, image_creature FROM creature, apparaitre WHERE creature.id_creature = apparaitre.id_creature AND apparaitre.id_projet = :id ORDER BY id_creature DESC');
 
+                                            $requete_creature->execute(array('id' => $_GET['id']));
+
+                                            while($creature = $requete_creature->fetch())
+                                            {
+                                        ?>
+                                        <a href="#" data-toggle="modal" data-target="#imageReader">
+                                            <img class="img-fluid card zoom" style="width: 25rem;" src="IMAGES/CREATURES/<?php echo $creature['image_creature']; ?>" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $creature['description_creature']; ?>' alt="">
+                                        </a>
+                                        <?php
+                                            }
+                                            $requete_creature->closeCursor();
+                                        ?>
                                     </div>
                                     <a class="btn btn-block btn-primary" rel="nofollow" href="#">Voir plus →</a>
                                 </div>

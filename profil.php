@@ -8,9 +8,9 @@ include("TRAITEMENT/connexion.php");
 
 include("TRAITEMENT/fonctions.php");
 
-$_SESSION['projets'] = nombre_de_projets($_SESSION['id']);
+$projets = nombre_de_projets($_SESSION['id']);
 
-$_SESSION['followers'] = nombre_de_followers($_SESSION['id']);
+$followers = nombre_de_followers($_SESSION['id']);
 
 ?>
 <div class="container">
@@ -88,11 +88,7 @@ $_SESSION['followers'] = nombre_de_followers($_SESSION['id']);
 											</strong>
 										</span>
 										<?php
-										if (isset($_SESSION['likes'])) {
-											echo $_SESSION['likes'];
-										} else {
-											echo "0";
-										}
+											echo nombre_de_likes($_SESSION['id']);
 										?>
 									</li>
 									<li class="list-group-item text-right">
@@ -102,8 +98,8 @@ $_SESSION['followers'] = nombre_de_followers($_SESSION['id']);
 											</strong>
 										</span>
 										<?php
-										if (isset($_SESSION['projets'])) {
-											echo $_SESSION['projets'];
+										if (isset($projets)) {
+											echo $projets;
 										} else {
 											echo "0";
 										}
@@ -116,8 +112,8 @@ $_SESSION['followers'] = nombre_de_followers($_SESSION['id']);
 											</strong>
 										</span>
 										<?php
-										if (isset($_SESSION['followers'])) {
-											echo $_SESSION['followers'];
+										if (isset($followers)) {
+											echo $followers;
 										} else {
 											echo "0";
 										}
@@ -204,13 +200,13 @@ $_SESSION['followers'] = nombre_de_followers($_SESSION['id']);
 														<div class="col-lg-6 col-sm-6 mb-4">
 															<span style="font-size:10px;" class="badge badge-primary badge-counter">
 																<?php
-																echo $donnee['likes_projet'];
+																	echo likes_projet($donnee['id_projet']);
 																?>
 																<i class="fas fa-fw fa-thumbs-up"></i>
 															</span>
 															<span style="font-size:10px;" class="badge badge-primary badge-counter">
 																<?php
-																echo $donnee['followers_projet'];
+																echo followers_projet($donnee['id_projet']);
 																?>
 																<i class="fas fa-fw fa-users"></i>
 															</span>
@@ -227,7 +223,7 @@ $_SESSION['followers'] = nombre_de_followers($_SESSION['id']);
 																		<h4 class="card-title">
 																			<input type="hidden" name="id" value="<?php echo $donnee['id_projet']; ?>" />
 																			<input type="hidden" name="formulaire" value="projet" />
-																			<button class="btn btn-md" href="#">
+																			<button class="btn btn-md" type="submit">
 																				<?php
 																				echo $donnee['titre_projet'];
 																				?>

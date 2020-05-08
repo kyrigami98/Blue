@@ -22,6 +22,22 @@ if (isset($_POST['formulaire'])) {
 		$requete = $bdd->prepare('DELETE FROM suivre WHERE id_artiste = :artiste AND id_abonne = :abonne');
 
 		$requete->execute(array('artiste' => $_POST['id'], 'abonne' => $_SESSION['id']));
+	} elseif ($_POST['formulaire'] == "suivre_projet") {
+		$requete = $bdd->prepare('INSERT INTO suivre_projet(`id_projet`, `id_abonne`) VALUES (:projet, :abonne)');
+
+		$requete->execute(array('projet' => $_POST['id'], 'abonne' => $_SESSION['id']));
+	} elseif ($_POST['formulaire'] == "ne_plus_suivre_projet") {
+		$requete = $bdd->prepare('DELETE FROM suivre_projet WHERE id_projet = :projet AND id_abonne = :abonne');
+
+		$requete->execute(array('projet' => $_POST['id'], 'abonne' => $_SESSION['id']));
+	} elseif ($_POST['formulaire'] == "aimer_projet") {
+		$requete = $bdd->prepare('INSERT INTO aimer_projet(`id_projet`, `id_abonne`) VALUES (:projet, :abonne)');
+
+		$requete->execute(array('projet' => $_POST['id'], 'abonne' => $_SESSION['id']));
+	} elseif ($_POST['formulaire'] == "ne_plus_aimer_projet") {
+		$requete = $bdd->prepare('DELETE FROM aimer_projet WHERE id_projet = :projet AND id_abonne = :abonne');
+
+		$requete->execute(array('projet' => $_POST['id'], 'abonne' => $_SESSION['id']));
 	}
 } else {
 	session_destroy();
