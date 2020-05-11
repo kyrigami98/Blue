@@ -254,18 +254,18 @@
 
 					<form id="modif_projet_form" class="modalForm" action="TRAITEMENT/projet_systeme.php" method="POST" enctype="multipart/form-data">
 						<div class="profile-img">
-							<img class="avatar rounded img-fluid" src="IMAGES/radiant.jpg" />
+							<img class="avatar rounded img-fluid" src="IMAGES/PROJETS/<?php echo $_SESSION['image_projet']; ?>" />
 							<div class="file btn btn-sm btn-primary">
 								Choisir une image pour le projet
 								<input type="file" name="image" class="file-upload" />
 							</div>
 							<hr>
 							<div class="form-label-group">
-								<input type="text" id="titre_Projet" value="<?php echo $_SESSION['titre_projet']; ?>" class="form-control" placeholder="Nom de l'illustration" name="nom" required>
-								<label for="titre_Projet"></label>
+								<input type="text" id="titre_Projet" value="<?php echo $_SESSION['titre_projet']; ?>" class="form-control" placeholder="Nom du projet" name="titre" required>
+								<label for="titre_Projet">Nom du projet</label>
 							</div>
 							<div class="form-label-group">
-								<input type="text" id="synopsis" class="form-control" placeholder="description de l'illustration" name="description">
+								<input type="text" id="synopsis" class="form-control" placeholder="description de l'illustration" value="<?php echo $_SESSION['synopsis']; ?>" name="synopsis">
 								<label for="synopsis">Synopsis du projet</label>
 							</div>
 							<input type="hidden" name="formulaire" value="update_projet" />
