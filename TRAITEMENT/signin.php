@@ -31,7 +31,7 @@
 
 			$requete2->closeCursor();
 
-			returnJson(true,"index.php","Connecté");
+			returnJson(true, "index.php", "Connecté");
 			exit;
 			
 		}

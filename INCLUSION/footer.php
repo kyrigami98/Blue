@@ -252,7 +252,7 @@
 				<br />
 				<div class="container">
 
-					<form id="modif_projet_form" class="modalForm" action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
+					<form id="modif_projet_form" class="modalForm" action="TRAITEMENT/projet_systeme.php" method="POST" enctype="multipart/form-data">
 						<div class="profile-img">
 							<img class="avatar rounded img-fluid" src="IMAGES/radiant.jpg" />
 							<div class="file btn btn-sm btn-primary">
@@ -332,6 +332,30 @@
 			$("#" + $(this).attr('name') + "_form").show();
 		});
 
+		$('#recherche').keyup(function(){
+			formulaire = "recherche";
+			recherche = $(this).find('input[name=recherche]').val();
+			$.ajax({
+				url: 'TRAITEMENT/systeme.php',
+				type: 'POST',
+				dataType: 'JSON',
+				data: {
+					formulaire: formulaire,
+					recherche: recherche
+				},
+				success: function(data) {
+					if(data.success == true && data.url != "") {
+						$('#reception').html(data.message).fadeIn(500);
+					} else {
+						$('#reception').html(data.message).fadeIn(500);
+					}
+				},
+				error: function(data) {
+					$('#reception').text('Une erreur est survenue lors de l\'execution... contactez les administrateurs').fadeIn(500);
+				}
+			})
+		});
+
 	});
 
 	$(".post").on('mouseover', function() {
@@ -386,10 +410,6 @@
 
 		event.preventDefault() //ceci bloque la soumission du formulaire ;)
 
-	});
-
-	$(document).on("keyup", "#navbarDropdown", function(){
-		alert('tu as ecrit un truc...');
 	});
 
 	//voici le script Ajax pour l'inscription

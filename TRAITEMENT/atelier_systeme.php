@@ -21,6 +21,10 @@ if ($_POST['formulaire'] == "projet") {
 	$_SESSION['likes'] = $donnee['likes_projet'];
 	$_SESSION['followers'] = $donnee['followers_projet'];
 	$_SESSION['visibilite'] = $donnee['visibilite'];
+	if($donnee['image_projet'] != "")
+	{
+		$_SESSION['image_projet'] = $donnee['image_projet'];
+	}
 
 	$requete->closeCursor();
 

@@ -30,21 +30,20 @@ include("TRAITEMENT/connexion.php");
 
 					<div class="container">
 						<div class="row">
+						<?php
+							$requete = $bdd->query('SELECT id_projet, titre_projet, image_projet FROM projet WHERE image_projet <> "" AND visibilite = "public" ORDER BY id_projet DESC LIMIT 3');
+
+							while($donnee = $requete->fetch())
+							{
+						?>
 							<div class="col-sm">
-								<a href="#" class=""><img class="rounded zoomer" height="300px" src="IMAGES/radiant.jpg" alt=""></a>
+								<a href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>" class=""><img class="rounded zoomer" height="300px" src="IMAGES/PROJETS/<?php echo $donnee['image_projet'] ?>" alt=""></a>
 								<hr>
-								<h5 class="h3-responsive">This is the first title</h5>
+								<h5 class="h3-responsive"><?php echo $donnee['titre_projet']; ?></h5>
 							</div>
-							<div class="col-sm">
-								<a href="#" class=""><img class="rounded zoomer" height="300px" src="IMAGES/radiant.jpg" alt=""></a>
-								<hr>
-								<h5 class="h3-responsive">This is the first title</h5>
-							</div>
-							<div class="col-sm">
-								<a href="#" class=""><img class="rounded zoomer" height="300px" src="IMAGES/radiant.jpg" alt=""></a>
-								<hr>
-								<h5 class="h3-responsive">This is the first title</h5>
-							</div>
+						<?php
+							}
+						?>
 						</div>
 					</div>
 				</div>
@@ -131,15 +130,7 @@ include("TRAITEMENT/connexion.php");
 						<a href="#"><img class="card-img-top" src="IMAGES/PROJETS/<?= $donnee['image_projet'] ?>" alt="<?= $donnee['image_projet'] ?>"></a>
 					<?php 	} ?>
 					<div class="card-body">
-						<?php if (isset($_SESSION['id']) && $donnee['id_utilisateur'] == $_SESSION['id']) { ?>
-							<form action="TRAITEMENT/atelier_systeme.php" method="POST">
-								<input type="hidden" name="id" value="<?php echo $donnee['id_projet']; ?>" />
-								<input type="hidden" name="formulaire" value="projet" />
-								<h5 class="card-title"><button class="btn btn-md" href="#"><?= $donnee['titre_projet'] ?></button></h5>
-							</form>
-						<?php } else { ?>
-							<h5 class="card-title"><a class="btn btn-md" href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>"><?= $donnee['titre_projet'] ?></a></h5>
-						<?php } ?>
+						<h5 class="card-title"><a class="btn btn-md" href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>"><?= $donnee['titre_projet'] ?></a></h5>
 						<p class="card-text"><small class="text-muted">dernière modification <?php echo $date['date_modif']; ?></small></p>
 					</div>
 				</div>

@@ -129,5 +129,22 @@ if (isset($_POST['supprimer'])) {
 		historique($donnee['titre_illustration'], "ILLUSTRATION", "SUPPRESSION", $_SESSION['id_projet'], $_SESSION['id']);
 
 		header('Location: ../atelier.php');
+	} elseif ($_POST['supprimer'] == "planche")
+	{
+		$requete_nom = $bdd->prepare('SELECT numero_planche FROM planche WHERE id_planche = :id');
+
+		$requete_nom->execute(array('id' => $_POST['id']));
+
+		$donnee = $requete_nom->fetch();
+		
+		$requete = $bdd->prepare('DELETE FROM planche WHERE id_planche = :id');
+		
+		$requete->execute(array('id' => $_POST['id']));
+		
+		$requete->closeCursor();
+		
+		historique($donnee['numero_planche'], "PLANCHE", "SUPPRESSION", $_SESSION['id_projet'], $_SESSION['id']);
+
+		header('Location: ../story.php?id='.$_POST['id_chapitre']);
 	}
 }

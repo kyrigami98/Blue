@@ -48,9 +48,9 @@ include "TRAITEMENT/connexion.php";
 								<div class="card-body">
 									<h6 class="collapse-header">Mes autres projets:</h6>
 									<?php
-									$requete = $bdd->prepare('SELECT * FROM projet WHERE id_utilisateur = :id ORDER BY id_projet');
+									$requete = $bdd->prepare('SELECT * FROM projet WHERE id_utilisateur = :id AND id_projet <> :id_projet ORDER BY id_projet');
 
-									$requete->execute(array('id' => $_SESSION['id']));
+									$requete->execute(array('id_projet' => $_SESSION['id_projet'], 'id' => $_SESSION['id']));
 
 									while ($donnee = $requete->fetch()) {
 									?>
@@ -161,12 +161,13 @@ include "TRAITEMENT/connexion.php";
 
 									<a class="nav-link nav-item" href="#" style="z-index:0;">
 										<h1 class="font-weight-light text-white" style="text-shadow: 2px 2px black;">
-											<?php if (isset($_SESSION['titre_projet'])) 
+											<?php if (isset($_SESSION['id_projet'])) 
 												  {
-													  if(isset($_SESSION['image_projet'])){ 
+													  if(isset($_SESSION['image_projet']))
+													  { 
 											?>
 												<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/PROJETS/<?php echo $_SESSION['image_projet']; ?>" alt="<?php echo $_SESSION['titre_projet']; ?>" />
-											<?php } ?>
+												<?php } ?>
 												<span data-toggle="tooltip" data-placement="bottom" data-html="false" title='<?php echo $_SESSION['synopsis']; ?>'>
 												<?php echo $_SESSION['titre_projet']; ?>
 												</span>
@@ -179,8 +180,10 @@ include "TRAITEMENT/connexion.php";
 										</h1>
 									</a>
 									<div class="d-sm-flex align-items-center justify-content-end">
-										<span style="font-size:13px;margin-right:10px;z-index:1;" class="badge badge-primary badge-counter"><?php if(isset($_SESSION['id_projet'])){ echo likes_projet($_SESSION['id_projet']); } ?> <i class="fas fa-fw fa-thumbs-up"></i></span>
-										<span style="font-size:13px; margin-right:10px;z-index:1;" class="badge badge-primary badge-counter"><?php if(isset($_SESSION['id_projet'])){ echo followers_projet($_SESSION['id_projet']); } ?> <i class="fas fa-fw fa-users"></i></span>
+										<?php if(isset($_SESSION['id_projet'])){ ?>
+										<span style="font-size:13px;margin-right:10px;z-index:1;" class="badge badge-primary badge-counter"> <?php echo likes_projet($_SESSION['id_projet']); ?> <i class="fas fa-fw fa-thumbs-up"></i></span>
+										<span style="font-size:13px; margin-right:10px;z-index:1;" class="badge badge-primary badge-counter"><?php echo followers_projet($_SESSION['id_projet']); ?> <i class="fas fa-fw fa-users"></i></span>
+										<?php } ?>
 										<?php if (isset($_SESSION['titre_projet'])) { ?><a href="#" style="z-index:1;margin-right:10px;" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>Télécharger le projet en pdf</a><?php } ?>
 									</div>
 								</div>
@@ -223,6 +226,8 @@ include "TRAITEMENT/connexion.php";
 															$requete->execute(array('id' => $_SESSION['id_projet']));
 
 															$count = 1;
+															
+															$existe = false;
 
 															while ($donnee = $requete->fetch()) {
 															?>
@@ -252,6 +257,13 @@ include "TRAITEMENT/connexion.php";
 																</div>
 															<?php
 																$count++;
+																
+																$existe = true;
+															}
+															
+															if($existe == false)
+															{
+																echo "Aucun chapitre disponible...";
 															}
 															?>
 														</div>
@@ -265,6 +277,8 @@ include "TRAITEMENT/connexion.php";
 															$requete = $bdd->prepare('SELECT personnage.id_personnage, nom_personnage, description_personnage, image_personnage FROM personnage, intervenir WHERE personnage.id_personnage = intervenir.id_personnage AND intervenir.id_projet = :id_projet ORDER BY id_personnage DESC');
 
 															$requete->execute(array('id_projet' => $_SESSION['id_projet']));
+
+															$existe = false;
 
 															while ($donnee = $requete->fetch()) {
 															?>
@@ -292,6 +306,12 @@ include "TRAITEMENT/connexion.php";
 																	</form>
 																</div>
 															<?php
+																$existe = true;
+															}
+															
+															if($existe == false)
+															{
+																echo "Aucun personnage disponible...";
 															}
 															?>
 														</div>
@@ -305,7 +325,9 @@ include "TRAITEMENT/connexion.php";
 															$requete = $bdd->prepare('SELECT creature.id_creature, nom_creature, description_creature, image_creature FROM creature, apparaitre WHERE creature.id_creature = apparaitre.id_creature AND apparaitre.id_projet = :id_projet ORDER BY id_creature DESC');
 
 															$requete->execute(array('id_projet' => $_SESSION['id_projet']));
-
+															
+															$existe = false;
+															
 															while ($donnee = $requete->fetch()) {
 															?>
 																<div class="card shadow post">
@@ -332,7 +354,14 @@ include "TRAITEMENT/connexion.php";
 																	</form>
 																</div>
 															<?php
+																$existe = true;
 															}
+															
+															if($existe == false)
+															{
+																echo "Aucune créature disponible...";
+															}
+															
 															?>
 														</div>
 													</div>
@@ -345,7 +374,9 @@ include "TRAITEMENT/connexion.php";
 															$requete = $bdd->prepare('SELECT lieu.id_lieu, nom_lieu, description_lieu, image_lieu FROM lieu, visiter WHERE lieu.id_lieu = visiter.id_lieu AND visiter.id_projet = :id_projet ORDER BY id_lieu DESC');
 
 															$requete->execute(array('id_projet' => $_SESSION['id_projet']));
-
+															
+															$existe = false;
+															
 															while ($donnee = $requete->fetch()) {
 															?>
 																<div class="card shadow post">
@@ -372,7 +403,14 @@ include "TRAITEMENT/connexion.php";
 																	</form>
 																</div>
 															<?php
+																$existe = true;
 															}
+															
+															if($existe == false)
+															{
+																echo "Aucun lieu disponible...";
+															}
+															
 															?>
 														</div>
 													</div>
@@ -385,6 +423,8 @@ include "TRAITEMENT/connexion.php";
 															$requete = $bdd->prepare('SELECT terme.id_terme, nom_terme, description_terme FROM terme, citer WHERE terme.id_terme = citer.id_terme AND citer.id_projet = :id_projet ORDER BY id_terme DESC');
 
 															$requete->execute(array('id_projet' => $_SESSION['id_projet']));
+
+															$existe = false;
 
 															while ($donnee = $requete->fetch()) {
 															?>
@@ -410,7 +450,14 @@ include "TRAITEMENT/connexion.php";
 																	</div>
 																</div>
 															<?php
+																$existe = true;
 															}
+															
+															if($existe == false)
+															{
+																echo "Aucun mot clé disponible...";
+															}
+															
 															?>
 														</div>
 													</div>
@@ -423,7 +470,9 @@ include "TRAITEMENT/connexion.php";
 															$requete = $bdd->prepare('SELECT * FROM illustration WHERE id_projet = :id_projet ORDER BY id_illustration DESC');
 
 															$requete->execute(array('id_projet' => $_SESSION['id_projet']));
-
+															
+															$existe = false;
+															
 															while ($donnee = $requete->fetch()) {
 															?>
 																<div class="card shadow post ">
@@ -450,7 +499,14 @@ include "TRAITEMENT/connexion.php";
 																	</form>
 																</div>
 															<?php
+																$existe = true;
 															}
+															
+															if($existe == false)
+															{
+																echo "Aucune illustration disponible...";
+															}
+															
 															?>
 														</div>
 													</div>

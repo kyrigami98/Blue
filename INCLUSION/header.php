@@ -35,37 +35,12 @@ session_start();
   <!-- Sidebar Toggle (Topbar) -->
 
   <!-- Topbar Search -->
-  <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+  <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" id="recherche">
     <div class="input-group">
 
-      <input type="text" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="form-control bg-light border-0 small dropdown-toggle" placeholder="Rechercher un projet ou un auteur..." aria-label="Search" aria-describedby="basic-addon2">
+      <input type="text" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="form-control bg-light border-0 small dropdown-toggle" placeholder="Rechercher un projet ou un auteur..." aria-label="Search" aria-describedby="basic-addon2" id="recherche" name="recherche">
 
-      <div class="col-12 dropdown-menu animated--grow-in" aria-labelledby="navbarDropdown">
-
-        <div class="card-header py-3">
-          <h7 class="m-0 font-weight-bold">Projets</h7>
-        </div>
-
-        <a class="dropdown-item" href="#">
-          <img class="rounded" height="80px" src="IMAGES/radiant.jpg" />
-          <span class="mr-2 d-none d-lg-inline text-gray-600 small"><strong><?php echo $_SESSION['titre_projet']; ?></strong></span>
-        </a>
-
-        
-        <a class="dropdown-item" href="#">
-          <img class="rounded" height="80px" src="IMAGES/radiant.jpg" />
-          <span class="mr-2 d-none d-lg-inline text-gray-600 small"><strong><?php echo $_SESSION['titre_projet']; ?></strong></span>
-        </a>
-        
-        <div class="card-header py-3">
-          <h7 class="m-0 font-weight-bold">Auteurs</h7>
-        </div>
-
-        <a class="dropdown-item" href="#">
-          <img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/<?php echo $_SESSION['image']; ?>" />
-          <span class="mr-2 d-none d-lg-inline text-gray-600 small"><strong><?php echo $_SESSION['pseudo']; ?></strong></span>
-        </a>
-        
+      <div class="col-12 dropdown-menu animated--grow-in" aria-labelledby="navbarDropdown" id="reception">
 
         <br>
       </div>

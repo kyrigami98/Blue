@@ -148,5 +148,6 @@ function nombre_de_likes($id)
 
     return $donnee['COUNT(*)'];
 }
+
 ?>
 
