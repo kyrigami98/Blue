@@ -332,6 +332,22 @@
 			$("#" + $(this).attr('name') + "_form").show();
 		});
 
+		/*$('#editor').keyup(function(){
+			id = <?php echo $_GET['id']; ?>;
+			formulaire = "story";
+			story = $(this).val();
+			$.ajax({
+				url: 'TRAITEMENT/systeme.php',
+				type: 'POST',
+				dataType: 'JSON',
+				data: {
+					id: id,
+					formulaire: formulaire,
+					story: story
+				}
+			});
+		});*/
+
 		$('#recherche').keyup(function(){
 			formulaire = "recherche";
 			recherche = $(this).find('input[name=recherche]').val();
@@ -411,15 +427,14 @@
 		event.preventDefault() //ceci bloque la soumission du formulaire ;)
 
 	});
+	
 
-	//voici le script Ajax pour l'inscription
-	/*  $(document).on("submit", "#inscription", function(event) {
+	$(function() {
+		$('[data-toggle="tooltip"]').tooltip()
+	})
+</script>
 
-	   event.preventDefault();
-	 
-	 }); */
-	//voici le script pour le champ text de la page story
-
+<script>
 	function suivre()
 	{
 		document.getElementById("ne_plus_suivre").style.visibility = "visible";
@@ -533,11 +548,152 @@
 			}
 		});
 	}
-
-	$(function() {
-		$('[data-toggle="tooltip"]').tooltip()
-	})
 </script>
 
+<script>
+	$(document).on("submit", "#illustration_form", function(event){
+		image = $(this)[0];
+		nom = $(this).find('input[name=nom]').val();
+		description = $(this).find('input[name=description]').val();
+		formulaire = $(this).find('input[name=formulaire]').val();
+		$.ajax({
+			url: 'TRAITEMENT/atelier_systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				image: image,
+				nom: nom,
+				description: description,
+				formulaire: formulaire
+			},
+			success: function(data) {
+				alert(data.message);
+			}
+		});
+		event.preventDefault();
+	});
+
+	$(document).on("submit", "#cle_form", function(event){
+		nom = $(this).find('input[name=nom]').val();
+		description = $(this).find('input[name=description]').val();
+		formulaire = $(this).find('input[name=formulaire]').val();
+		$.ajax({
+			url: 'TRAITEMENT/atelier_systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				nom: nom,
+				description: description,
+				formulaire: formulaire
+			},
+			success: function(data) {
+				alert(data.message);
+			}
+		});
+		event.preventDefault();
+	});
+
+	$(document).on("submit", "#lieu_form", function(event){
+		image = new FormData($(this)[0]); 
+		nom = $(this).find('input[name=nom]').val();
+		description = $(this).find('input[name=description]').val();
+		formulaire = $(this).find('input[name=formulaire]').val();
+		$.ajax({
+			url: 'TRAITEMENT/atelier_systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				image: image,
+				nom: nom,
+				description: description,
+				formulaire: formulaire
+			},
+			success: function(data) {
+				alert(data.message);
+			}
+		});
+		event.preventDefault();
+	});
+
+	$(document).on("submit", "#creature_form", function(event){
+		image = new FormData($(this)[0]);		
+		nom = $(this).find('input[name=nom]').val();
+		description = $(this).find('input[name=description]').val();
+		formulaire = $(this).find('input[name=formulaire]').val();
+		$.ajax({
+			url: 'TRAITEMENT/atelier_systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				image: image,
+				nom: nom,
+				description: description,
+				formulaire: formulaire
+			},
+			success: function(data) {
+				alert(data.message);
+			}
+		});
+		event.preventDefault();
+	});
+
+	$(document).on("submit", "#personnage_form", function(event){
+		image = new FormData($(this)[0]);
+		nom = $(this).find('input[name=nom]').val();
+		description = $(this).find('input[name=description]').val();
+		formulaire = $(this).find('input[name=formulaire]').val();
+		$.ajax({
+			url: 'TRAITEMENT/atelier_systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				image: image,
+				nom: nom,
+				description: description,
+				formulaire: formulaire
+			},
+			success: function(data) {
+				if(data.success == true)
+				{
+					alert(data.message);
+				}
+				else
+				{
+					alert('une erreur est survenue lors de l\'envoi');
+				}
+			}
+		});
+		event.preventDefault();
+	});
+
+	$(document).on("submit", "#chapitre_form", function(event){
+		image = new FormData($(this)[0]);
+		nom = $(this).find('input[name=nom]').val();
+		description = $(this).find('input[name=description]').val();
+		formulaire = $(this).find('input[name=formulaire]').val();
+		$.ajax({
+			url: 'TRAITEMENT/atelier_systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				image: image,
+				nom: nom,
+				description: description,
+				formulaire: formulaire
+			},
+			success: function(data) {
+				if(data.success == true)
+				{
+					alert(data.message);
+				}
+				else
+				{
+					alert('une erreur est survenue lors de l\'envoi');
+				}
+			}
+		});
+		event.preventDefault();
+	});
+</script>
 
 </html>

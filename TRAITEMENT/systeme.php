@@ -42,12 +42,16 @@ if (isset($_POST['formulaire']))
 				$resultat = "<span style=\"margin-left:10px;\">aucun resultat trouvé</span>";
 			}
 		}
+		returnJson(true, "", $resultat);		
+	}
+	elseif ($_POST['formulaire'] == "story")
+	{
+		$requete = $bdd->prepare('UPDATE chapitre SET `texte_chapitre` = :story WHERE id_chapitre = :id');
 
+		$requete->execute(array('story' => $_POST['story'], 'id' => $_POST['id']));
 
-
-		returnJson(true, "", $resultat);
-		
-	} 
+		$requete->closeCursor();
+	}
 	elseif ($_POST['formulaire'] == "suivre") 
 	{
 		$requete = $bdd->prepare('INSERT INTO suivre(`id_artiste`, `id_abonne`) VALUES (:artiste, :abonne)');

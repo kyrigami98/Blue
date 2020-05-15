@@ -130,7 +130,21 @@ include("TRAITEMENT/connexion.php");
 						<a href="#"><img class="card-img-top" src="IMAGES/PROJETS/<?= $donnee['image_projet'] ?>" alt="<?= $donnee['image_projet'] ?>"></a>
 					<?php 	} ?>
 					<div class="card-body">
+					<?php if(isset($_SESSION['id']) AND $_SESSION['id'] == $donnee['id_utilisateur']){ ?>
+						<button data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-md" aria-describedby="basic-addon2"><?= $donnee['titre_projet'] ?></button>
+						<div class="col-4 dropdown-menu animated--grow-in" aria-labelledby="navbarDropdown" style="padding: 10px 0px 0px 10px;">
+							<h5 class="card-title"><a class="btn btn-md btn-secondary" style="width: 85px;" href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>">Voir</a></h5>
+							<h5 class="card-title">
+								<form action="TRAITEMENT/atelier_systeme.php" method="POST">
+									<input type="hidden" name="id" value="<?php echo $donnee['id_projet']; ?>" />
+									<input type="hidden" name="formulaire" value="projet" />
+									<button class="btn btn-md btn-primary">Modifier</button>
+								</form>
+							</h5>	
+						</div>
+					<?php }else{ ?>
 						<h5 class="card-title"><a class="btn btn-md" href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>"><?= $donnee['titre_projet'] ?></a></h5>
+					<?php } ?>
 						<p class="card-text"><small class="text-muted">dernière modification <?php echo $date['date_modif']; ?></small></p>
 					</div>
 				</div>
