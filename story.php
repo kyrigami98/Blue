@@ -251,7 +251,51 @@ $donnee = $requete->fetch();
     </div>
 </div>
 
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+$('#editor').on("keyup", function(){
+			id = <?php echo $_GET['id']; ?>;
+			formulaire = "story";
+			story = $(this).val();
+			$.ajax({
+				url: 'TRAITEMENT/systeme.php',
+				type: 'POST',
+				dataType: 'JSON',
+				data: {
+					id: id,
+					formulaire: formulaire,
+					story: story
+				}
+			});
+			var mot = dernierMot(story);
+			tag = mot[0];
+			if(tag == '@' || tag == '&' || tag == '#' || tag == '$' || tag == '*') {
+				formulaire = "tag";
+				carac = mot[0];
+				motSearch = mot.replace(mot[0], "");
+				$.ajax({
+					url: 'TRAITEMENT/systeme.php',
+					type: 'POST',
+					dataType: 'JSON',
+					data: {
+						formulaire: formulaire,
+						tag: motSearch,
+						caractere: carac
+					},
+					success: function(data) {
+						if(data.success == true && data.url != "") {
+							$('#tags').html(data.message).fadeIn(500);
+						} else {
+							$('#tags').html(data.message).fadeIn(500);
+						}
+					},
+					error: function(data) {
+						$('#tags').text('Une erreur est survenue lors de l\'execution... contactez les administrateurs');
+					}
+				});
+			}
+		});
+
+</script>   
 
 <?php
 include "INCLUSION/footer.php";
