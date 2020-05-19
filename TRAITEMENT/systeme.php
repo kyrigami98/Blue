@@ -52,6 +52,38 @@ if (isset($_POST['formulaire']))
 
 		$requete->closeCursor();
 	}
+	elseif ($_POST['formulaire'] == "tag")
+	{
+		$resultat = "
+		<button class=\"btn btn-sm btn-primary\" data-toggle=\"tooltip\" data-placement=\"top\" data-html=\"true\" title=\"\" type=\"submit\"><i class=\"fas fa-fw fa-user-ninja\"></i><span style=\"color:black;\">@</span> Personnage </button>
+		<button class=\"btn btn-sm btn-success\" data-toggle=\"tooltip\" data-placement=\"top\" data-html=\"true\" title=\"\" type=\"submit\"><i class=\"fas fa-fw fa-paw\"></i><span style=\"color:black;\">&</span> Cr&eacute;ature </button>
+		<button class=\"btn btn-sm btn-info\" data-toggle=\"tooltip\" data-placement=\"top\" data-html=\"true\" title=\"\" type=\"submit\"><i class=\"fas fa-fw fa-dragon\"></i><span style=\"color:black;\">#</span> Illustration </button>
+		<button class=\"btn btn-sm btn-warning\" data-toggle=\"tooltip\" data-placement=\"top\" data-html=\"true\" title=\"\" type=\"submit\"><i class=\"fas fa-fw fa-globe-africa\"></i><span style=\"color:black;\">$</span> Lieu </button>
+		<button class=\"btn btn-sm btn-danger\" data-toggle=\"tooltip\" data-placement=\"top\" data-html=\"true\" title=\"\" type=\"submit\"><i class=\"fas fa-fw fa-list-alt\"></i><span style=\"color:black;\">*</span> Terme </button>			
+		";
+		if($_POST['tag'] != "" && $_POST['caractere'] == '@')
+		{
+			include "tag_personnage.php";
+		}
+		elseif($_POST['tag'] != "" && $_POST['caractere'] == '&')
+		{
+			include "tag_creature.php";
+		}
+		elseif($_POST['tag'] != "" && $_POST['caractere'] == '#')
+		{
+			include "tag_illustration.php";
+		}
+		elseif($_POST['tag'] != "" && $_POST['caractere'] == '$')
+		{
+			include "tag_lieu.php";
+		}
+		elseif($_POST['tag'] != "" && $_POST['caractere'] == '*')
+		{
+			include "tag_terme.php";
+		}
+
+		returnJson(true, "", $resultat);
+	}
 	elseif ($_POST['formulaire'] == "suivre") 
 	{
 		$requete = $bdd->prepare('INSERT INTO suivre(`id_artiste`, `id_abonne`) VALUES (:artiste, :abonne)');

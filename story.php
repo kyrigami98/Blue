@@ -3,6 +3,11 @@ include "INCLUSION/header.php";
 
 include "TRAITEMENT/connexion.php";
 
+if(!isset($_SESSION['pseudo']))
+{
+    header('Location: index.php');
+}
+
 $requete = $bdd->prepare('SELECT * FROM chapitre WHERE id_chapitre = :id');
 
 $requete->execute(array('id' => $_GET['id']));
@@ -92,8 +97,8 @@ $donnee = $requete->fetch();
                 <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <br>
 
-                    <div class="container text-center">
-                        <button class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />
+                    <div class="container text-center" id="tags">
+                        <!--<button class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />
                         <hr><span>
                         Madara Uchiha (うちはマダラ, Uchiha Madara) was the legendary leader of the Uchiha clan. He founded Konohagakure alongside his childhood friend and rival, Hashirama Senju, with the intention of beginning an era of peace. ... Madara, however, rewrote his death and went into hiding to work on his own plans.
                         </span>
@@ -106,7 +111,7 @@ $donnee = $requete->fetch();
 
                         <button class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw fa-paw"></i> Tigre</button>
 
-                        <button class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw fa-list-alt"></i> Haki</button>
+                        <button class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw fa-list-alt"></i> Haki</button>-->
 
                     </div>
 
@@ -116,7 +121,7 @@ $donnee = $requete->fetch();
                             <div class="row justify-content-md-center">
                                 <div class="col-md-12 col-lg-12">
                                     <div class="form-group">
-                                        <textarea id="editor"><?php echo $donnee['texte_chapitre']; ?></textarea>
+                                        <textarea id="editor" rows="10" cols="120"><?php echo $donnee['texte_chapitre']; ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -247,31 +252,6 @@ $donnee = $requete->fetch();
 </div>
 
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
-<script type="text/javascript">
-    tinymce.init({
-        selector: 'textarea#editor',
-        skin: 'bootstrap',
-        plugins: 'lists, link, image, media',
-        toolbar: 'h1 h2 bold italic strikethrough blockquote bullist numlist backcolor | link image media | removeformat help',
-        min_height: 400,
-        width: 1100,
-        menubar: false,
-        setup: (editor) => { // Apply the focus effect
-            editor.on('init', () => {
-                editor.getContainer().style.transition = "border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out"
-            });
-            editor.on('focus', () => {
-                editor.getContainer().style.boxShadow = "0 0 0 .2rem rgba(0, 123, 255, .25)",
-                    editor.getContainer().style.borderColor = "#80bdff"
-            });
-            editor.on('blur', () => {
-                editor.getContainer().style.boxShadow = "",
-                    editor.getContainer().style.borderColor = ""
-            });
-        }
-    });
-</script>
 
 <?php
 include "INCLUSION/footer.php";

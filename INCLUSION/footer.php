@@ -314,6 +314,13 @@
 
 <script type="text/javascript" src="JS/MyScript.js"></script>
 
+<script>
+	function dernierMot(texte) {
+		var tableau = texte.split(" ");
+		return tableau[tableau.length-1];
+	}
+</script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".deleteboutton").hide();
@@ -332,7 +339,7 @@
 			$("#" + $(this).attr('name') + "_form").show();
 		});
 
-		/*$('#editor').keyup(function(){
+		$('#editor').on("keyup", function(){
 			id = <?php echo $_GET['id']; ?>;
 			formulaire = "story";
 			story = $(this).val();
@@ -346,7 +353,34 @@
 					story: story
 				}
 			});
-		});*/
+			var mot = dernierMot(story);
+			tag = mot[0];
+			if(tag == '@' || tag == '&' || tag == '#' || tag == '$' || tag == '*') {
+				formulaire = "tag";
+				carac = mot[0];
+				motSearch = mot.replace(mot[0], "");
+				$.ajax({
+					url: 'TRAITEMENT/systeme.php',
+					type: 'POST',
+					dataType: 'JSON',
+					data: {
+						formulaire: formulaire,
+						tag: motSearch,
+						caractere: carac
+					},
+					success: function(data) {
+						if(data.success == true && data.url != "") {
+							$('#tags').html(data.message).fadeIn(500);
+						} else {
+							$('#tags').html(data.message).fadeIn(500);
+						}
+					},
+					error: function(data) {
+						$('#tags').text('Une erreur est survenue lors de l\'execution... contactez les administrateurs');
+					}
+				});
+			}
+		});
 
 		$('#recherche').keyup(function(){
 			formulaire = "recherche";
@@ -426,6 +460,27 @@
 
 		event.preventDefault() //ceci bloque la soumission du formulaire ;)
 
+	});
+
+	$(document).on("click", '#tag', function(){
+		categorie = this.getAttribute('name');
+		if(categorie == "personnage") {
+			symbole = "@";
+		}
+		else if(categorie == "creature") {
+			symbole = "&";
+		}
+		else if(categorie == "lieu") {
+			symbole = "$";
+		}
+		else if(categorie == "terme") {
+			symbole = "*";
+		}
+		else if(categorie == "illustration") {
+			symbole = "#";
+		}
+		texte = document.getElementById('editor').value;
+		document.getElementById('editor').value = texte.replace(dernierMot(texte), symbole+$(this).val().replace(" ", "_"));
 	});
 	
 
