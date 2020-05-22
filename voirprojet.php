@@ -103,7 +103,7 @@ $projet = $requete_projet->fetch();
                                     </button>
                                 </div>
                                 <div>
-                                    <a href="#" class="btn btn-success">
+                                    <a href="scanReader.php?id=<?php echo $_GET['id']; ?>" class="btn btn-success">
                                         <i class="fas fa-fw fa-book-reader"></i> Commencer la lecture
                                     </a>
                                 </div>

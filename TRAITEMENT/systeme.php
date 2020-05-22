@@ -147,6 +147,47 @@ if (isset($_POST['formulaire']))
 		
 		header('Location: ../story.php?id='.$_POST['id_chapitre']);
 	}
+	elseif ($_POST['formulaire'] == "scanReader")
+	{
+		$requete = $bdd->prepare('SELECT image_planche FROM planche WHERE id_chapitre = :id ORDER BY numero_planche');
+
+		$requete->execute(array('id' => $_POST['id']));
+
+		$existe = false;
+
+		$retour = "";
+
+		while($planche = $requete->fetch())
+		{
+			$retour = $retour."<img src=\"IMAGES/PLANCHES/".$planche['image_planche']."\" width=\"800px\" />";
+			$existe = true;		
+		}
+		if($existe == false)
+		{
+			$retour = "Il n'y a aucun planche pour l'instant";
+		}
+
+		returnJson(true, "", $retour);
+	}
+	elseif ($_POST['formulaire'] == "storyReader")
+	{
+		$requete = $bdd->prepare('SELECT texte_chapitre FROM chapitre WHERE id_chapitre = :id');
+
+		$requete->execute(array('id' => $_POST['id']));
+
+		$resultat = $requete->fetch();
+
+		if($resultat['texte_chapitre'] == "")
+		{
+			$retour = "Il n'y a aucun texte pour l'instant";
+		}
+		else
+		{
+			$retour = $resultat['texte_chapitre'];
+		}
+
+		returnJson(true, "", $retour);
+	}
 } 
 else 
 {

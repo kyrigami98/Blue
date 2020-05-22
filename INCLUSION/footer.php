@@ -102,6 +102,9 @@
 
 				<form id="chapitre_form" class="modalForm" action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
 					<div class="profile-img">
+						<br />
+						<span><?php echo $_SESSION['titre_projet']; ?></span>
+						<hr />
 						<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" />
 						<div class="file btn btn-sm btn-primary">
 							Choisir une image
@@ -126,6 +129,9 @@
 
 				<form id="personnage_form" class="modalForm" action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
 					<div class="profile-img">
+						<br />
+						<span><?php echo $_SESSION['titre_projet']; ?></span>
+						<hr />
 						<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" />
 						<div class="file btn btn-sm btn-primary">
 							Choisir une image
@@ -150,6 +156,9 @@
 
 				<form id="creature_form" class="modalForm" action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
 					<div class="profile-img">
+						<br />
+						<span><?php echo $_SESSION['titre_projet']; ?></span>
+						<hr />
 						<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" />
 						<div class="file btn btn-sm btn-primary">
 							Choisir une image
@@ -175,6 +184,9 @@
 
 				<form id="lieu_form" class="modalForm" action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
 					<div class="profile-img">
+						<br />
+						<span><?php echo $_SESSION['titre_projet']; ?></span>
+						<hr />
 						<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" />
 						<div class="file btn btn-sm btn-primary">
 							Choisir une image
@@ -198,6 +210,9 @@
 				</form>
 
 				<form id="cle_form" class="modalForm" action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
+					<br />
+					<span><?php echo $_SESSION['titre_projet']; ?></span>
+					<hr />
 					<div class="form-label-group">
 						<input type="text" id="cle" class="form-control" placeholder="mot cle" name="nom" required>
 						<label for="cle">Mot clé</label>
@@ -215,6 +230,9 @@
 
 				<form id="illustration_form" class="modalForm" action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
 					<div class="profile-img">
+						<br />
+						<span><?php echo $_SESSION['titre_projet']; ?></span>
+						<hr />
 						<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" required />
 						<div class="file btn btn-sm btn-primary">
 							Choisir une image
@@ -437,7 +455,7 @@
 			symbole = "#";
 		}
 		texte = document.getElementById('editor').value;
-		document.getElementById('editor').value = texte.replace(dernierMot(texte), symbole+$(this).val().replace(" ", "_"));
+		document.getElementById('editor').value = texte.replace(dernierMot(texte), symbole+$(this).val().replace(/ /g, "_"));
 	});
 	
 
@@ -708,4 +726,4 @@
 	});
 </script>
 
-</html>
+</html>	
