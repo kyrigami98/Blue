@@ -26,7 +26,7 @@ if (isset($_POST['formulaire'])) {
 
 		$requete->closeCursor();
 
-		$requete = $bdd->query('SELECT * FROM projet WHERE titre_projet = :titre AND id_utilisateur = id');
+		$requete = $bdd->prepare('SELECT * FROM projet WHERE titre_projet = :titre AND id_utilisateur = id');
 
 		$requete->execute(array('titre' => $projet, 'id' => $_SESSION['id']));
 
