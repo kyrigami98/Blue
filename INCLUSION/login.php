@@ -30,20 +30,19 @@ include("TRAITEMENT/connexion.php");
 
 					<div class="container">
 						<div class="row">
-						<?php
+							<?php
 							$requete = $bdd->query('SELECT id_projet, titre_projet, image_projet FROM projet WHERE image_projet <> "" AND visibilite = "public" ORDER BY id_projet DESC LIMIT 3');
 
-							while($donnee = $requete->fetch())
-							{
-						?>
-							<div class="col-sm">
-								<a href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>" class=""><img class="rounded zoomer" height="300px" src="IMAGES/PROJETS/<?php echo $donnee['image_projet'] ?>" alt=""></a>
-								<hr>
-								<h5 class="h3-responsive"><?php echo $donnee['titre_projet']; ?></h5>
-							</div>
-						<?php
+							while ($donnee = $requete->fetch()) {
+							?>
+								<div class="col-sm">
+									<a href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>" class=""><img class="rounded zoomer" height="300px" src="IMAGES/PROJETS/<?php echo $donnee['image_projet'] ?>" alt=""></a>
+									<hr>
+									<h5 class="h3-responsive"><?php echo $donnee['titre_projet']; ?></h5>
+								</div>
+							<?php
 							}
-						?>
+							?>
 						</div>
 					</div>
 				</div>
@@ -130,22 +129,30 @@ include("TRAITEMENT/connexion.php");
 						<a href="#"><img class="card-img-top" src="IMAGES/PROJETS/<?= $donnee['image_projet'] ?>" alt="<?= $donnee['image_projet'] ?>"></a>
 					<?php 	} ?>
 					<div class="card-body">
-					<?php if(isset($_SESSION['id']) AND $_SESSION['id'] == $donnee['id_utilisateur']){ ?>
-						<button data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-md" aria-describedby="basic-addon2"><?= $donnee['titre_projet'] ?></button>
-						<div class="col-4 dropdown-menu animated--grow-in" aria-labelledby="navbarDropdown" style="padding: 10px 0px 0px 10px;">
-							<h5 class="card-title"><a class="btn btn-md btn-secondary" style="width: 85px;" href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>">Voir</a></h5>
-							<h5 class="card-title">
-								<form action="TRAITEMENT/atelier_systeme.php" method="POST">
-									<input type="hidden" name="id" value="<?php echo $donnee['id_projet']; ?>" />
-									<input type="hidden" name="formulaire" value="projet" />
-									<button class="btn btn-md btn-primary">Modifier</button>
-								</form>
-							</h5>	
-						</div>
-					<?php }else{ ?>
-						<h5 class="card-title"><a class="btn btn-md" href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>"><?= $donnee['titre_projet'] ?></a></h5>
-					<?php } ?>
-						<p class="card-text"><small class="text-muted">dernière modification <?php echo $date['date_modif']; ?></small></p>
+						<?php if (isset($_SESSION['id']) and $_SESSION['id'] == $donnee['id_utilisateur']) { ?>
+							<button data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-md" aria-describedby="basic-addon2"><?= $donnee['titre_projet'] ?></button>
+							<div class="col-4 dropdown-menu animated--grow-in" aria-labelledby="navbarDropdown" style="padding: 10px 0px 0px 10px;">
+								<h5 class="card-title"><a class="btn btn-md btn-secondary" style="width: 85px;" href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>">Voir</a></h5>
+								<h5 class="card-title">
+									<form action="TRAITEMENT/atelier_systeme.php" method="POST">
+										<input type="hidden" name="id" value="<?php echo $donnee['id_projet']; ?>" />
+										<input type="hidden" name="formulaire" value="projet" />
+										<button class="btn btn-md btn-primary">Modifier</button>
+									</form>
+								</h5>
+							</div>
+						<?php } else { ?>
+							<h5 class="card-title"><a class="btn btn-lg" href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>"><strong><?= $donnee['titre_projet'] ?></strong></a></h5>
+						<?php } ?>
+
+						<span class="mr-2 d-none d-lg-inline text-gray-600 small">
+							<a class="collapse-item" href="utilisateur.php?id=<?php echo $donnee['id_utilisateur']; ?>">
+								<img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/STAND.jpg" />
+							</a>
+							<strong>Kyrigami</strong>
+							<span class="card-text"><small class="text-muted"><?php echo " Mise à jour le " . date("d F Y à h:i", strtotime($date['date_modif'])); ?></small></span>
+						</span>
+						
 					</div>
 				</div>
 			<?php } ?>

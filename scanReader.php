@@ -50,7 +50,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+<!--                     <div class="card">
                         <div class="card-body">
                             <div>
                                 <img src="IMAGES/PROFILS/STAND.jpg" alt="" style="height: 40px;border-radius: 50px;">
@@ -58,18 +58,18 @@
                             </div>
                             <hr />
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="tab-pane fade" id="scans" role="tabpanel" aria-labelledby="scans-tab">
                     <br />
                     <div class="card">
-                        <div class="card-body">
-                            <div id="scan">
+                        <div class="d-flex justify-content-center">
+                            <div id="scan" class=" col-7" >
                                 
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+<!--                     <div class="card">
                         <div class="card-body">
                             <div>
                                 <img src="IMAGES/PROFILS/STAND.jpg" alt="" style="height: 40px;border-radius: 50px;">
@@ -77,7 +77,7 @@
                             </div>
                             <hr />
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
