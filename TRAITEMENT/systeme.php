@@ -159,7 +159,7 @@ if (isset($_POST['formulaire']))
 
 		while($planche = $requete->fetch())
 		{
-			$retour = $retour."<img src=\"IMAGES/PLANCHES/".$planche['image_planche']."\" width=\"800px\" />";
+			$retour = $retour."<img src=\"IMAGES/PLANCHES/".$planche['image_planche']."\" width=\"100%\" />";
 			$existe = true;		
 		}
 		if($existe == false)
