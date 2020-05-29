@@ -94,21 +94,7 @@ $donnee = $requete->fetch();
                     <br>
 
                     <div class="container text-center" id="tags">
-                        <!--<button class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />
-                        <hr><span>
-                        Madara Uchiha (うちはマダラ, Uchiha Madara) was the legendary leader of the Uchiha clan. He founded Konohagakure alongside his childhood friend and rival, Hashirama Senju, with the intention of beginning an era of peace. ... Madara, however, rewrote his death and went into hiding to work on his own plans.
-                        </span>
-                        <hr>' type="submit"><i class="fas fa-user-ninja fa-plus"></i> Madara
-                        </button>
-
-                        <button class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw fa-dragon"></i> Illustration </button>
-
-                        <button class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw  fa-globe-africa"></i> Maison de luxe</button>
-
-                        <button class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw fa-paw"></i> Tigre</button>
-
-                        <button class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw fa-list-alt"></i> Haki</button>-->
-
+                        
                     </div>
 
                     <div class="form-group">

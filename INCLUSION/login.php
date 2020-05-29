@@ -114,7 +114,7 @@ include("TRAITEMENT/connexion.php");
 		<div class="card-columns">
 			<?php
 			//LIMIT 6
-			$requete = $bdd->query('SELECT * FROM projet WHERE visibilite = "public" ORDER BY id_projet DESC');
+			$requete = $bdd->query('SELECT id_projet, image_projet, projet.id_utilisateur, titre_projet, description_projet, image_utilisateur, nom_utilisateur FROM projet, utilisateur WHERE visibilite = "public" AND projet.id_utilisateur = utilisateur.id_utilisateur ORDER BY id_projet DESC');
 			while ($donnee = $requete->fetch()) {
 				$requete_modif = $bdd->prepare('SELECT date_modif FROM historique WHERE id_projet = :id ORDER BY date_modif DESC LIMIT 1');
 
@@ -147,9 +147,10 @@ include("TRAITEMENT/connexion.php");
 
 						<span class="mr-2 d-none d-lg-inline text-gray-600 small">
 							<a class="collapse-item" href="utilisateur.php?id=<?php echo $donnee['id_utilisateur']; ?>">
-								<img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/STAND.jpg" />
+								<img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/<?php echo $donnee['image_utilisateur']; ?>" />
 							</a>
-							<strong>Kyrigami</strong>
+							<strong><?php echo $donnee['nom_utilisateur']; ?></strong>
+							<br />
 							<span class="card-text"><small class="text-muted"><?php echo " Mise à jour le " . date("d F Y à h:i", strtotime($date['date_modif'])); ?></small></span>
 						</span>
 						
