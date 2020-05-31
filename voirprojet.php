@@ -103,7 +103,7 @@ $projet = $requete_projet->fetch();
                                     </button>
                                 </div>
                                 <div>
-                                    <a href="#" class="btn btn-success">
+                                    <a href="scanReader.php?id=<?php echo $_GET['id']; ?>" class="btn btn-success">
                                         <i class="fas fa-fw fa-book-reader"></i> Commencer la lecture
                                     </a>
                                 </div>
@@ -151,19 +151,27 @@ $projet = $requete_projet->fetch();
                                 $requete_chapitre->execute(array('id' => $_GET['id']));
 
                                 $count = 0;
-
-                                if($requete_chapitre->fetch() == NULL)
-                                {
-                                    echo "Il n'y a aucun chapitre pour l'instant<br /><br />";
-                                }
-
+								
+								$existe = false;
+								
                                 while($chapitre = $requete_chapitre->fetch())
                                 {
                             ?>
-                            <a class="btn" rel="nofollow" href="#"><strong>Chapitre <?php echo ++$count; ?>:</strong> <?php echo $chapitre['titre_chapitre']; ?> →</a>
-                            <hr>
-                            <?php 
+                                <?php if(isset($_SESSION['id_projet']) AND $_SESSION['id_projet'] == $_GET['id']){ ?>
+									<a class="btn" rel="nofollow" href="story.php?id=<?php echo $chapitre['id_chapitre']; ?>"><strong>Chapitre <?php echo ++$count; ?>:</strong> <?php echo $chapitre['titre_chapitre']; ?> →</a>
+                                <?php }else{ ?>    
+                                    <a class="btn" rel="nofollow" href="#"><strong>Chapitre <?php echo ++$count; ?>:</strong> <?php echo $chapitre['titre_chapitre']; ?> →</a>
+                                <?php } ?>
+                                    <hr>
+                            <?php
+									$existe = true;
                                 }
+								
+								if($existe == false)
+								{
+									echo "Aucun chapitre n'est disponible actuellement...<br /><br />";
+								}
+								
                                 $requete_chapitre->closeCursor();
                             ?>
 
@@ -183,11 +191,8 @@ $projet = $requete_projet->fetch();
                                 $requete_terme->execute(array('id' => $_GET['id']));
 
                                 $count = 0;
-
-                                if($requete_terme->fetch() == NULL)
-                                {
-                                    echo "Il n'y a aucun mot propre au projet pour l'instant<br /><br />";
-                                }
+								
+								$existe = false;;
 
                                 while($terme = $requete_terme->fetch())
                                 {
@@ -202,7 +207,13 @@ $projet = $requete_projet->fetch();
                             </div>
 
                             <?php
+									$existe = true;
                                 }
+
+								if($existe == false)
+								{
+									echo "Aucun mot technique n'est disponible actuellement...<br /><br />";
+								}
 
                                 $requete_terme->closeCursor();
                             ?>
@@ -228,7 +239,9 @@ $projet = $requete_projet->fetch();
                                         $requete_illustration = $bdd->prepare('SELECT * FROM illustration WHERE id_projet = :id ORDER BY id_illustration DESC');
 
                                         $requete_illustration->execute(array('id' => $_GET['id']));
-
+											
+										$existe = false;
+										
                                         while($illustration = $requete_illustration->fetch())
                                         {
                                     ?>
@@ -236,7 +249,14 @@ $projet = $requete_projet->fetch();
                                             <img class="img-fluid card zoom" style="width: 25rem;" src="IMAGES/ILLUSTRATIONS/<?php echo $illustration['image_illustration']; ?>" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $illustration['description_illustration']; ?>' alt="">
                                         </a>
                                     <?php
+											$existe = true;
                                         }        
+										
+										if($existe == false)
+										{
+											echo "Aucune illustration";
+										}
+										
                                         $requete_illustration->closeCursor();
                                     ?>
                                     </div>
@@ -260,6 +280,8 @@ $projet = $requete_projet->fetch();
 
                                             $requete_personnage->execute(array('id' => $_GET['id']));
 
+											$existe = false;
+
                                             while($personnage = $requete_personnage->fetch())
                                             {
                                         ?>
@@ -267,7 +289,14 @@ $projet = $requete_projet->fetch();
                                             <img class="img-fluid card zoom" style="width: 25rem;" src="IMAGES/PERSONNAGES/<?php echo $personnage['image_personnage']; ?>" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $personnage['description_personnage']; ?>' alt="">
                                         </a>
                                         <?php
+												$existe = true;
                                             }
+											
+											if($existe == false)
+											{
+												echo "Aucun personnage";
+											}
+											
                                             $requete_personnage->closeCursor();
                                         ?>
                                     </div>
@@ -291,6 +320,8 @@ $projet = $requete_projet->fetch();
 
                                             $requete_creature->execute(array('id' => $_GET['id']));
 
+											$existe = false;
+
                                             while($creature = $requete_creature->fetch())
                                             {
                                         ?>
@@ -298,7 +329,14 @@ $projet = $requete_projet->fetch();
                                             <img class="img-fluid card zoom" style="width: 25rem;" src="IMAGES/CREATURES/<?php echo $creature['image_creature']; ?>" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $creature['description_creature']; ?>' alt="">
                                         </a>
                                         <?php
+												$existe = true;
                                             }
+											
+											if($existe == false)
+											{
+												echo "Aucune creature";
+											}
+											
                                             $requete_creature->closeCursor();
                                         ?>
                                     </div>

@@ -107,7 +107,9 @@ if ($donnee == NULL) {
 		$requete->closeCursor();
 
 		$requete_chapitre->closeCursor();
-
-		header('Location: ../atelier.php');
 	}
 }
+
+returnJson(true, "", "vous venez d'ajouter un chapitre");
+
+?>

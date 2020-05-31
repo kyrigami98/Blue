@@ -1,9 +1,11 @@
 <?php
 include "INCLUSION/header.php";
 
-include "INCLUSION/redirection1.php";
-
 include "TRAITEMENT/connexion.php";
+
+if (!isset($_SESSION['pseudo'])) {
+    header('Location: index.php');
+}
 
 $requete = $bdd->prepare('SELECT * FROM chapitre WHERE id_chapitre = :id');
 
@@ -23,9 +25,14 @@ $donnee = $requete->fetch();
                 <div class="d-sm-flex align-items-center justify-content-between mb-4" style='z-index:1;background-image: url("IMAGES/CHAPITRES/<?php echo $donnee['image_chapitre']; ?>");background-repeat:no-repeat; background-size:cover;'>
                     <a class="nav-link nav-item" href="#" style=" z-index:1;">
                         <h1 class="font-weight-light text-white" style="text-shadow: 2px 2px black;">
-                            <?php if (isset($_SESSION['titre_projet'])) { ?>
-                                <img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />
-                                <?php echo $_SESSION['titre_projet']; ?>
+                            <?php if (isset($_SESSION['titre_projet'])) {
+                                if (isset($_SESSION['image_projet'])) {
+                            ?>
+                                    <img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/PROJETS/<?php echo $_SESSION['image_projet']; ?>" />
+                                <?php
+                                } else {
+                                }
+                                echo $_SESSION['titre_projet']; ?>
                             <?php } else { ?>
                                 <h1>Atelier</h1>
                             <?php } ?>
@@ -86,22 +93,8 @@ $donnee = $requete->fetch();
                 <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <br>
 
-                    <div class="container text-center">
-                        <button class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />
-                        <hr><span>
-                        Madara Uchiha (うちはマダラ, Uchiha Madara) was the legendary leader of the Uchiha clan. He founded Konohagakure alongside his childhood friend and rival, Hashirama Senju, with the intention of beginning an era of peace. ... Madara, however, rewrote his death and went into hiding to work on his own plans.
-                        </span>
-                        <hr>' type="submit"><i class="fas fa-user-ninja fa-plus"></i> Madara
-                        </button>
-
-                        <button class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw fa-dragon"></i> Illustration </button>
-
-                        <button class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw  fa-globe-africa"></i> Maison de luxe</button>
-
-                        <button class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw fa-paw"></i> Tigre</button>
-
-                        <button class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" data-html="true" title='<img class="avatar rounded img-fluid" style="height:60px;" src="IMAGES/radiant.jpg" />' type="submit"><i class="fas fa-fw fa-list-alt"></i> Haki</button>
-
+                    <div class="container text-center" id="tags">
+                        
                     </div>
 
                     <div class="form-group">
@@ -110,7 +103,7 @@ $donnee = $requete->fetch();
                             <div class="row justify-content-md-center">
                                 <div class="col-md-12 col-lg-12">
                                     <div class="form-group">
-                                        <textarea id="editor"><?php echo $donnee['texte_chapitre']; ?></textarea>
+                                        <textarea id="editor" class="form-control" rows="20" cols="120"><?php echo $donnee['texte_chapitre']; ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -135,10 +128,11 @@ $donnee = $requete->fetch();
                                         <input type="file" name="image" class="file-upload" required />
                                     </div>
                                     <div class="form-label-group">
-                                        <input type="number" value="0" min="0" id="inputProjet" class="form-control" placeholder="" name="projet" required>
+                                        <input type="number" value="0" min="0" id="inputProjet" class="form-control" placeholder="" name="page" required>
                                         <label for="inputProjet">Numéro de page</label>
                                     </div>
-                                    <input type="hidden" name="formulaire" value="image" />
+                                    <input type="hidden" name="id_chapitre" value="<?php echo $_GET['id']; ?>" />
+                                    <input type="hidden" name="formulaire" value="planche" />
                                     <button class="btn btn-sm btn-primary btn-block" type="submit">
                                         <i class="fa fa-plus"></i>
                                         Importer
@@ -147,18 +141,36 @@ $donnee = $requete->fetch();
                                 </div>
                             </form>
                         </div>
+                        <?php
+                        $requete2 = $bdd->prepare('SELECT id_planche, image_planche, numero_planche FROM planche WHERE id_chapitre = :id ORDER BY numero_planche');
 
-                        <div class="col-md-2 align-self-center post rounded">
-                            <img class="avatar rounded zoomer img-fluid border border-info" style="max-height:320px;" src="IMAGES/radiant.jpg" alt="Image par defaut" />
-                            <p class="text-muted text-center">Page 1</p>
-                            <form action="" method="POST">
-                                <input type="hidden" name="id" value="" />
-                                <input type="hidden" name="supprimer" value="chapitre" />
-                                <button type="submit" class="btn btn-danger btn-circle shadow-lg deleteboutton">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
-                        </div>
+                        $requete2->execute(array('id' => $_GET['id']));
+
+                        $existe = false;
+
+                        while ($donnee2 = $requete2->fetch()) {
+                        ?>
+                            <div class="col-md-2 align-self-center post rounded">
+                                <img class="avatar rounded zoomer img-fluid border border-info" style="max-height:320px;" src="IMAGES/PLANCHES/<?php echo $donnee2['image_planche'] ?>" alt="Image par defaut" />
+                                <p class="text-muted text-center">Page <?php echo $donnee2['numero_planche']; ?></p>
+                                <form action="TRAITEMENT/supprimer.php" method="POST">
+                                    <input type="hidden" name="id" value="<?php echo $donnee2['id_planche']; ?>" />
+                                    <input type="hidden" name="supprimer" value="planche" />
+                                    <button type="submit" class="btn btn-danger btn-circle shadow-lg deleteboutton">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        <?php
+                            $existe = true;
+                        }
+
+                        if ($existe == false) {
+                            echo "Aucune plance n'est disponible actuellement...";
+                        }
+
+                        $requete2->closeCursor();
+                        ?>
 
 
                     </div>
@@ -219,31 +231,51 @@ $donnee = $requete->fetch();
     </div>
 </div>
 
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
-<script type="text/javascript">
-    tinymce.init({
-        selector: 'textarea#editor',
-        skin: 'bootstrap',
-        plugins: 'lists, link, image, media',
-        toolbar: 'h1 h2 bold italic strikethrough blockquote bullist numlist backcolor | link image media | removeformat help',
-        min_height: 400,
-        width: 1100,
-        menubar: false,
-        setup: (editor) => { // Apply the focus effect
-            editor.on('init', () => {
-                editor.getContainer().style.transition = "border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out"
-            });
-            editor.on('focus', () => {
-                editor.getContainer().style.boxShadow = "0 0 0 .2rem rgba(0, 123, 255, .25)",
-                    editor.getContainer().style.borderColor = "#80bdff"
-            });
-            editor.on('blur', () => {
-                editor.getContainer().style.boxShadow = "",
-                    editor.getContainer().style.borderColor = ""
+<script>
+    $('#editor').on("keyup", function() {
+        id = <?php echo $_GET['id']; ?>;
+        formulaire = "story";
+        story = $(this).val();
+        $.ajax({
+            url: 'TRAITEMENT/systeme.php',
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                id: id,
+                formulaire: formulaire,
+                story: story
+            }
+        });
+        var mot = dernierMot(story);
+        tag = mot[0];
+        if (tag == '@' || tag == '&' || tag == '#' || tag == '$' || tag == '*') {
+            formulaire = "tag";
+            carac = mot[0];
+            motSearch = mot.replace(mot[0], "");
+            $.ajax({
+                url: 'TRAITEMENT/systeme.php',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    formulaire: formulaire,
+                    tag: motSearch,
+                    caractere: carac
+                },
+                success: function(data) {
+                    if (data.success == true && data.url != "") {
+                        $('#tags').html(data.message).fadeIn(500);
+                    } else {
+                        $('#tags').html(data.message).fadeIn(500);
+                    }
+                },
+                error: function(data) {
+                    $('#tags').text('Une erreur est survenue lors de l\'execution... contactez les administrateurs');
+                }
             });
         }
     });
+
+    $('#editor').height($('#editor').prop('scrollHeight'));
 </script>
 
 <?php

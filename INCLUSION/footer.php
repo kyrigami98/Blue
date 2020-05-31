@@ -102,6 +102,9 @@
 
 				<form id="chapitre_form" class="modalForm" action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
 					<div class="profile-img">
+						<br />
+						<span><?php echo $_SESSION['titre_projet']; ?></span>
+						<hr />
 						<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" />
 						<div class="file btn btn-sm btn-primary">
 							Choisir une image
@@ -126,6 +129,9 @@
 
 				<form id="personnage_form" class="modalForm" action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
 					<div class="profile-img">
+						<br />
+						<span><?php echo $_SESSION['titre_projet']; ?></span>
+						<hr />
 						<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" />
 						<div class="file btn btn-sm btn-primary">
 							Choisir une image
@@ -150,6 +156,9 @@
 
 				<form id="creature_form" class="modalForm" action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
 					<div class="profile-img">
+						<br />
+						<span><?php echo $_SESSION['titre_projet']; ?></span>
+						<hr />
 						<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" />
 						<div class="file btn btn-sm btn-primary">
 							Choisir une image
@@ -175,6 +184,9 @@
 
 				<form id="lieu_form" class="modalForm" action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
 					<div class="profile-img">
+						<br />
+						<span><?php echo $_SESSION['titre_projet']; ?></span>
+						<hr />
 						<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" />
 						<div class="file btn btn-sm btn-primary">
 							Choisir une image
@@ -198,6 +210,9 @@
 				</form>
 
 				<form id="cle_form" class="modalForm" action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
+					<br />
+					<span><?php echo $_SESSION['titre_projet']; ?></span>
+					<hr />
 					<div class="form-label-group">
 						<input type="text" id="cle" class="form-control" placeholder="mot cle" name="nom" required>
 						<label for="cle">Mot clé</label>
@@ -215,6 +230,9 @@
 
 				<form id="illustration_form" class="modalForm" action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
 					<div class="profile-img">
+						<br />
+						<span><?php echo $_SESSION['titre_projet']; ?></span>
+						<hr />
 						<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" required />
 						<div class="file btn btn-sm btn-primary">
 							Choisir une image
@@ -252,20 +270,20 @@
 				<br />
 				<div class="container">
 
-					<form id="modif_projet_form" class="modalForm" action="TRAITEMENT/atelier_systeme.php" method="POST" enctype="multipart/form-data">
+					<form id="modif_projet_form" class="modalForm" action="TRAITEMENT/projet_systeme.php" method="POST" enctype="multipart/form-data">
 						<div class="profile-img">
-							<img class="avatar rounded img-fluid" src="IMAGES/radiant.jpg" />
+							<img class="avatar rounded img-fluid" src="IMAGES/PROJETS/<?php echo $_SESSION['image_projet']; ?>" />
 							<div class="file btn btn-sm btn-primary">
 								Choisir une image pour le projet
 								<input type="file" name="image" class="file-upload" />
 							</div>
 							<hr>
 							<div class="form-label-group">
-								<input type="text" id="titre_Projet" value="<?php echo $_SESSION['titre_projet']; ?>" class="form-control" placeholder="Nom de l'illustration" name="nom" required>
-								<label for="titre_Projet"></label>
+								<input type="text" id="titre_Projet" value="<?php echo $_SESSION['titre_projet']; ?>" class="form-control" placeholder="Nom du projet" name="titre" required>
+								<label for="titre_Projet">Nom du projet</label>
 							</div>
 							<div class="form-label-group">
-								<input type="text" id="synopsis" class="form-control" placeholder="description de l'illustration" name="description">
+								<input type="text" id="synopsis" class="form-control" placeholder="description de l'illustration" value="<?php echo $_SESSION['synopsis']; ?>" name="synopsis">
 								<label for="synopsis">Synopsis du projet</label>
 							</div>
 							<input type="hidden" name="formulaire" value="update_projet" />
@@ -314,6 +332,13 @@
 
 <script type="text/javascript" src="JS/MyScript.js"></script>
 
+<script>
+	function dernierMot(texte) {
+		var tableau = texte.split(" ");
+		return tableau[tableau.length-1];
+	}
+</script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".deleteboutton").hide();
@@ -330,6 +355,30 @@
 		$(".floatbuttonMenu").click(function() {
 			$(".modalForm").hide();
 			$("#" + $(this).attr('name') + "_form").show();
+		});
+
+		$('#recherche').keyup(function(){
+			formulaire = "recherche";
+			recherche = $(this).find('input[name=recherche]').val();
+			$.ajax({
+				url: 'TRAITEMENT/systeme.php',
+				type: 'POST',
+				dataType: 'JSON',
+				data: {
+					formulaire: formulaire,
+					recherche: recherche
+				},
+				success: function(data) {
+					if(data.success == true && data.url != "") {
+						$('#reception').html(data.message).fadeIn(500);
+					} else {
+						$('#reception').html(data.message).fadeIn(500);
+					}
+				},
+				error: function(data) {
+					$('#reception').text('Une erreur est survenue lors de l\'execution... contactez les administrateurs').fadeIn(500);
+				}
+			})
 		});
 
 	});
@@ -388,18 +437,34 @@
 
 	});
 
-	$(document).on("keyup", "#navbarDropdown", function(){
-		alert('tu as ecrit un truc...');
+	$(document).on("click", '#tag', function(){
+		categorie = this.getAttribute('name');
+		if(categorie == "personnage") {
+			symbole = "@";
+		}
+		else if(categorie == "creature") {
+			symbole = "&";
+		}
+		else if(categorie == "lieu") {
+			symbole = "$";
+		}
+		else if(categorie == "terme") {
+			symbole = "*";
+		}
+		else if(categorie == "illustration") {
+			symbole = "#";
+		}
+		texte = document.getElementById('editor').value;
+		document.getElementById('editor').value = texte.replace(dernierMot(texte), symbole+$(this).val().replace(/ /g, "_"));
 	});
+	
 
-	//voici le script Ajax pour l'inscription
-	/*  $(document).on("submit", "#inscription", function(event) {
+	$(function() {
+		$('[data-toggle="tooltip"]').tooltip()
+	})
+</script>
 
-	   event.preventDefault();
-	 
-	 }); */
-	//voici le script pour le champ text de la page story
-
+<script>
 	function suivre()
 	{
 		document.getElementById("ne_plus_suivre").style.visibility = "visible";
@@ -513,11 +578,152 @@
 			}
 		});
 	}
-
-	$(function() {
-		$('[data-toggle="tooltip"]').tooltip()
-	})
 </script>
 
+<script>
+	$(document).on("submit", "#illustration_form", function(event){
+		image = $(this)[0];
+		nom = $(this).find('input[name=nom]').val();
+		description = $(this).find('input[name=description]').val();
+		formulaire = $(this).find('input[name=formulaire]').val();
+		$.ajax({
+			url: 'TRAITEMENT/atelier_systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				image: image,
+				nom: nom,
+				description: description,
+				formulaire: formulaire
+			},
+			success: function(data) {
+				alert(data.message);
+			}
+		});
+		event.preventDefault();
+	});
 
-</html>
+	$(document).on("submit", "#cle_form", function(event){
+		nom = $(this).find('input[name=nom]').val();
+		description = $(this).find('input[name=description]').val();
+		formulaire = $(this).find('input[name=formulaire]').val();
+		$.ajax({
+			url: 'TRAITEMENT/atelier_systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				nom: nom,
+				description: description,
+				formulaire: formulaire
+			},
+			success: function(data) {
+				alert(data.message);
+			}
+		});
+		event.preventDefault();
+	});
+
+	$(document).on("submit", "#lieu_form", function(event){
+		image = new FormData($(this)[0]); 
+		nom = $(this).find('input[name=nom]').val();
+		description = $(this).find('input[name=description]').val();
+		formulaire = $(this).find('input[name=formulaire]').val();
+		$.ajax({
+			url: 'TRAITEMENT/atelier_systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				image: image,
+				nom: nom,
+				description: description,
+				formulaire: formulaire
+			},
+			success: function(data) {
+				alert(data.message);
+			}
+		});
+		event.preventDefault();
+	});
+
+	$(document).on("submit", "#creature_form", function(event){
+		image = new FormData($(this)[0]);		
+		nom = $(this).find('input[name=nom]').val();
+		description = $(this).find('input[name=description]').val();
+		formulaire = $(this).find('input[name=formulaire]').val();
+		$.ajax({
+			url: 'TRAITEMENT/atelier_systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				image: image,
+				nom: nom,
+				description: description,
+				formulaire: formulaire
+			},
+			success: function(data) {
+				alert(data.message);
+			}
+		});
+		event.preventDefault();
+	});
+
+	$(document).on("submit", "#personnage_form", function(event){
+		image = new FormData($(this)[0]);
+		nom = $(this).find('input[name=nom]').val();
+		description = $(this).find('input[name=description]').val();
+		formulaire = $(this).find('input[name=formulaire]').val();
+		$.ajax({
+			url: 'TRAITEMENT/atelier_systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				image: image,
+				nom: nom,
+				description: description,
+				formulaire: formulaire
+			},
+			success: function(data) {
+				if(data.success == true)
+				{
+					alert(data.message);
+				}
+				else
+				{
+					alert('une erreur est survenue lors de l\'envoi');
+				}
+			}
+		});
+		event.preventDefault();
+	});
+
+	$(document).on("submit", "#chapitre_form", function(event){
+		image = new FormData($(this)[0]);
+		nom = $(this).find('input[name=nom]').val();
+		description = $(this).find('input[name=description]').val();
+		formulaire = $(this).find('input[name=formulaire]').val();
+		$.ajax({
+			url: 'TRAITEMENT/atelier_systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				image: image,
+				nom: nom,
+				description: description,
+				formulaire: formulaire
+			},
+			success: function(data) {
+				if(data.success == true)
+				{
+					alert(data.message);
+				}
+				else
+				{
+					alert('une erreur est survenue lors de l\'envoi');
+				}
+			}
+		});
+		event.preventDefault();
+	});
+</script>
+
+</html>	

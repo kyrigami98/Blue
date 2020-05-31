@@ -37,6 +37,6 @@ $requete->closeCursor();
 
 historique($nom, "PERSONNAGE", "AJOUT", $_SESSION['id_projet'], $_SESSION['id']);
 
-header('Location: ../atelier.php');
+returnJson(true, "", "vous venez d'ajouter un personnage");
 
 ?>
