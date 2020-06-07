@@ -3,8 +3,6 @@ include "INCLUSION/header.php";
 
 include "INCLUSION/redirection1.php";
 
-include "TRAITEMENT/fonctions.php";
-
 include "TRAITEMENT/connexion.php";
 ?>
 

@@ -1,5 +1,6 @@
 ﻿<?php
 session_start();
+include "TRAITEMENT/fonctions.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -101,20 +102,16 @@ session_start();
         </a>
         <!-- Dropdown - Alerts -->
         <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+
           <h6 class="dropdown-header">
             Alerts Center
           </h6>
-          <a class="dropdown-item d-flex align-items-center" href="#">
-            <div class="mr-3">
-              <div class="icon-circle bg-primary">
-                <i class="fas fa-file-alt text-white"></i>
-              </div>
-            </div>
-            <div>
-              <div class="small text-gray-500">December 12, 2019</div>
-              <span class="font-weight-bold">Le Projet manga \"Descente Aux Enfer\" à été mise a jour!</span>
-            </div>
-          </a>
+          <div style="overflow: auto; height:500px;" >
+            <?php
+            getHistorique($_SESSION['id']);
+            ?>
+          </div>
+          <!-- 
           <a class="dropdown-item d-flex align-items-center" href="#">
             <div class="mr-3">
               <div class="icon-circle bg-success">
@@ -136,8 +133,8 @@ session_start();
               <div class="small text-gray-500">December 2, 2019</div>
               Veillez confirmer votre email.
             </div>
-          </a>
-          <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+          </a> -->
+          <a class="dropdown-item text-center small text-gray-500" href="#">voir plus</a>
         </div>
       </li>
 

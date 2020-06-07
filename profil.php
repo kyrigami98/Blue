@@ -6,8 +6,6 @@ include("INCLUSION/redirection1.php");
 
 include("TRAITEMENT/connexion.php");
 
-include("TRAITEMENT/fonctions.php");
-
 $projets = nombre_de_projets($_SESSION['id']);
 
 $followers = nombre_de_followers($_SESSION['id']);

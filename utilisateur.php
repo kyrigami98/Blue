@@ -4,8 +4,6 @@ include("INCLUSION/header.php");
 
 include("TRAITEMENT/connexion.php");
 
-include("TRAITEMENT/fonctions.php");
-
 $projets = nombre_de_projets($_GET['id']);
 
 $followers_user = nombre_de_followers($_GET['id']);

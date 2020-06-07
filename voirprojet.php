@@ -3,8 +3,6 @@ include "INCLUSION/header.php";
 
 include "TRAITEMENT/connexion.php";
 
-include "TRAITEMENT/fonctions.php";
-
 $followers = followers_projet($_GET['id']);
 
 $likes = likes_projet($_GET['id']);
