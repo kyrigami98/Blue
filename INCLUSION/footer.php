@@ -314,14 +314,15 @@
 	</div>
 </div>
 
-<div aria-live="polite" aria-atomic="true" style="min-height: 300px;width:400; z-index:3000;position: fixed; top: 80; left: 20;">
+<div aria-live="polite" aria-atomic="true" id="list_notif"
+ style="display:none; min-height: 300px;width:400; z-index:3000;position: fixed; top: 80; right: 20;">
 
 	<div class="toast">
 		<div class="toast-header">
 			<span id="notifIcone" ><i class="fas fa-check-circle" style="color:green;"></i></span>
 			<strong id="notifHeader" class="mr-auto"> Notifications </strong>
 			<small>A l'instant</small>
-			<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+			<button id="closeDiv" type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
@@ -374,6 +375,8 @@
 
 		$('#notifIcone').html(icone);
 
+		$('#list_notif').css("display", "block");
+
 		var options = {
 			delay: 2000,
 			animation: true,
@@ -381,12 +384,14 @@
 		};
 		$('.toast').toast(options);
 		$('.toast').toast("show");
+		
 	}
 
 
 </script>
 
 <script type="text/javascript">
+
 	$(document).ready(function() {
 		$(".deleteboutton").hide();
 		//floating button
@@ -402,6 +407,10 @@
 		$(".floatbuttonMenu").click(function() {
 			$(".modalForm").hide();
 			$("#" + $(this).attr('name') + "_form").show();
+		});
+
+		$("#closeDiv").click(function() {
+			$('#list_notif').css("display", "none");
 		});
 
 		$('#recherche').keyup(function() {
