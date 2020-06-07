@@ -108,7 +108,7 @@
 						<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" />
 						<div class="file btn btn-sm btn-primary">
 							Choisir une image
-							<input type="file" name="image" class="file-upload" />
+							<input id="file_chapitre" type="file" name="image" class="file-upload" />
 						</div>
 						<hr>
 						<div class="form-label-group">
@@ -120,7 +120,7 @@
 							<label for="description_chapitre">Description</label>
 						</div>
 						<input type="hidden" name="formulaire" value="chapitre" />
-						<button class="btn btn-lg btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
+						<button id="send_chapitre" class="btn btn-lg btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
 							<i class="fas fa-fw fa-plus"></i> Cr&eacute;er un chapitre
 						</button>
 						<br />
@@ -135,7 +135,7 @@
 						<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" />
 						<div class="file btn btn-sm btn-primary">
 							Choisir une image
-							<input type="file" name="image" class="file-upload" />
+							<input id="file_personnage" type="file" name="image" class="file-upload" />
 						</div>
 						<hr>
 						<div class="form-label-group">
@@ -147,7 +147,7 @@
 							<label for="description_personnage">Description</label>
 						</div>
 						<input type="hidden" name="formulaire" value="personnage" />
-						<button class="btn btn-lg btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
+						<button id="send_personnage" class="btn btn-lg btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
 							<i class="fas fa-fw fa-plus"></i> Cr&eacute;er le personnage
 						</button>
 						<br />
@@ -162,7 +162,7 @@
 						<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" />
 						<div class="file btn btn-sm btn-primary">
 							Choisir une image
-							<input type="file" name="image" class="file-upload" />
+							<input type="file" id="file_creature" name="image" class="file-upload" />
 						</div>
 						<hr>
 						<div class="form-label-group">
@@ -175,7 +175,7 @@
 						</div>
 						<input type="hidden" name="formulaire" value="creature" />
 
-						<button class="btn btn-lg btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
+						<button id="send_creature" class="btn btn-lg btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
 							<i class="fas fa-fw fa-plus"></i> Cr&eacute;er la cr&eacute;ature
 						</button>
 						<br />
@@ -190,7 +190,7 @@
 						<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" />
 						<div class="file btn btn-sm btn-primary">
 							Choisir une image
-							<input type="file" name="image" class="file-upload" />
+							<input type="file" id="file_lieu" name="image" class="file-upload" />
 						</div>
 						<hr>
 						<div class="form-label-group">
@@ -202,7 +202,7 @@
 							<label for="description_lieu">Description</label>
 						</div>
 						<input type="hidden" name="formulaire" value="lieu" />
-						<button class="btn btn-lg btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
+						<button id="send_lieu" class="btn btn-lg btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
 							<i class="fas fa-fw fa-plus"></i> Cr&eacute;er le lieu
 						</button>
 						<br />
@@ -236,7 +236,7 @@
 						<img class="avatar rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" required />
 						<div class="file btn btn-sm btn-primary">
 							Choisir une image
-							<input type="file" name="image" class="file-upload" />
+							<input type="file" id="file_illustration" name="image" class="file-upload" />
 						</div>
 						<hr>
 						<div class="form-label-group">
@@ -248,7 +248,7 @@
 							<label for="description_illustration">Description</label>
 						</div>
 						<input type="hidden" name="formulaire" value="illustration" />
-						<button class="btn btn-lg btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
+						<button id="send_illustration" class="btn btn-lg btn-primary btn-block rounded" type="button"><i class="glyphicon glyphicon-ok-sign"></i>
 							<i class="fas fa-fw fa-plus"></i> Importer l'illustration
 						</button>
 						<br />
@@ -275,7 +275,7 @@
 							<img class="avatar rounded img-fluid" src="IMAGES/PROJETS/<?php echo $_SESSION['image_projet']; ?>" />
 							<div class="file btn btn-sm btn-primary">
 								Choisir une image pour le projet
-								<input type="file" name="image" class="file-upload" />
+								<input id="file_projet" type="file" name="image" class="file-upload" />
 							</div>
 							<hr>
 							<div class="form-label-group">
@@ -288,7 +288,7 @@
 							</div>
 							<input type="hidden" name="formulaire" value="update_projet" />
 
-							<button class="btn btn-lg btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
+							<button id="send_projet" class="btn btn-lg btn-primary btn-block rounded" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
 								<i class="fas fa-fw fa-plus"></i> Mettre à jour
 							</button>
 							<br />
@@ -581,25 +581,38 @@
 </script>
 
 <script>
-	$(document).on("submit", "#illustration_form", function(event){
-		image = $(this)[0];
-		nom = $(this).find('input[name=nom]').val();
-		description = $(this).find('input[name=description]').val();
-		formulaire = $(this).find('input[name=formulaire]').val();
+	$(document).on("click", "#send_illustration", function(event){
+
+        var formData = new FormData();
+        var files = $('#file_illustration')[0].files[0];
+        formData.append('image',files);
+		formData.append('nom', $("#illustration_form").find('input[name=nom]').val());
+		formData.append('description', $("#illustration_form").find('input[name=description]').val());
+		formData.append('formulaire', $("#illustration_form").find('input[name=formulaire]').val());
+
 		$.ajax({
-			url: 'TRAITEMENT/atelier_systeme.php',
-			type: 'POST',
+			url: "TRAITEMENT/atelier_systeme.php",
+			type: "POST",
 			dataType: 'JSON',
-			data: {
-				image: image,
-				nom: nom,
-				description: description,
-				formulaire: formulaire
+			data: formData,
+			success: function (msg) {
+			alert(msg)
 			},
+			cache: false,
+			contentType: false,
+			processData: false,
 			success: function(data) {
-				alert(data.message);
+				if(data.success == true)
+				{
+					alert(data.message);
+				}
+				else
+				{
+					alert('une erreur est survenue lors de l\'envoi');
+				}
 			}
 		});
+
 		event.preventDefault();
 	});
 
@@ -612,72 +625,6 @@
 			type: 'POST',
 			dataType: 'JSON',
 			data: {
-				nom: nom,
-				description: description,
-				formulaire: formulaire
-			},
-			success: function(data) {
-				alert(data.message);
-			}
-		});
-		event.preventDefault();
-	});
-
-	$(document).on("submit", "#lieu_form", function(event){
-		image = new FormData($(this)[0]); 
-		nom = $(this).find('input[name=nom]').val();
-		description = $(this).find('input[name=description]').val();
-		formulaire = $(this).find('input[name=formulaire]').val();
-		$.ajax({
-			url: 'TRAITEMENT/atelier_systeme.php',
-			type: 'POST',
-			dataType: 'JSON',
-			data: {
-				image: image,
-				nom: nom,
-				description: description,
-				formulaire: formulaire
-			},
-			success: function(data) {
-				alert(data.message);
-			}
-		});
-		event.preventDefault();
-	});
-
-	$(document).on("submit", "#creature_form", function(event){
-		image = new FormData($(this)[0]);		
-		nom = $(this).find('input[name=nom]').val();
-		description = $(this).find('input[name=description]').val();
-		formulaire = $(this).find('input[name=formulaire]').val();
-		$.ajax({
-			url: 'TRAITEMENT/atelier_systeme.php',
-			type: 'POST',
-			dataType: 'JSON',
-			data: {
-				image: image,
-				nom: nom,
-				description: description,
-				formulaire: formulaire
-			},
-			success: function(data) {
-				alert(data.message);
-			}
-		});
-		event.preventDefault();
-	});
-
-	$(document).on("submit", "#personnage_form", function(event){
-		image = new FormData($(this)[0]);
-		nom = $(this).find('input[name=nom]').val();
-		description = $(this).find('input[name=description]').val();
-		formulaire = $(this).find('input[name=formulaire]').val();
-		$.ajax({
-			url: 'TRAITEMENT/atelier_systeme.php',
-			type: 'POST',
-			dataType: 'JSON',
-			data: {
-				image: image,
 				nom: nom,
 				description: description,
 				formulaire: formulaire
@@ -696,21 +643,125 @@
 		event.preventDefault();
 	});
 
-	$(document).on("submit", "#chapitre_form", function(event){
-		image = new FormData($(this)[0]);
-		nom = $(this).find('input[name=nom]').val();
-		description = $(this).find('input[name=description]').val();
-		formulaire = $(this).find('input[name=formulaire]').val();
+	$(document).on("click", "#send_lieu", function(event){
+        var formData = new FormData();
+        var files = $('#file_lieu')[0].files[0];
+        formData.append('image',files);
+		formData.append('nom', $("#lieu_form").find('input[name=nom]').val());
+		formData.append('description', $("#lieu_form").find('input[name=description]').val());
+		formData.append('formulaire', $("#lieu_form").find('input[name=formulaire]').val());
+
 		$.ajax({
-			url: 'TRAITEMENT/atelier_systeme.php',
-			type: 'POST',
+			url: "TRAITEMENT/atelier_systeme.php",
+			type: "POST",
 			dataType: 'JSON',
-			data: {
-				image: image,
-				nom: nom,
-				description: description,
-				formulaire: formulaire
+			data: formData,
+			success: function (msg) {
+			alert(msg)
 			},
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function(data) {
+				if(data.success == true)
+				{
+					alert(data.message);
+				}
+				else
+				{
+					alert('une erreur est survenue lors de l\'envoi');
+				}
+			}
+		});
+
+		event.preventDefault();
+	});
+
+	$(document).on("click", "#send_creature", function(event){
+        var formData = new FormData();
+        var files = $('#file_creature')[0].files[0];
+        formData.append('image',files);
+		formData.append('nom', $("#creature_form").find('input[name=nom]').val());
+		formData.append('description', $("#creature_form").find('input[name=description]').val());
+		formData.append('formulaire', $("#creature_form").find('input[name=formulaire]').val());
+
+		$.ajax({
+			url: "TRAITEMENT/atelier_systeme.php",
+			type: "POST",
+			dataType: 'JSON',
+			data: formData,
+			success: function (msg) {
+			alert(msg)
+			},
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function(data) {
+				if(data.success == true)
+				{
+					alert(data.message);
+				}
+				else
+				{
+					alert('une erreur est survenue lors de l\'envoi');
+				}
+			}
+		});
+		event.preventDefault();
+	});
+
+	$(document).on("click", "#send_personnage", function(event){
+		var formData = new FormData();
+        var files = $('#file_personnage')[0].files[0];
+        formData.append('image',files);
+		formData.append('nom', $("#personnage_form").find('input[name=nom]').val());
+		formData.append('description', $("#personnage_form").find('input[name=description]').val());
+		formData.append('formulaire', $("#personnage_form").find('input[name=formulaire]').val());
+
+		$.ajax({
+			url: "TRAITEMENT/atelier_systeme.php",
+			type: "POST",
+			dataType: 'JSON',
+			data: formData,
+			success: function (msg) {
+			alert(msg)
+			},
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function(data) {
+				if(data.success == true)
+				{
+					alert(data.message);
+				}
+				else
+				{
+					alert('une erreur est survenue lors de l\'envoi');
+				}
+			}
+		});
+		event.preventDefault();
+	});
+
+	$(document).on("click", "#send_chapitre", function(event){
+		var formData = new FormData();
+        var files = $('#file_chapitre')[0].files[0];
+        formData.append('image',files);
+		formData.append('nom', $("#chapitre_form").find('input[name=nom]').val());
+		formData.append('description', $("#chapitre_form").find('input[name=description]').val());
+		formData.append('formulaire', $("#chapitre_form").find('input[name=formulaire]').val());
+
+		$.ajax({
+			url: "TRAITEMENT/atelier_systeme.php",
+			type: "POST",
+			dataType: 'JSON',
+			data: formData,
+			success: function (msg) {
+			alert(msg)
+			},
+			cache: false,
+			contentType: false,
+			processData: false,
 			success: function(data) {
 				if(data.success == true)
 				{

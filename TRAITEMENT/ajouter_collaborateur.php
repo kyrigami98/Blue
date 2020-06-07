@@ -34,7 +34,7 @@
         else
         {
             echo "vous etes deja en collaboration avec cet utilisateur";
-            die(var_dump($donnee));
+            //die(var_dump($donnee));
         }
     }
 ?>

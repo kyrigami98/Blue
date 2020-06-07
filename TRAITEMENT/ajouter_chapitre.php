@@ -50,8 +50,7 @@ if ($donnee == NULL) {
 	historique($nom, "CHAPITRE", "AJOUT", $_SESSION['id_projet'], $_SESSION['id']);
 
 	$cree = true;
-
-	header('Location: ../atelier.php');
+	
 } else {
 	$requete->closeCursor();
 
@@ -82,7 +81,6 @@ if ($donnee == NULL) {
 
 			$cree = true;
 
-			header('Location: ../atelier.php');
 		}
 	}
 	if ($cree == false) {

@@ -182,7 +182,7 @@ include "TRAITEMENT/connexion.php";
 										<?php } ?>
 										<!-- <?php if (isset($_SESSION['titre_projet'])) { ?><a href="#" style="z-index:1;margin-right:10px;" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>Télécharger le projet en pdf</a><?php } ?>
 									 -->
-										</div>
+									</div>
 								</div>
 							</div>
 							<div>
@@ -517,37 +517,37 @@ include "TRAITEMENT/connexion.php";
 			</div>
 		</div>
 	</div>
+</div>
+<script>
+	$(document).ready(function() {
+		$('#<?php echo $_SESSION['id']; ?>').on('change', function() {
+			var isChecked = $(this).is(':checked');
+			var selectedData;
 
-	<script>
-		$(document).ready(function() {
-			$('#<?php echo $_SESSION['id']; ?>').on('change', function() {
-				var isChecked = $(this).is(':checked');
-				var selectedData;
+			if (isChecked) {
+				selectedData = $(this).attr('data-on');
+			} else {
+				selectedData = $(this).attr('data-off');
+			}
 
-				if (isChecked) {
-					selectedData = $(this).attr('data-on');
-				} else {
-					selectedData = $(this).attr('data-off');
+			var formulaire = "visibilite";
+
+			$.ajax({
+				url: 'TRAITEMENT/projet_systeme.php',
+				type: 'POST',
+				dataType: 'JSON',
+				data: {
+					formulaire: formulaire,
+					visibilite: selectedData
+				},
+				success: function(data) {
+					alert(data.message)
 				}
-
-				var formulaire = "visibilite";
-
-				$.ajax({
-					url: 'TRAITEMENT/projet_systeme.php',
-					type: 'POST',
-					dataType: 'JSON',
-					data: {
-						formulaire: formulaire,
-						visibilite: selectedData
-					},
-					success: function(data) {
-						alert(data.message)
-					}
-				});
 			});
 		});
-	</script>
+	});
+</script>
 
-	<?php
-	include "INCLUSION/footer.php";
-	?>
+<?php
+include "INCLUSION/footer.php";
+?>
