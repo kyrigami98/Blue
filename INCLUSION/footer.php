@@ -314,6 +314,24 @@
 	</div>
 </div>
 
+<div aria-live="polite" aria-atomic="true" style="min-height: 300px;width:400; z-index:3000;position: fixed; top: 80; left: 20;">
+
+	<div class="toast">
+		<div class="toast-header">
+			<span id="notifIcone" ><i class="fas fa-check-circle" style="color:green;"></i></span>
+			<strong id="notifHeader" class="mr-auto"> Notifications </strong>
+			<small>A l'instant</small>
+			<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div id="notifMessage" class="toast-body">
+			Hello, world! This is a toast message.
+		</div>
+	</div>
+
+</div>
+
 <!--*********************Inclusions et importations*********************************************-->
 
 <!-- Core plugin JavaScript-->
@@ -335,8 +353,37 @@
 <script>
 	function dernierMot(texte) {
 		var tableau = texte.split(" ");
-		return tableau[tableau.length-1];
+		return tableau[tableau.length - 1];
 	}
+
+	function showAlert(header, message, icone, isAutohide) {
+		$('#notifHeader').text(header);
+		$('#notifMessage').text(message);
+
+		switch (icone) {
+			case "SUCCESS":
+				icone = '<i class="fas fa-check-circle" style="color:green;"></i>';
+				break;
+			case "ECHEC":
+				icone = '<i class="fas fa-times-circle" style="color:red;"></i>';
+				break;
+			default:
+				icone = '<i class="fas fa-check-circle" style="color:green;"></i>';
+				break;
+		};
+
+		$('#notifIcone').html(icone);
+
+		var options = {
+			delay: 2000,
+			animation: true,
+			autohide: isAutohide
+		};
+		$('.toast').toast(options);
+		$('.toast').toast("show");
+	}
+
+
 </script>
 
 <script type="text/javascript">
@@ -357,7 +404,7 @@
 			$("#" + $(this).attr('name') + "_form").show();
 		});
 
-		$('#recherche').keyup(function(){
+		$('#recherche').keyup(function() {
 			formulaire = "recherche";
 			recherche = $(this).find('input[name=recherche]').val();
 			$.ajax({
@@ -369,7 +416,7 @@
 					recherche: recherche
 				},
 				success: function(data) {
-					if(data.success == true && data.url != "") {
+					if (data.success == true && data.url != "") {
 						$('#reception').html(data.message).fadeIn(500);
 					} else {
 						$('#reception').html(data.message).fadeIn(500);
@@ -398,7 +445,6 @@
 	$(".zoom").on('click', function() {
 		$("#imageReader").find("#imageReaderContent").attr("src", $(this).attr("src"));
 	});
-
 </script>
 
 <!--*********************JQuery**************************************************************************-->
@@ -437,27 +483,23 @@
 
 	});
 
-	$(document).on("click", '#tag', function(){
+	$(document).on("click", '#tag', function() {
 		categorie = this.getAttribute('name');
-		if(categorie == "personnage") {
+		if (categorie == "personnage") {
 			symbole = "@";
-		}
-		else if(categorie == "creature") {
+		} else if (categorie == "creature") {
 			symbole = "&";
-		}
-		else if(categorie == "lieu") {
+		} else if (categorie == "lieu") {
 			symbole = "$";
-		}
-		else if(categorie == "terme") {
+		} else if (categorie == "terme") {
 			symbole = "*";
-		}
-		else if(categorie == "illustration") {
+		} else if (categorie == "illustration") {
 			symbole = "#";
 		}
 		texte = document.getElementById('editor').value;
-		document.getElementById('editor').value = texte.replace(dernierMot(texte), symbole+$(this).val().replace(/ /g, "_"));
+		document.getElementById('editor').value = texte.replace(dernierMot(texte), symbole + $(this).val().replace(/ /g, "_"));
 	});
-	
+
 
 	$(function() {
 		$('[data-toggle="tooltip"]').tooltip()
@@ -465,8 +507,7 @@
 </script>
 
 <script>
-	function suivre()
-	{
+	function suivre() {
 		document.getElementById("ne_plus_suivre").style.visibility = "visible";
 		document.getElementById("suivre").style.visibility = "hidden";
 
@@ -484,8 +525,7 @@
 		});
 	}
 
-	function ne_plus_suivre()
-	{
+	function ne_plus_suivre() {
 		document.getElementById('ne_plus_suivre').style.visibility = "hidden";
 		document.getElementById('suivre').style.visibility = "visible";
 
@@ -503,8 +543,7 @@
 		});
 	}
 
-	function suivre_projet()
-	{
+	function suivre_projet() {
 		document.getElementById("ne_plus_suivre_projet").style.visibility = "visible";
 		document.getElementById("suivre_projet").style.visibility = "hidden";
 
@@ -522,8 +561,7 @@
 		});
 	}
 
-	function ne_plus_suivre_projet()
-	{
+	function ne_plus_suivre_projet() {
 		document.getElementById('ne_plus_suivre_projet').style.visibility = "hidden";
 		document.getElementById('suivre_projet').style.visibility = "visible";
 
@@ -541,8 +579,7 @@
 		});
 	}
 
-	function aimer_projet()
-	{
+	function aimer_projet() {
 		document.getElementById("ne_plus_aimer_projet").style.visibility = "visible";
 		document.getElementById("aimer_projet").style.visibility = "hidden";
 
@@ -560,8 +597,7 @@
 		});
 	}
 
-	function ne_plus_aimer_projet()
-	{
+	function ne_plus_aimer_projet() {
 		document.getElementById('ne_plus_aimer_projet').style.visibility = "hidden";
 		document.getElementById('aimer_projet').style.visibility = "visible";
 
@@ -581,11 +617,12 @@
 </script>
 
 <script>
-	$(document).on("click", "#send_illustration", function(event){
 
-        var formData = new FormData();
-        var files = $('#file_illustration')[0].files[0];
-        formData.append('image',files);
+	$(document).on("click", "#send_illustration", function(event) {
+
+		var formData = new FormData();
+		var files = $('#file_illustration')[0].files[0];
+		formData.append('image', files);
 		formData.append('nom', $("#illustration_form").find('input[name=nom]').val());
 		formData.append('description', $("#illustration_form").find('input[name=description]').val());
 		formData.append('formulaire', $("#illustration_form").find('input[name=formulaire]').val());
@@ -595,20 +632,17 @@
 			type: "POST",
 			dataType: 'JSON',
 			data: formData,
-			success: function (msg) {
-			alert(msg)
+			success: function(msg) {
+				alert(msg)
 			},
 			cache: false,
 			contentType: false,
 			processData: false,
 			success: function(data) {
-				if(data.success == true)
-				{
-					alert(data.message);
-				}
-				else
-				{
-					alert('une erreur est survenue lors de l\'envoi');
+				if (data.success == true) {	
+					showAlert("Enregistrement réussi", data.message, "SUCCESS", false);
+				} else {
+					showAlert("Illustrations", "Une erreur est survenue lors de l\'envoi", "ECHEC", false);
 				}
 			}
 		});
@@ -616,7 +650,7 @@
 		event.preventDefault();
 	});
 
-	$(document).on("submit", "#cle_form", function(event){
+	$(document).on("submit", "#cle_form", function(event) {
 		nom = $(this).find('input[name=nom]').val();
 		description = $(this).find('input[name=description]').val();
 		formulaire = $(this).find('input[name=formulaire]').val();
@@ -630,23 +664,20 @@
 				formulaire: formulaire
 			},
 			success: function(data) {
-				if(data.success == true)
-				{
-					alert(data.message);
-				}
-				else
-				{
-					alert('une erreur est survenue lors de l\'envoi');
+				if (data.success == true) {	
+					showAlert("Enregistrement réussi", data.message, "SUCCESS", false);
+				} else {
+					showAlert("Mot", "Une erreur est survenue lors de l\'envoi", "ECHEC", false);
 				}
 			}
 		});
 		event.preventDefault();
 	});
 
-	$(document).on("click", "#send_lieu", function(event){
-        var formData = new FormData();
-        var files = $('#file_lieu')[0].files[0];
-        formData.append('image',files);
+	$(document).on("click", "#send_lieu", function(event) {
+		var formData = new FormData();
+		var files = $('#file_lieu')[0].files[0];
+		formData.append('image', files);
 		formData.append('nom', $("#lieu_form").find('input[name=nom]').val());
 		formData.append('description', $("#lieu_form").find('input[name=description]').val());
 		formData.append('formulaire', $("#lieu_form").find('input[name=formulaire]').val());
@@ -656,20 +687,17 @@
 			type: "POST",
 			dataType: 'JSON',
 			data: formData,
-			success: function (msg) {
-			alert(msg)
+			success: function(msg) {
+				alert(msg)
 			},
 			cache: false,
 			contentType: false,
 			processData: false,
 			success: function(data) {
-				if(data.success == true)
-				{
-					alert(data.message);
-				}
-				else
-				{
-					alert('une erreur est survenue lors de l\'envoi');
+				if (data.success == true) {	
+					showAlert("Enregistrement réussi", data.message, "SUCCESS", false);
+				} else {
+					showAlert("Lieux", "Une erreur est survenue lors de l\'envoi", "ECHEC", false);
 				}
 			}
 		});
@@ -677,10 +705,10 @@
 		event.preventDefault();
 	});
 
-	$(document).on("click", "#send_creature", function(event){
-        var formData = new FormData();
-        var files = $('#file_creature')[0].files[0];
-        formData.append('image',files);
+	$(document).on("click", "#send_creature", function(event) {
+		var formData = new FormData();
+		var files = $('#file_creature')[0].files[0];
+		formData.append('image', files);
 		formData.append('nom', $("#creature_form").find('input[name=nom]').val());
 		formData.append('description', $("#creature_form").find('input[name=description]').val());
 		formData.append('formulaire', $("#creature_form").find('input[name=formulaire]').val());
@@ -690,30 +718,27 @@
 			type: "POST",
 			dataType: 'JSON',
 			data: formData,
-			success: function (msg) {
-			alert(msg)
+			success: function(msg) {
+				alert(msg)
 			},
 			cache: false,
 			contentType: false,
 			processData: false,
 			success: function(data) {
-				if(data.success == true)
-				{
-					alert(data.message);
-				}
-				else
-				{
-					alert('une erreur est survenue lors de l\'envoi');
+				if (data.success == true) {	
+					showAlert("Enregistrement réussi", data.message, "SUCCESS", false);
+				} else {
+					showAlert("Créatures", "Une erreur est survenue lors de l\'envoi", "ECHEC", false);
 				}
 			}
 		});
 		event.preventDefault();
 	});
 
-	$(document).on("click", "#send_personnage", function(event){
+	$(document).on("click", "#send_personnage", function(event) {
 		var formData = new FormData();
-        var files = $('#file_personnage')[0].files[0];
-        formData.append('image',files);
+		var files = $('#file_personnage')[0].files[0];
+		formData.append('image', files);
 		formData.append('nom', $("#personnage_form").find('input[name=nom]').val());
 		formData.append('description', $("#personnage_form").find('input[name=description]').val());
 		formData.append('formulaire', $("#personnage_form").find('input[name=formulaire]').val());
@@ -723,30 +748,27 @@
 			type: "POST",
 			dataType: 'JSON',
 			data: formData,
-			success: function (msg) {
-			alert(msg)
+			success: function(msg) {
+				alert(msg)
 			},
 			cache: false,
 			contentType: false,
 			processData: false,
 			success: function(data) {
-				if(data.success == true)
-				{
-					alert(data.message);
-				}
-				else
-				{
-					alert('une erreur est survenue lors de l\'envoi');
+				if (data.success == true) {	
+					showAlert("Enregistrement réussi", data.message, "SUCCESS", false);
+				} else {
+					showAlert("Personnages", "Une erreur est survenue lors de l\'envoi", "ECHEC", false);
 				}
 			}
 		});
 		event.preventDefault();
 	});
 
-	$(document).on("click", "#send_chapitre", function(event){
+	$(document).on("click", "#send_chapitre", function(event) {
 		var formData = new FormData();
-        var files = $('#file_chapitre')[0].files[0];
-        formData.append('image',files);
+		var files = $('#file_chapitre')[0].files[0];
+		formData.append('image', files);
 		formData.append('nom', $("#chapitre_form").find('input[name=nom]').val());
 		formData.append('description', $("#chapitre_form").find('input[name=description]').val());
 		formData.append('formulaire', $("#chapitre_form").find('input[name=formulaire]').val());
@@ -756,20 +778,17 @@
 			type: "POST",
 			dataType: 'JSON',
 			data: formData,
-			success: function (msg) {
-			alert(msg)
+			success: function(msg) {
+				alert(msg)
 			},
 			cache: false,
 			contentType: false,
 			processData: false,
 			success: function(data) {
-				if(data.success == true)
-				{
-					alert(data.message);
-				}
-				else
-				{
-					alert('une erreur est survenue lors de l\'envoi');
+				if (data.success == true) {	
+					showAlert("Enregistrement réussi", data.message, "SUCCESS", false);
+				} else {
+					showAlert("Chapitre", "Une erreur est survenue lors de l\'envoi", "ECHEC", false);
 				}
 			}
 		});
@@ -777,4 +796,4 @@
 	});
 </script>
 
-</html>	
+</html>

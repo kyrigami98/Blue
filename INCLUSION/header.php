@@ -234,4 +234,8 @@ include "TRAITEMENT/fonctions.php";
 
 <br><br>
 
+<script>
+
+</script>
+
 <body>
