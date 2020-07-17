@@ -122,17 +122,31 @@ include("TRAITEMENT/connexion.php");
 
 				$date = $requete_modif->fetch();
 			?>
-				<div class="card" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_projet']; ?>'>
-					<?php if ($donnee['image_projet'] == NULL) { ?>
-						<a href="#"><img class="card-img-top" src="IMAGES/PROJETS/STAND.jpg" alt=""></a>
-					<?php 	} else { ?>
-						<a href="#"><img class="card-img-top" src="IMAGES/PROJETS/<?= $donnee['image_projet'] ?>" alt="<?= $donnee['image_projet'] ?>"></a>
-					<?php 	} ?>
+				<div class="card shadow post" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_projet']; ?>'>
+
+					<span class="mr-2 d-none d-lg-inline text-gray-600 small btn-block" style="position: absolute;padding:20px;background: linear-gradient(#05172D, transparent);">
+						<a class="collapse-item" href="utilisateur.php?id=<?php echo $donnee['id_utilisateur']; ?>">
+							<img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/<?php echo $donnee['image_utilisateur']; ?>" />
+							<strong><?php echo $donnee['nom_utilisateur']; ?></strong>
+						</a>
+						<span class="card-text"><small class="" style="color:white;"><?php echo " Mise à jour le " . date("d F Y à h:i", strtotime($date['date_modif'])); ?></small></span>
+					</span>
+
+					<a href="#" data-toggle="modal" data-target="#imageReader">
+						<div class="">
+							<?php if ($donnee['image_projet'] == NULL) { ?>
+								<img class="card-img-top" src="IMAGES/PROJETS/STAND.jpg" alt="">
+							<?php 	} else { ?>
+								<img class="card-img-top" src="IMAGES/PROJETS/<?= $donnee['image_projet'] ?>" alt="<?= $donnee['image_projet'] ?>">
+							<?php 	} ?>
+						</div>
+					</a>
+
 					<div class="card-body">
 						<?php if (isset($_SESSION['id']) and $_SESSION['id'] == $donnee['id_utilisateur']) { ?>
-							<button data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-md" aria-describedby="basic-addon2"><?= $donnee['titre_projet'] ?></button>
+							<button data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-lg btn-block btn-primary" aria-describedby="basic-addon2"><strong><?= $donnee['titre_projet'] ?></strong></button>
 							<div class="col-4 dropdown-menu animated--grow-in" aria-labelledby="navbarDropdown" style="padding: 10px 0px 0px 10px;">
-								<h5 class="card-title"><a class="btn btn-md btn-secondary" style="width: 85px;" href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>">Voir</a></h5>
+								<h5 class="card-title"><a class="btn btn-md btn-block btn-secondary" style="width: 85px;" href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>">Voir</a></h5>
 								<h5 class="card-title">
 									<form action="TRAITEMENT/atelier_systeme.php" method="POST">
 										<input type="hidden" name="id" value="<?php echo $donnee['id_projet']; ?>" />
@@ -140,20 +154,10 @@ include("TRAITEMENT/connexion.php");
 										<button class="btn btn-md btn-primary">Modifier</button>
 									</form>
 								</h5>
-							</div>
+							</div><br />
 						<?php } else { ?>
-							<h5 class="card-title"><a class="btn btn-lg" href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>"><strong><?= $donnee['titre_projet'] ?></strong></a></h5>
+							<h5 class="card-title"><a class="btn btn-lg btn-block btn-primary" href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>"><strong><?= $donnee['titre_projet'] ?></strong></a></h5>
 						<?php } ?>
-
-						<span class="mr-2 d-none d-lg-inline text-gray-600 small">
-							<a class="collapse-item" href="utilisateur.php?id=<?php echo $donnee['id_utilisateur']; ?>">
-								<img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/<?php echo $donnee['image_utilisateur']; ?>" />
-							</a>
-							<strong><?php echo $donnee['nom_utilisateur']; ?></strong>
-							<br />
-							<span class="card-text"><small class="text-muted"><?php echo " Mise à jour le " . date("d F Y à h:i", strtotime($date['date_modif'])); ?></small></span>
-						</span>
-						
 					</div>
 				</div>
 			<?php } ?>

@@ -17,6 +17,16 @@ p    {color: Black;}
     width: 100%;
 }
 
+.wrap {
+  margin: 1em auto;
+  position: relative;
+}
+
+.wrap img {
+  -webkit-filter: sepia(100%) hue-rotate(90deg) saturate(400%);
+  filter: sepia(100%) hue-rotate(90deg) saturate(400%);
+}
+
 .profile-img .file {
     position: relative;
     overflow: hidden;
