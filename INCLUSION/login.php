@@ -1,9 +1,10 @@
-﻿<?php
+<?php
 include("TRAITEMENT/connexion.php");
 ?>
 <!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
 
 <header>
+    
 	<!--Carousel Wrapper-->
 	<div id="carousel-example-2" class="carousel slide carousel-fade z-depth-1-half" data-ride="carousel">
 		<!--Indicators-->
