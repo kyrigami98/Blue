@@ -59,10 +59,10 @@ $user = $requete1->fetch();
                             $suivi = $requete3->fetch();
                     ?>
                     <div class="col-md-12">
-                        <button class="btn btn-md btn-primary" <?php if($suivi == NULL){ echo "style='visibility:visible;position: absolute;'"; }else{ echo "style='visibility:hidden;position: absolute;'"; } ?> id="suivre" onclick="suivre(1);">
+                        <button class="btn btn-md btn-block btn-primary" <?php if($suivi == NULL){ echo "style='visibility:visible;position: absolute;'"; }else{ echo "style='visibility:hidden;position: absolute;'"; } ?> id="suivre" onclick="suivre(1);">
                             Suivre l'artiste <i class="fas fa-check fa-md"></i>
                         </button>
-                        <button class="btn btn-md btn-danger" <?php if($suivi == NULL){ echo "style='visibility:hidden;'"; }else{ echo "style='visibility:visible;'"; } ?> id="ne_plus_suivre" onclick="ne_plus_suivre();">
+                        <button class="btn btn-md btn-block btn-danger" <?php if($suivi == NULL){ echo "style='visibility:hidden;'"; }else{ echo "style='visibility:visible;'"; } ?> id="ne_plus_suivre" onclick="ne_plus_suivre();">
                             Ne plus suivre <i class="fas fa-ban fa-md"></i>
                         </button>
                     </div>
