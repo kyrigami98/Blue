@@ -9,7 +9,7 @@ include "TRAITEMENT/fonctions.php";
   <title>BLUE</title>
   <meta name="description" content="Blue">
   <meta name="keywords" content="HTML,code,tags">
-  <meta name="author" content="Kyriel&Credo">
+  <meta name="author" content="Kyriel&Kriss">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
@@ -32,7 +32,7 @@ include "TRAITEMENT/fonctions.php";
 
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 fixed-top shadow">
-  <a class="navbar-brand" href="index.php">BLUE</a>
+  <a class="navbar-brand" href="index.php" style="color:#4e73df; font-family:Forte;"><strong>BLUE</strong></a>
   <!-- Sidebar Toggle (Topbar) -->
 
   <!-- Topbar Search -->
@@ -81,7 +81,7 @@ include "TRAITEMENT/fonctions.php";
     <?php
     if (!isset($_SESSION['pseudo'])) { ?>
       <li class="nav-item">
-        <a class="nav-link" href="#inscription">
+        <a class="nav-link" href="index.php#inscription">
           <button class="btn text-uppercase" type="submit">Inscription</button>
         </a>
 
@@ -133,8 +133,8 @@ include "TRAITEMENT/fonctions.php";
               <div class="small text-gray-500">December 2, 2019</div>
               Veillez confirmer votre email.
             </div>
-          </a> -->
-          <a class="dropdown-item text-center small text-gray-500" href="#">voir plus</a>
+          </a> 
+          <a class="dropdown-item text-center small text-gray-500" href="#">voir plus</a>-->
         </div>
       </li>
 

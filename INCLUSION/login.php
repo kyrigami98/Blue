@@ -21,7 +21,7 @@ include("TRAITEMENT/connexion.php");
 
 					<div style="height: 100%; width: 100%; z-index:1;position:absolute; background: linear-gradient(transparent, rgba(0,0,0,0.8));"></div>
 
-					<img class="d-block w-100" style="z-index:0; filter: blur(8px);-webkit-filter: blur(5px);" src="https://lageekroom.com/wp-content/uploads/2019/08/Une-date-de-sortie-pour-le-1er-roman-de-Hells-Paradise-4.jpg" alt="First slide">
+					<img class="d-block w-100" style="z-index:0; filter: blur(8px);-webkit-filter: blur(5px);" src="IMAGES/drawer.gif" alt="First slide">
 
 					<div class="mask rgba-black-light"></div>
 				</div>
@@ -36,9 +36,12 @@ include("TRAITEMENT/connexion.php");
 							while ($donnee = $requete->fetch()) {
 							?>
 								<div class="col-sm">
+									<div class="col-sm bg-danger" style="position: absolute;width:100px; border-radius:10px;top:10px;right:50%;">
+										Nouveauté
+									</div>
 									<a href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>" class=""><img class="rounded zoomer" height="300px" src="IMAGES/PROJETS/<?php echo $donnee['image_projet'] ?>" alt=""></a>
 									<hr>
-									<h5 class="h3-responsive"><?php echo $donnee['titre_projet']; ?></h5>
+									<h6 class="h3-responsive"><?php echo $donnee['titre_projet']; ?></h6>
 								</div>
 							<?php
 							}
@@ -55,12 +58,11 @@ include("TRAITEMENT/connexion.php");
 
 				<!--Mask color-->
 				<div class="view">
-					<img class="d-block w-100" src="https://www.journaldujapon.com/wp-content/uploads/2019/04/Pika-Shonen-2018.png" alt="Second slide">
+					<img class="d-block w-100" src="IMAGES/wtf.gif" alt="Second slide">
 					<div class="mask rgba-black-light"></div>
 				</div>
 				<div class="carousel-caption">
 					<h3 class="h3-responsive">Actualité</h3>
-					<p>Secondary text</p>
 				</div>
 			</div>
 
@@ -70,12 +72,11 @@ include("TRAITEMENT/connexion.php");
 
 				<!--Mask color-->
 				<div class="view">
-					<img class="d-block w-100" src="https://lageekroom.com/wp-content/uploads/2019/04/promised-neverland-volume-7-test.jpg" alt="Third slide">
+					<img class="d-block w-100" src="IMAGES/unnamed.gif" alt="Third slide">
 					<div class="mask rgba-black-light"></div>
 				</div>
 				<div class="carousel-caption">
-					<h3 class="h3-responsive">Manga Tutorial</h3>
-					<p>Third text</p>
+					<h3 class="h3-responsive">Bientôt Manga Tutorial</h3>
 				</div>
 			</div>
 
@@ -93,19 +94,19 @@ include("TRAITEMENT/connexion.php");
 		<!--/.Controls-->
 	</div>
 	<!--/.Carousel Wrapper-->
+
+
 </header>
 
 
-
 <div class="container text-center">
-	<h1 class="mt-5 text-white font-weight-light">Bienvenu dans l'imaginium delirium</h1>
+	<h1 class="mt-5 text-white font-weight-light">
+		<img src="IMAGES/MASCOTTES/masaoborder.png" height="50px" style="">
+		<strong>Bienvenu dans l'imaginium delirium</strong>
+		<img src="IMAGES/MASCOTTES/mizuiroborder.png" height="50px" style="">
+	</h1>
 	<p class="lead text-white-50">La logique vous mènera d’un point A à un point B. L’imagination vous emmènera où vous voulez.</p>
 </div>
-
-
-<video autoplay loop id="myVideo" style=" filter: blur(8px);-webkit-filter: blur(8px);">
-	<source src="IMAGES/Anime.mp4" type="video/mp4">
-</video>
 
 <!-- Page Content -->
 <div class="container">
@@ -122,39 +123,52 @@ include("TRAITEMENT/connexion.php");
 
 				$date = $requete_modif->fetch();
 			?>
-				<div class="card" data-toggle="tooltip" data-placement="left" data-html="false" title='<?php echo $donnee['description_projet']; ?>'>
-					<?php if ($donnee['image_projet'] == NULL) { ?>
-						<a href="#"><img class="card-img-top" src="IMAGES/PROJETS/STAND.jpg" alt=""></a>
-					<?php 	} else { ?>
-						<a href="#"><img class="card-img-top" src="IMAGES/PROJETS/<?= $donnee['image_projet'] ?>" alt="<?= $donnee['image_projet'] ?>"></a>
-					<?php 	} ?>
-					<div class="card-body">
-						<?php if (isset($_SESSION['id']) and $_SESSION['id'] == $donnee['id_utilisateur']) { ?>
-							<button data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-md" aria-describedby="basic-addon2"><?= $donnee['titre_projet'] ?></button>
-							<div class="col-4 dropdown-menu animated--grow-in" aria-labelledby="navbarDropdown" style="padding: 10px 0px 0px 10px;">
-								<h5 class="card-title"><a class="btn btn-md btn-secondary" style="width: 85px;" href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>">Voir</a></h5>
-								<h5 class="card-title">
-									<form action="TRAITEMENT/atelier_systeme.php" method="POST">
-										<input type="hidden" name="id" value="<?php echo $donnee['id_projet']; ?>" />
-										<input type="hidden" name="formulaire" value="projet" />
-										<button class="btn btn-md btn-primary">Modifier</button>
-									</form>
-								</h5>
-							</div>
-						<?php } else { ?>
-							<h5 class="card-title"><a class="btn btn-lg" href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>"><strong><?= $donnee['titre_projet'] ?></strong></a></h5>
-						<?php } ?>
+				<div class="card shadow post" data-toggle="tooltip" data-placement="left" data-html="false" title=''>
 
-						<span class="mr-2 d-none d-lg-inline text-gray-600 small">
-							<a class="collapse-item" href="utilisateur.php?id=<?php echo $donnee['id_utilisateur']; ?>">
-								<img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/<?php echo $donnee['image_utilisateur']; ?>" />
-							</a>
-							<strong><?php echo $donnee['nom_utilisateur']; ?></strong>
-							<br />
-							<span class="card-text"><small class="text-muted"><?php echo " Mise à jour le " . date("d F Y à h:i", strtotime($date['date_modif'])); ?></small></span>
-						</span>
-						
+					<span class="mr-2 d-none d-lg-inline text-gray-600 small btn-block" style="position: absolute;padding:20px;background: linear-gradient(black, transparent);">
+						<H5 style="color:white;"> <strong><?= $donnee['titre_projet'] ?></strong> </H5>
+					</span>
+
+					<div href="#" data-toggle="modal" data-target="#imageReader">
+						<div class="">
+							<div class="" style="position: absolute;bottom:0px;width:100%;border-radius:5px; padding:5%;background: rgba(0, 0, 0, 0.7);">
+
+								<div class="options" style="display: none;">
+									<span class="mr-2 d-none d-lg-inline text-gray-600 small btn-block" style="height:20px;">
+										<H7 style="color:white;"><?= substr($donnee['description_projet'], 0, 500) . "..."; ?> </H7>
+									</span>
+									<?php if (isset($_SESSION['id']) and $_SESSION['id'] == $donnee['id_utilisateur']) { ?>
+										<h5 class="card-title"><a class="btn btn-md btn-block btn-success" href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>"><strong>Voir le projet</strong></a></h5>
+										<h5 class="card-title">
+											<form action="TRAITEMENT/atelier_systeme.php" method="POST">
+												<input type="hidden" name="id" value="<?php echo $donnee['id_projet']; ?>" />
+												<input type="hidden" name="formulaire" value="projet" />
+												<button class="btn btn-md btn-block btn-primary"><strong>Modifier le projet</strong></button>
+											</form>
+										</h5>
+									<?php } else { ?>
+										<a class="btn btn-md btn-block btn-primary" href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>"><strong>Voir le projet</strong></a>
+									<?php } ?> <br>
+								</div>
+
+								<a class="collapse-item" href="utilisateur.php?id=<?php echo $donnee['id_utilisateur']; ?>">
+									<img class="img-profile rounded-circle user-photo" src="IMAGES/PROFILS/<?php echo $donnee['image_utilisateur']; ?>" />
+									<strong><?php echo $donnee['nom_utilisateur']; ?></strong>
+								</a>
+								<span class="card-text">
+									<small class="" style="color:white;"><?php echo " Mise à jour le " . date("d F Y à h:i", strtotime($date['date_modif'])); ?></small>
+								</span>
+
+							</div>
+
+							<?php if ($donnee['image_projet'] == NULL) { ?>
+								<img class="card-img-top" src="IMAGES/PROJETS/STAND.jpg" alt="">
+							<?php 	} else { ?>
+								<img class="card-img-top" src="IMAGES/PROJETS/<?= $donnee['image_projet'] ?>" alt="<?= $donnee['image_projet'] ?>">
+							<?php 	} ?>
+						</div>
 					</div>
+
 				</div>
 			<?php } ?>
 		</div>
@@ -162,7 +176,7 @@ include("TRAITEMENT/connexion.php");
 	</div>
 	<!-- /.row -->
 
-	<!-- Pagination -->
+	<!-- Pagination 
 	<ul class="pagination justify-content-center">
 		<li class="page-item">
 			<a class="page-link" href="#" aria-label="Previous">
@@ -186,7 +200,7 @@ include("TRAITEMENT/connexion.php");
 			</a>
 		</li>
 	</ul>
-
+-->
 </div>
 <!-- /.container -->
 <?php

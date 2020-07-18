@@ -166,7 +166,7 @@ $donnee = $requete->fetch();
                         }
 
                         if ($existe == false) {
-                            echo "Aucune plance n'est disponible actuellement...";
+                            echo "Aucune planche n'est disponible actuellement...";
                         }
 
                         $requete2->closeCursor();

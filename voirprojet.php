@@ -173,7 +173,7 @@ $projet = $requete_projet->fetch();
                                 $requete_chapitre->closeCursor();
                             ?>
 
-                            <a class="btn btn-block btn-primary" rel="nofollow" href="#">Voir plus →</a>
+                            <!-- <a class="btn btn-block btn-primary" rel="nofollow" href="#">Voir plus →</a> -->
                         </div>
                     </div>
 
@@ -215,7 +215,7 @@ $projet = $requete_projet->fetch();
 
                                 $requete_terme->closeCursor();
                             ?>
-                            <a class="btn btn-block btn-primary" rel="nofollow" href="#">Voir plus →</a>
+                            <!-- <a class="btn btn-block btn-primary" rel="nofollow" href="#">Voir plus →</a> -->
                         </div>
 
                     </div>
@@ -258,7 +258,7 @@ $projet = $requete_projet->fetch();
                                         $requete_illustration->closeCursor();
                                     ?>
                                     </div>
-                                    <a class="btn btn-block btn-primary" rel="nofollow" href="#">Voir plus →</a>
+                                    <!-- <a class="btn btn-block btn-primary" rel="nofollow" href="#">Voir plus →</a> -->
                                 </div>
                             </div>
                         </div>
@@ -298,7 +298,7 @@ $projet = $requete_projet->fetch();
                                             $requete_personnage->closeCursor();
                                         ?>
                                     </div>
-                                    <a class="btn btn-block btn-primary" rel="nofollow" href="#">Voir plus →</a>
+                                    <!-- <a class="btn btn-block btn-primary" rel="nofollow" href="#">Voir plus →</a> -->
                                 </div>
                             </div>
                         </div>
@@ -338,7 +338,7 @@ $projet = $requete_projet->fetch();
                                             $requete_creature->closeCursor();
                                         ?>
                                     </div>
-                                    <a class="btn btn-block btn-primary" rel="nofollow" href="#">Voir plus →</a>
+                                    <!-- <a class="btn btn-block btn-primary" rel="nofollow" href="#">Voir plus →</a> -->
                                 </div>
                             </div>
                         </div>

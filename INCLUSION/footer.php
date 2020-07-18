@@ -403,6 +403,13 @@
 			$(".floatbuttonMenu").fadeOut()
 		});
 
+		//options button
+		$(".card").mouseover(function() {
+			$(this).find('.options').slideDown()
+		}).mouseleave(function() {
+			$(this).find('.options').slideUp()
+		});
+
 		//hide and show form in modal
 		$(".floatbuttonMenu").click(function() {
 			$(".modalForm").hide();
