@@ -30,7 +30,7 @@ include("TRAITEMENT/connexion.php");
 				<div class="carousel-caption">
 
 					<div class="container">
-						<div class="row">
+			<!-- 			<div class="row">
 							<?php
 							$requete = $bdd->query('SELECT id_projet, titre_projet, image_projet FROM projet WHERE image_projet <> "" AND visibilite = "public" ORDER BY id_projet DESC LIMIT 3');
 
@@ -47,7 +47,7 @@ include("TRAITEMENT/connexion.php");
 							<?php
 							}
 							?>
-						</div>
+						</div> -->
 					</div>
 				</div>
 
@@ -102,9 +102,9 @@ include("TRAITEMENT/connexion.php");
 
 <div class="container text-center">
 	<h1 class="mt-5 text-white font-weight-light">
-		<img src="IMAGES/MASCOTTES/masaoborder.png" height="50px" style="">
+		<img src="IMAGES/MASCOTTES/masaoborder.png" height="50px">
 		<strong>Bienvenu dans l'imaginium delirium</strong>
-		<img src="IMAGES/MASCOTTES/mizuiroborder.png" height="50px" style="">
+		<img src="IMAGES/MASCOTTES/mizuiroborder.png" height="50px">
 	</h1>
 	<p class="lead text-white-50">La logique vous mènera d’un point A à un point B. L’imagination vous emmènera où vous voulez.</p>
 </div>
@@ -203,58 +203,8 @@ include("TRAITEMENT/connexion.php");
 	</ul>
 -->
 </div>
+
 <!-- /.container -->
-<?php
-if (!isset($_SESSION['pseudo'])) { ?>
-	<div id="inscription" class="row">
-		<div class="col-lg-10 col-xl-9 mx-auto">
-			<div class="card card-signin flex-row my-5" style="background-color: rgba(0, 0, 10, 0.8);">
-				<div class="card-img-left d-none d-md-flex">
-					<!-- Background image for card set in CSS! -->
-				</div>
-				<div class="card-body">
-					<h5 class="card-title text-center" style="color:White;">Rejoins Blue !</h5>
-					<form id="inscription" class="form-signin" action="TRAITEMENT/systeme.php" method="POST">
-						<div class="form-label-group">
-							<input type="text" id="inputUserame" class="form-control" placeholder="Username" name="pseudo" required autofocus>
-							<label for="inputUserame">Pseudo</label>
-						</div>
-
-						<div class="form-label-group">
-							<input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required>
-							<label for="inputEmail">Email</label>
-						</div>
-
-						<hr>
-
-						<div class="form-label-group">
-							<input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
-							<label for="inputPassword">Mot de passe</label>
-						</div>
-
-						<div class="form-label-group">
-							<input type="password" id="inputConfirmPassword" class="form-control" placeholder="Password" required>
-							<label for="inputConfirmPassword">Confirmer le mot de passe</label>
-						</div>
-
-						<div class="form-label-group">
-							<div class="form-check">
-								<label class="form-check-label">
-									<input type="checkbox" class="form-check-input" value="" style="color:white;" required>J'ai lu et j'accepte les <a href="">conditions d'utilisation<a>
-								</label>
-							</div>
-						</div>
-						<input type="hidden" name="formulaire" value="inscription" />
-						<button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">S'inscrire</button>
-						<a class="d-block text-center mt-2 small" href="#" data-toggle="modal" data-target=".bd-example-modal-lg">J'ai deja un compte</a>
-						<div class="text-center" id="resultat"></div>
-
-
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
 	<script>
 		$(document).on("submit", "#inscription", function(event) {
 			pseudo = $(this).find("input[name=pseudo]").val();
@@ -287,5 +237,3 @@ if (!isset($_SESSION['pseudo'])) { ?>
 			event.preventDefault();
 		});
 	</script>
-<?php }
-?>

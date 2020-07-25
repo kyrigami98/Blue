@@ -51,6 +51,65 @@
 </body>
 <!-- Large modal -->
 
+
+<div class="modal fade bd-inscription-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalinscriptionLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style=" background-color: rgba(0, 0, 10, 0.8);background-color: #007bff;">
+
+			<div id="inscription" class="row">
+				<div class="container-fluid my-5">
+					<div class="card card-signin flex-row my-10" style="background-color: rgba(0, 0, 10, 0.8);">
+						<div class="card-img-left d-none d-md-flex">
+							<!-- Background image for card set in CSS! -->
+						</div>
+						<div class="card-body">
+							<h5 class="card-title text-center" style="color:White;">Rejoins Blue !</h5>
+							<form id="inscription" class="form-signin" action="TRAITEMENT/systeme.php" method="POST">
+								<div class="form-label-group">
+									<input type="text" id="inputUserame" class="form-control" placeholder="Username" name="pseudo" required autofocus>
+									<label for="inputUserame">Pseudo</label>
+								</div>
+
+								<div class="form-label-group">
+									<input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required>
+									<label for="inputEmail">Email</label>
+								</div>
+
+								<hr>
+
+								<div class="form-label-group">
+									<input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
+									<label for="inputPassword">Mot de passe</label>
+								</div>
+
+								<div class="form-label-group">
+									<input type="password" id="inputConfirmPassword" class="form-control" placeholder="Password" required>
+									<label for="inputConfirmPassword">Confirmer le mot de passe</label>
+								</div>
+
+								<div class="form-label-group">
+									<div class="form-check">
+										<label class="form-check-label">
+											<input type="checkbox" class="form-check-input" value="" style="color:white;" required>J'ai lu et j'accepte les <a href="">conditions d'utilisation<a>
+										</label>
+									</div>
+								</div>
+								<input type="hidden" name="formulaire" value="inscription" />
+								<button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">S'inscrire</button>
+								<a class="d-block text-center mt-2 small" href="#" data-toggle="modal" data-target=".bd-example-modal-lg">J'ai deja un compte</a>
+								<div class="text-center" id="resultat"></div>
+
+							</form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content" style=" background-color: rgba(0, 0, 10, 0.8);background-color: #007bff;">
@@ -92,7 +151,6 @@
 	</div>
 
 </div>
-
 
 <div class="modal fade bd-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel2" aria-hidden="true">
 	<div class="modal-dialog modal-sm  modal-dialog-centered">
@@ -314,12 +372,11 @@
 	</div>
 </div>
 
-<div aria-live="polite" aria-atomic="true" id="list_notif"
- style="display:none; min-height: 300px;width:400; z-index:3000;position: fixed; top: 80; right: 20;">
+<div aria-live="polite" aria-atomic="true" id="list_notif" style="display:none; min-height: 300px;width:400; z-index:3000;position: fixed; top: 80; right: 20;">
 
 	<div class="toast">
 		<div class="toast-header">
-			<span id="notifIcone" ><i class="fas fa-check-circle" style="color:green;"></i></span>
+			<span id="notifIcone"><i class="fas fa-check-circle" style="color:green;"></i></span>
 			<strong id="notifHeader" class="mr-auto"> Notifications </strong>
 			<small>A l'instant</small>
 			<button id="closeDiv" type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -384,10 +441,9 @@
 		};
 		$('.toast').toast(options);
 		$('.toast').toast("show");
-		
+
 	}
-
-
+	
 </script>
 
 <script type="text/javascript">
@@ -633,7 +689,6 @@
 </script>
 
 <script>
-
 	$(document).on("click", "#send_illustration", function(event) {
 
 		var formData = new FormData();
@@ -648,14 +703,11 @@
 			type: "POST",
 			dataType: 'JSON',
 			data: formData,
-			success: function(msg) {
-				alert(msg)
-			},
 			cache: false,
 			contentType: false,
 			processData: false,
 			success: function(data) {
-				if (data.success == true) {	
+				if (data.success == true) {
 					showAlert("Enregistrement réussi", data.message, "SUCCESS", false);
 				} else {
 					showAlert("Illustrations", "Une erreur est survenue lors de l\'envoi", "ECHEC", false);
@@ -680,7 +732,7 @@
 				formulaire: formulaire
 			},
 			success: function(data) {
-				if (data.success == true) {	
+				if (data.success == true) {
 					showAlert("Enregistrement réussi", data.message, "SUCCESS", false);
 				} else {
 					showAlert("Mot", "Une erreur est survenue lors de l\'envoi", "ECHEC", false);
@@ -703,14 +755,11 @@
 			type: "POST",
 			dataType: 'JSON',
 			data: formData,
-			success: function(msg) {
-				alert(msg)
-			},
 			cache: false,
 			contentType: false,
 			processData: false,
 			success: function(data) {
-				if (data.success == true) {	
+				if (data.success == true) {
 					showAlert("Enregistrement réussi", data.message, "SUCCESS", false);
 				} else {
 					showAlert("Lieux", "Une erreur est survenue lors de l\'envoi", "ECHEC", false);
@@ -734,14 +783,11 @@
 			type: "POST",
 			dataType: 'JSON',
 			data: formData,
-			success: function(msg) {
-				alert(msg)
-			},
 			cache: false,
 			contentType: false,
 			processData: false,
 			success: function(data) {
-				if (data.success == true) {	
+				if (data.success == true) {
 					showAlert("Enregistrement réussi", data.message, "SUCCESS", false);
 				} else {
 					showAlert("Créatures", "Une erreur est survenue lors de l\'envoi", "ECHEC", false);
@@ -764,14 +810,11 @@
 			type: "POST",
 			dataType: 'JSON',
 			data: formData,
-			success: function(msg) {
-				alert(msg)
-			},
 			cache: false,
 			contentType: false,
 			processData: false,
 			success: function(data) {
-				if (data.success == true) {	
+				if (data.success == true) {
 					showAlert("Enregistrement réussi", data.message, "SUCCESS", false);
 				} else {
 					showAlert("Personnages", "Une erreur est survenue lors de l\'envoi", "ECHEC", false);
@@ -794,14 +837,11 @@
 			type: "POST",
 			dataType: 'JSON',
 			data: formData,
-			success: function(msg) {
-				alert(msg)
-			},
 			cache: false,
 			contentType: false,
 			processData: false,
 			success: function(data) {
-				if (data.success == true) {	
+				if (data.success == true) {
 					showAlert("Enregistrement réussi", data.message, "SUCCESS", false);
 				} else {
 					showAlert("Chapitre", "Une erreur est survenue lors de l\'envoi", "ECHEC", false);

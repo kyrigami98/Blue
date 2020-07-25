@@ -81,8 +81,8 @@ include "TRAITEMENT/fonctions.php";
     <?php
     if (!isset($_SESSION['pseudo'])) { ?>
       <li class="nav-item">
-        <a class="nav-link" href="index.php#inscription">
-          <button class="btn text-uppercase" type="submit">Inscription</button>
+        <a class="nav-link" href="#">
+          <button class="btn text-uppercase"  data-toggle="modal" data-target=".bd-inscription-modal-lg" type="submit">Inscription</button>
         </a>
 
       </li>
