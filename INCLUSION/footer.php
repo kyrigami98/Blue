@@ -151,8 +151,7 @@
 	</div>
 
 </div>
-
-<div class="modal fade bd-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel2" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg2" id="creationForms" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel2" aria-hidden="true">
 	<div class="modal-dialog modal-sm  modal-dialog-centered">
 		<div class="modal-content">
 			<br />
@@ -372,7 +371,7 @@
 	</div>
 </div>
 
-<div aria-live="polite" aria-atomic="true" id="list_notif" style="display:none; min-height: 300px;width:400; z-index:3000;position: fixed; top: 80; right: 20;">
+<div aria-live="polite" aria-atomic="true" id="list_notif" style="display:none; min-height: 300px;width:400px; z-index:3000;position: fixed; top: 80px; right: -400px;">
 
 	<div class="toast">
 		<div class="toast-header">
@@ -405,7 +404,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
 <script type="text/javascript" src="JS/MyScript.js"></script>
 
 <script>
@@ -437,18 +435,33 @@
 		var options = {
 			delay: 2000,
 			animation: true,
-			autohide: isAutohide
+			autohide: false
 		};
 		$('.toast').toast(options);
 		$('.toast').toast("show");
 
+		$("#list_notif").animate({
+			left: "-=400",
+		}, 500);
+
+		if (isAutohide) {
+			setTimeout(function() {
+				$("#list_notif").animate({
+					left: "+=400",
+				}, 500);
+			}, 3000);
+
+		}
+
+
 	}
-	
 </script>
 
 <script type="text/javascript">
-
 	$(document).ready(function() {
+
+		showAlert("Chapitre", "Une erreur est survenue lors de l\'envoi", "ECHEC", true);
+
 		$(".deleteboutton").hide();
 		//floating button
 		$(".floating").mouseover(function() {
@@ -470,10 +483,6 @@
 		$(".floatbuttonMenu").click(function() {
 			$(".modalForm").hide();
 			$("#" + $(this).attr('name') + "_form").show();
-		});
-
-		$("#closeDiv").click(function() {
-			$('#list_notif').css("display", "none");
 		});
 
 		$('#recherche').keyup(function() {
@@ -708,7 +717,8 @@
 			processData: false,
 			success: function(data) {
 				if (data.success == true) {
-					showAlert("Enregistrement réussi", data.message, "SUCCESS", false);
+					showAlert("Enregistrement réussi", data.message, "SUCCESS", true);
+					$('#creationForms').modal('toggle');
 				} else {
 					showAlert("Illustrations", "Une erreur est survenue lors de l\'envoi", "ECHEC", false);
 				}
@@ -733,7 +743,8 @@
 			},
 			success: function(data) {
 				if (data.success == true) {
-					showAlert("Enregistrement réussi", data.message, "SUCCESS", false);
+					showAlert("Enregistrement réussi", data.message, "SUCCESS", true);
+					$('#creationForms').modal('toggle');
 				} else {
 					showAlert("Mot", "Une erreur est survenue lors de l\'envoi", "ECHEC", false);
 				}
@@ -760,7 +771,8 @@
 			processData: false,
 			success: function(data) {
 				if (data.success == true) {
-					showAlert("Enregistrement réussi", data.message, "SUCCESS", false);
+					showAlert("Enregistrement réussi", data.message, "SUCCESS", true);
+					$('#creationForms').modal('toggle');
 				} else {
 					showAlert("Lieux", "Une erreur est survenue lors de l\'envoi", "ECHEC", false);
 				}
@@ -788,7 +800,8 @@
 			processData: false,
 			success: function(data) {
 				if (data.success == true) {
-					showAlert("Enregistrement réussi", data.message, "SUCCESS", false);
+					showAlert("Enregistrement réussi", data.message, "SUCCESS", true);
+					$('#creationForms').modal('toggle');
 				} else {
 					showAlert("Créatures", "Une erreur est survenue lors de l\'envoi", "ECHEC", false);
 				}
@@ -815,7 +828,8 @@
 			processData: false,
 			success: function(data) {
 				if (data.success == true) {
-					showAlert("Enregistrement réussi", data.message, "SUCCESS", false);
+					showAlert("Enregistrement réussi", data.message, "SUCCESS", true);
+					$('#creationForms').modal('toggle');
 				} else {
 					showAlert("Personnages", "Une erreur est survenue lors de l\'envoi", "ECHEC", false);
 				}
@@ -842,7 +856,8 @@
 			processData: false,
 			success: function(data) {
 				if (data.success == true) {
-					showAlert("Enregistrement réussi", data.message, "SUCCESS", false);
+					showAlert("Enregistrement réussi", data.message, "SUCCESS", true);
+					$('#creationForms').modal('toggle');
 				} else {
 					showAlert("Chapitre", "Une erreur est survenue lors de l\'envoi", "ECHEC", false);
 				}
