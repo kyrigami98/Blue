@@ -4,7 +4,7 @@ include("TRAITEMENT/connexion.php");
 <!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
 
 <header>
-    
+
 	<!--Carousel Wrapper-->
 	<div id="carousel-example-2" class="carousel slide carousel-fade z-depth-1-half" data-ride="carousel">
 		<!--Indicators-->
@@ -22,32 +22,27 @@ include("TRAITEMENT/connexion.php");
 
 					<div style="height: 100%; width: 100%; z-index:1;position:absolute; background: linear-gradient(transparent, rgba(0,0,0,0.8));"></div>
 
-					<img class="d-block w-100" style="z-index:0; filter: blur(8px);-webkit-filter: blur(5px);" src="IMAGES/drawer.gif" alt="First slide">
+					<img class="d-block w-100" style="z-index:0; filter: blur(2px);-webkit-filter: blur(1px);" src="https://lvdneng.rosselcdn.net/sites/default/files/dpistyles_v2/ena_16_9_extra_big/2020/05/06/node_749505/46982263/public/2020/05/06/B9723396273Z.1_20200506170704_000%2BG02FVMCAG.1-0.jpg?itok=qntyo5h_1588777631" alt="First slide">
 
 					<div class="mask rgba-black-light"></div>
 				</div>
 
 				<div class="carousel-caption">
 
-					<div class="container">
-			<!-- 			<div class="row">
-							<?php
-							$requete = $bdd->query('SELECT id_projet, titre_projet, image_projet FROM projet WHERE image_projet <> "" AND visibilite = "public" ORDER BY id_projet DESC LIMIT 3');
+					<div class="items">
 
-							while ($donnee = $requete->fetch()) {
-							?>
-								<div class="col-sm">
-									<div class="col-sm bg-danger" style="position: absolute;width:100px; border-radius:10px;top:10px;right:50%;">
-										Nouveauté
-									</div>
-									<a href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>" class=""><img class="rounded zoomer" height="300px" src="IMAGES/PROJETS/<?php echo $donnee['image_projet'] ?>" alt=""></a>
-									<hr>
-									<h6 class="h3-responsive"><?php echo $donnee['titre_projet']; ?></h6>
-								</div>
-							<?php
-							}
-							?>
-						</div> -->
+						<?php
+						$requete = $bdd->query('SELECT id_projet, titre_projet, image_projet FROM projet WHERE image_projet <> "" AND visibilite = "public" ORDER BY id_projet DESC LIMIT 10');
+						while ($donnee = $requete->fetch()) {
+						?>
+							<div class="item item1">
+								<span class="badge badge-danger" style="position: absolute;">Nouveauté</span>
+								<h5 class="text-gray-600 badge badge-light" style="position: absolute;bottom:25px;"><?php echo $donnee['titre_projet']; ?></h5>
+								<a href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>" class=""><img class="rounded zoomer" height="300px" src="IMAGES/PROJETS/<?php echo $donnee['image_projet'] ?>" alt=""></a>
+							</div>
+
+						<?php } ?>
+
 					</div>
 				</div>
 
@@ -99,7 +94,6 @@ include("TRAITEMENT/connexion.php");
 
 </header>
 
-
 <div class="container text-center">
 	<h1 class="mt-5 text-white font-weight-light">
 		<img src="IMAGES/MASCOTTES/masaoborder.png" height="50px">
@@ -124,19 +118,19 @@ include("TRAITEMENT/connexion.php");
 
 				$date = $requete_modif->fetch();
 			?>
-				<div class="card shadow post" data-toggle="tooltip" data-placement="left" data-html="false" title=''>
+				<div class="card post" style="border-radius: 10px;box-shadow: 3px 5px 5px 2px #0062E6;" data-toggle="tooltip" data-placement="left" data-html="false" title=''>
 
-					<span class="mr-2 d-none d-lg-inline text-gray-600 small btn-block" style="position: absolute;padding:20px;background: linear-gradient(black, transparent);">
-						<H5 style="color:white;"> <strong><?= $donnee['titre_projet'] ?></strong> </H5>
+					<span class="mr-2 d-none d-lg-inline text-gray-600 small btn-block" style="border-radius: 10px;color:black;position: absolute;padding:20px;">
+						<H5 class="badge badge-primary" style="color:white;font-size:17px;font-style:italic;padding:10px;"><?= $donnee['titre_projet'] ?> </H5>
 					</span>
 
 					<div href="#" data-toggle="modal" data-target="#imageReader">
 						<div class="">
-							<div class="" style="position: absolute;bottom:0px;width:100%;border-radius:5px; padding:5%;background: rgba(0, 0, 0, 0.7);">
+							<div class="" style="position: absolute;bottom:0px;width:100%;border-radius:5px; padding:5%;background: white;">
 
 								<div class="options" style="display: none;">
 									<span class="mr-2 d-none d-lg-inline text-gray-600 small btn-block" style="height:20px;">
-										<H7 style="color:white;"><?= substr($donnee['description_projet'], 0, 500) . "..."; ?> </H7>
+										<H7 class="text-gray-600"><?= substr($donnee['description_projet'], 0, 200) . "..."; ?> </H7>
 									</span>
 									<?php if (isset($_SESSION['id']) and $_SESSION['id'] == $donnee['id_utilisateur']) { ?>
 										<h5 class="card-title"><a class="btn btn-md btn-block btn-success" href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>"><strong>Voir le projet</strong></a></h5>
@@ -157,15 +151,15 @@ include("TRAITEMENT/connexion.php");
 									<strong><?php echo $donnee['nom_utilisateur']; ?></strong>
 								</a>
 								<span class="card-text">
-									<small class="" style="color:white;"><?php echo " Mise à jour le " . date("d F Y à h:i", strtotime($date['date_modif'])); ?></small>
+									<small class="text-gray-600" style=""><?php echo " Mise à jour le " . date("d F Y à h:i", strtotime($date['date_modif'])); ?></small>
 								</span>
 
 							</div>
 
 							<?php if ($donnee['image_projet'] == NULL) { ?>
-								<img class="card-img-top" src="IMAGES/PROJETS/STAND.jpg" alt="">
+								<img style="border-radius: 10px;" class="card-img-top" src="IMAGES/PROJETS/STAND.jpg" alt="">
 							<?php 	} else { ?>
-								<img class="card-img-top" src="IMAGES/PROJETS/<?= $donnee['image_projet'] ?>" alt="<?= $donnee['image_projet'] ?>">
+								<img style="border-radius: 10px;" class="card-img-top" src="IMAGES/PROJETS/<?= $donnee['image_projet'] ?>" alt="<?= $donnee['image_projet'] ?>">
 							<?php 	} ?>
 						</div>
 					</div>
@@ -205,35 +199,63 @@ include("TRAITEMENT/connexion.php");
 </div>
 
 <!-- /.container -->
-	<script>
-		$(document).on("submit", "#inscription", function(event) {
-			pseudo = $(this).find("input[name=pseudo]").val();
-			email = $(this).find("input[name=email]").val();
-			password = $(this).find("input[name=password]").val();
-			formulaire = $(this).find("input[name=formulaire]").val();
+<script>
+	const slider = document.querySelector('.items');
+	let isDown = false;
+	let startX;
+	let scrollLeft;
 
-			$.ajax({
-				url: 'TRAITEMENT/systeme.php',
-				type: 'POST',
-				dataType: 'JSON',
-				data: {
-					formulaire: formulaire,
-					pseudo: pseudo,
-					email: email,
-					password: password
-				},
-				success: function(data) {
-					console.log(data);
-					if (data.success == true && data.url != "") {
-						location.reload(true);
-					} else {
-						$("#resultat").text(data.message).fadeIn(500);
-					}
-				},
-				error: function(data) {
-					$('#resultat').removeClass('bg-success').addClass('bg-danger').text('Oups... une erreur est survenue!').fadeIn(500);
+	slider.addEventListener('mousedown', (e) => {
+		isDown = true;
+		slider.classList.add('active');
+		startX = e.pageX - slider.offsetLeft;
+		scrollLeft = slider.scrollLeft;
+	});
+	slider.addEventListener('mouseleave', () => {
+		isDown = false;
+		slider.classList.remove('active');
+	});
+	slider.addEventListener('mouseup', () => {
+		isDown = false;
+		slider.classList.remove('active');
+	});
+	slider.addEventListener('mousemove', (e) => {
+		if (!isDown) return;
+		e.preventDefault();
+		const x = e.pageX - slider.offsetLeft;
+		const walk = (x - startX) * 3; //scroll-fast
+		slider.scrollLeft = scrollLeft - walk;
+		console.log(walk);
+	});
+
+	$(document).on("submit", "#inscription", function(event) {
+		pseudo = $(this).find("input[name=pseudo]").val();
+		email = $(this).find("input[name=email]").val();
+		password = $(this).find("input[name=password]").val();
+		formulaire = $(this).find("input[name=formulaire]").val();
+
+		$.ajax({
+			url: 'TRAITEMENT/systeme.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				formulaire: formulaire,
+				pseudo: pseudo,
+				email: email,
+				password: password
+			},
+			success: function(data) {
+				console.log(data);
+				if (data.success == true && data.url != "") {
+					location.reload(true);
+				} else {
+					$("#resultat").text(data.message).fadeIn(500);
 				}
-			});
-			event.preventDefault();
+			},
+			error: function(data) {
+				$('#resultat').removeClass('bg-success').addClass('bg-danger').text('Oups... une erreur est survenue!').fadeIn(500);
+			}
 		});
-	</script>
+		event.preventDefault();
+	});
+</script>

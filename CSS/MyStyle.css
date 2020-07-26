@@ -1,6 +1,14 @@
-body {background-color: powderblue;}
-h1   {color: blue;}
-p    {color: Black;}
+body {
+  background-color: powderblue;
+}
+
+h1 {
+  color: blue;
+}
+
+p {
+  color: Black;
+}
 
 #myVideo {
   position: fixed;
@@ -10,11 +18,12 @@ p    {color: Black;}
   min-height: 100%;
 }
 
-.profile-img{
-    text-align: center;
+.profile-img {
+  text-align: center;
 }
-.profile-img img{
-    width: 100%;
+
+.profile-img img {
+  width: 100%;
 }
 
 .wrap {
@@ -28,41 +37,49 @@ p    {color: Black;}
 }
 
 .profile-img .file {
-    position: relative;
-    overflow: hidden;
-    margin-top: -20%;
-    width: 100%;
-    border: none;
-    border-radius: 0;
-    font-size: 15px;
-    background: #212529b8;
+  position: relative;
+  overflow: hidden;
+  margin-top: -20%;
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  font-size: 15px;
+  background: #212529b8;
 }
+
 .profile-img .file input {
-    position: absolute;
-    opacity: 0;
-    right: 0;
-    top: 0;
+  position: absolute;
+  opacity: 0;
+  right: 0;
+  top: 0;
 }
 
 .blur {
   position: absolute;
-  z-index:0;
+  z-index: 0;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(8px);
   height: 100%;
-	width: 100%;
+  width: 100%;
 }
 
-.deleteboutton{
-  position: absolute; color:white; font-size:20px; right:10px;top:10px; border:1px solid white;
+.deleteboutton {
+  position: absolute;
+  color: white;
+  font-size: 20px;
+  right: 10px;
+  top: 10px;
+  border: 1px solid white;
 }
 
-.filterImage{
-  position: absolute;  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.9) 100%); bottom:12px;
+.filterImage {
+  position: absolute;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 100%);
+  bottom: 12px;
 }
 
-.user-photo{
-	border-radius:50px;
+.user-photo {
+  border-radius: 50px;
   height: 30px;
   width: 30px;
 }
@@ -78,6 +95,7 @@ p    {color: Black;}
 }
 
 /* Add some content at the bottom of the video/page */
+
 .content {
   position: fixed;
   bottom: 0;
@@ -88,6 +106,7 @@ p    {color: Black;}
 }
 
 /* Style the button used to pause/play the video */
+
 #myBtn {
   width: 200px;
   font-size: 18px;
@@ -103,10 +122,10 @@ p    {color: Black;}
   color: black;
 }
 
-#editor{
-  width:100%;
-  max-width:100%;
-  overflow:hidden;
+#editor {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 :root {
@@ -127,11 +146,13 @@ body {
 }
 
 .zoomer {
-  transition: transform .2s; /* Animation */
+  transition: transform .2s;
+  /* Animation */
 }
 
 .zoomer:hover {
-  transform: scale(1.07); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  transform: scale(1.07);
+  /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
 .card-signin .card-title {
@@ -145,15 +166,13 @@ body {
   /* Link to your background image using in the property below! */
   background: scroll center url('../IMAGES/giphy.gif');
   background-size: cover;
-  
 }
 
-.card-signin .connexion{
+.card-signin .connexion {
   width: 45%;
   /* Link to your background image using in the property below! */
   background: scroll center url('../IMAGES/connect.gif');
   background-size: cover;
-  
 }
 
 .card-signin .card-body {
@@ -183,8 +202,7 @@ body {
   border-radius: 2rem;
 }
 
-.form-label-group>input,
-.form-label-group>label {
+.form-label-group>input, .form-label-group>label {
   padding: var(--input-padding-y) var(--input-padding-x);
 }
 
@@ -250,7 +268,7 @@ body {
     opacity: 0;
   }
   100% {
-    transform:translateY(0rem);
+    transform: translateY(0rem);
     opacity: 1;
   }
   0% {
@@ -280,44 +298,98 @@ body {
 }
 
 /* Other styles for the page not related to the animated dropdown */
+
 .onoffswitch {
-  position: relative; width: 95px;
-  -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+  position: relative;
+  width: 95px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
+
 .onoffswitch-checkbox {
   display: none;
 }
+
 .onoffswitch-label {
-  display: block; overflow: hidden; cursor: pointer;
-  border: 2px solid #4E73DF; border-radius: 15px;
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #4E73DF;
+  border-radius: 15px;
 }
+
 .onoffswitch-inner {
-  display: block; width: 200%; margin-left: -100%;
+  display: block;
+  width: 200%;
+  margin-left: -100%;
   transition: margin 0.3s ease-in 0s;
 }
+
 .onoffswitch-inner:before, .onoffswitch-inner:after {
-  display: block; float: left; width: 50%; height: 32px; padding: 0; line-height: 30px;
-  font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+  display: block;
+  float: left;
+  width: 50%;
+  height: 32px;
+  padding: 0;
+  line-height: 30px;
+  font-size: 14px;
+  color: white;
+  font-family: Trebuchet, Arial, sans-serif;
+  font-weight: bold;
   box-sizing: border-box;
 }
+
 .onoffswitch-inner:before {
-  font-family: "Font Awesome 5 Free"; font-weight: 900; 
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   content: '\f0c0 Public';
   padding-left: 9px;
-  background-color: #4E73DF; color: #FFFFFF;
-  
+  background-color: #4E73DF;
+  color: #FFFFFF;
 }
+
 .onoffswitch-inner:after {
-  font-family: "Font Awesome 5 Free"; font-weight: 900; 
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   content: '\f023 Privé';
   padding-right: 9px;
-  background-color: #FFFFFF; color: #4E73DF;
+  background-color: #FFFFFF;
+  color: #4E73DF;
   text-align: center;
 }
 
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
   margin-left: 0;
 }
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-  right: 0px; 
+
+.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
+  right: 0px;
+}
+
+.items {
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  white-space: nowrap;
+  transition: all 0.2s;
+  transform: scale(1);
+  will-change: transform;
+  user-select: none;
+  cursor: pointer;
+}
+
+.items.active {
+  background: rgba(255, 255, 255, 0.041);
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+  transform: scale(1.05);
+}
+
+.item {
+  display: inline-block;
+  margin: 2em 1em;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.5);
 }

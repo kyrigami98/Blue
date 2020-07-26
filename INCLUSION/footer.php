@@ -460,8 +460,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		showAlert("Chapitre", "Une erreur est survenue lors de l\'envoi", "ECHEC", true);
-
 		$(".deleteboutton").hide();
 		//floating button
 		$(".floating").mouseover(function() {
@@ -483,6 +481,13 @@
 		$(".floatbuttonMenu").click(function() {
 			$(".modalForm").hide();
 			$("#" + $(this).attr('name') + "_form").show();
+		});
+
+		//hide and show form in modal
+		$("#closeDiv").click(function() {
+			$("#list_notif").animate({
+				left: "+=400",
+			}, 500);
 		});
 
 		$('#recherche').keyup(function() {
