@@ -22,7 +22,7 @@ include("TRAITEMENT/connexion.php");
 
 					<div style="height: 100%; width: 100%; z-index:1;position:absolute; background: linear-gradient(transparent, rgba(0,0,0,0.8));"></div>
 
-					<img class="d-block w-100" style="z-index:0; filter: blur(2px);-webkit-filter: blur(1px);" src="https://lvdneng.rosselcdn.net/sites/default/files/dpistyles_v2/ena_16_9_extra_big/2020/05/06/node_749505/46982263/public/2020/05/06/B9723396273Z.1_20200506170704_000%2BG02FVMCAG.1-0.jpg?itok=qntyo5h_1588777631" alt="First slide">
+					<img class="d-block w-100" style="z-index:0; filter: blur(5px);-webkit-filter: blur(5px);" src="https://lvdneng.rosselcdn.net/sites/default/files/dpistyles_v2/ena_16_9_extra_big/2020/05/06/node_749505/46982263/public/2020/05/06/B9723396273Z.1_20200506170704_000%2BG02FVMCAG.1-0.jpg?itok=qntyo5h_1588777631" alt="First slide">
 
 					<div class="mask rgba-black-light"></div>
 				</div>
@@ -38,7 +38,7 @@ include("TRAITEMENT/connexion.php");
 							<div class="item item1">
 								<span class="badge badge-danger" style="position: absolute;">Nouveauté</span>
 								<h5 class="text-gray-600 badge badge-light" style="position: absolute;bottom:25px;"><?php echo $donnee['titre_projet']; ?></h5>
-								<a href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>" class=""><img class="rounded zoomer" height="300px" src="IMAGES/PROJETS/<?php echo $donnee['image_projet'] ?>" alt=""></a>
+								<a href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>" class=""><img class="rounded zoomer" height="200px" src="IMAGES/PROJETS/<?php echo $donnee['image_projet'] ?>" alt=""></a>
 							</div>
 
 						<?php } ?>
