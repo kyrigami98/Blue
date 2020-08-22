@@ -40,10 +40,10 @@
 
 <!-- Footer -->
 
-<footer class="sticky-footer bg-white">
+<footer class="sticky-footer">
 	<div class="container my-auto">
 		<div class="copyright text-center my-auto">
-			<span>Copyright &copy; Blue 2019</span>
+			<span>Copyright &copy; Blue 2020</span>
 		</div>
 	</div>
 </footer>
@@ -364,7 +364,7 @@
 		<div class="modal-dialog-centered">
 			<div class="modal-body d-flex justify-content-center">
 				<div class="img-responsive">
-					<img id="imageReaderContent" src="" style="max-height:650px;" class="rounded mx-auto d-block">
+					<img id="imageReaderContent" src="" style="max-height:650px;" class="rounded mx-auto d-block img-fluid">
 				</div>
 			</div>
 		</div>
@@ -471,10 +471,10 @@
 		});
 
 		//options button
-		$(".card").mouseover(function() {
-			$(this).find('.options').slideDown()
+		$(".post").mouseover(function() {
+			$(this).find('.options').show()
 		}).mouseleave(function() {
-			$(this).find('.options').slideUp()
+			$(this).find('.options').hide()
 		});
 
 		//hide and show form in modal

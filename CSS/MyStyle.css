@@ -391,5 +391,12 @@ body {
   display: inline-block;
   margin: 2em 1em;
   border-radius: 10px;
-  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.blue-primary{
+  color:#4E73DF;
+}
+
+.blue-bg-primary{
+  background-color:#4E73DF !important;
 }

@@ -9,3 +9,16 @@
 - le bootstrap est parti en couille                                                                 #done
 - erreurs sur la page de connexion lorsque rentre des informations qui n'existe pas dans la base    #done
 - pour une raison que j'ignore, le bootstrap s'est modifie un tout petit peu dans la page profil    #done
+- conditions d'utilisation dans un autre onglet
+- certaines images ne s'affiche pas quand la taille est trop grande
+- les nouveautés s'affiche mal dans certaines situations
+- on a du mal a cliqué sur certains button
+- popup de confirmation suppression d'élément
+- bouton de suppression clignote quand on passe dessus a plusieurs reprise
+- lorsqu'on supprime une planche les autres disparaissent
+- le footer n'est pas fixed bot
+- le tagueur ne propose rien
+- le javascript ne marche pas chez certains utilisateurs
+- bienvenue et non bienvenu
+- possibilité de changer de cover
+- mettre un bouton pour créer le les éléments dans les div dans l'atelier

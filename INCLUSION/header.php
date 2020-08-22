@@ -31,8 +31,8 @@ include "TRAITEMENT/fonctions.php";
 </head>
 
 <!-- Topbar -->
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 fixed-top shadow">
-  <a class="navbar-brand" href="index.php" style="color:#4e73df; font-family:Forte;"><strong>BLUE</strong></a>
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 fixed-top shadow img-fluid">
+  <a class="navbar-brand blue-primary" href="index.php" style="font-family:Forte;color:#4E73DF;">BLUE</a>
   <!-- Sidebar Toggle (Topbar) -->
 
   <!-- Topbar Search -->
@@ -51,6 +51,7 @@ include "TRAITEMENT/fonctions.php";
           <i class="fas fa-search fa-sm"></i>
         </button>
       </div>
+
     </div>
   </form>
 
@@ -82,7 +83,7 @@ include "TRAITEMENT/fonctions.php";
     if (!isset($_SESSION['pseudo'])) { ?>
       <li class="nav-item">
         <a class="nav-link" href="#">
-          <button class="btn text-uppercase"  data-toggle="modal" data-target=".bd-inscription-modal-lg" type="submit">Inscription</button>
+          <button class="btn text-uppercase" data-toggle="modal" data-target=".bd-inscription-modal-lg" type="submit">Inscription</button>
         </a>
 
       </li>
@@ -106,7 +107,7 @@ include "TRAITEMENT/fonctions.php";
           <h6 class="dropdown-header">
             Alerts Center
           </h6>
-          <div style="overflow: auto; height:500px;" >
+          <div style="overflow: auto; height:500px;">
             <?php
             getHistorique($_SESSION['id']);
             ?>
@@ -199,7 +200,7 @@ include "TRAITEMENT/fonctions.php";
       <li class="nav-item dropdown no-arrow">
 
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="mr-2 d-none d-lg-inline text-gray-600 small">Bienvenue, <strong><?php echo $_SESSION['pseudo']; ?></strong></span>
+          <span class="mr-2 d-none d-lg-inline small blue-primary">Bienvenue, <strong><?php echo $_SESSION['pseudo']; ?></strong></span>
           <?php if ($_SESSION['image']) { ?>
             <img class="img-profile rounded-circle" src="IMAGES/PROFILS/<?php echo $_SESSION['image']; ?>">
           <?php } else { ?>
