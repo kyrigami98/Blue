@@ -400,3 +400,7 @@ body {
 .blue-bg-primary{
   background-color:#4E73DF !important;
 }
+
+.card-columns {
+    column-count: 5 !important;
+}

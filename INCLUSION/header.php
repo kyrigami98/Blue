@@ -28,6 +28,26 @@ include "TRAITEMENT/fonctions.php";
   <link href="CSS/sb-admin-2.min.css" rel="stylesheet">
 
   <script src="vendor/jquery/jquery.min.js"></script>
+
+  <script>
+    
+    function isMobileDevice() {
+      const toMatch = [
+        /Android/i,
+        /webOS/i,
+        /iPhone/i,
+        /iPad/i,
+        /iPod/i,
+        /BlackBerry/i,
+        /Windows Phone/i
+      ];
+
+      return toMatch.some((toMatchItem) => {
+        return navigator.userAgent.match(toMatchItem);
+      });
+    }
+  </script>
+
 </head>
 
 <!-- Topbar -->
