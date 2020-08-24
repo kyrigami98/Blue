@@ -30,7 +30,6 @@ include "TRAITEMENT/fonctions.php";
   <script src="vendor/jquery/jquery.min.js"></script>
 
   <script>
-    
     function isMobileDevice() {
       const toMatch = [
         /Android/i,
@@ -51,88 +50,96 @@ include "TRAITEMENT/fonctions.php";
 </head>
 
 <!-- Topbar -->
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 fixed-top shadow img-fluid">
+<nav id="manavbar" class="navbar fixed-top navbar-expand-lg scrolling-navbar navbar-light bg-white topbar mb-4 fixed-top shadow">
   <a class="navbar-brand blue-primary" href="index.php" style="font-family:Forte;color:#4E73DF;">BLUE</a>
   <!-- Sidebar Toggle (Topbar) -->
 
-  <!-- Topbar Search -->
-  <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" id="recherche">
-    <div class="input-group">
+  <button class="navbar-toggler btn" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <!--     <span class="navbar-toggler-icon"></span> -->
+    <i class="mini-menu-icon fas fa-bars fa-sm"></i>
+  </button>
 
-      <input type="text" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="form-control bg-light border-0 small dropdown-toggle" placeholder="Rechercher un projet ou un auteur..." aria-label="Search" aria-describedby="basic-addon2" id="recherche" name="recherche">
+  <div class="collapse navbar-collapse bg-white" id="navbarSupportedContent">
 
-      <div class="col-12 dropdown-menu animated--grow-in" aria-labelledby="navbarDropdown" id="reception">
+    <!-- Topbar Search -->
+    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" id="recherche">
 
-        <br>
+      <div class="input-group">
+
+        <input type="text" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="form-control bg-light border-0 small dropdown-toggle" placeholder="Rechercher un projet ou un auteur..." aria-label="Search" aria-describedby="basic-addon2" id="recherche" name="recherche">
+
+        <div class="col-12 dropdown-menu animated--grow-in" aria-labelledby="navbarDropdown" id="reception">
+
+        </div>
+
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button">
+            <i class="fas fa-search fa-sm"></i>
+          </button>
+        </div>
+
       </div>
+    </form>
 
-      <div class="input-group-append">
-        <button class="btn btn-primary" type="button">
-          <i class="fas fa-search fa-sm"></i>
-        </button>
-      </div>
+    <!-- Topbar Navbar -->
+    <ul class="navbar-nav ml-auto">
 
-    </div>
-  </form>
-
-  <!-- Topbar Navbar -->
-  <ul class="navbar-nav ml-auto">
-
-    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-    <li class="nav-item dropdown no-arrow d-sm-none">
-      <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-search fa-fw"></i>
-      </a>
-      <!-- Dropdown - Messages -->
-      <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-        <form class="form-inline mr-auto w-100 navbar-search">
-          <div class="input-group">
-            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-              <button class="btn btn-primary" type="button">
-                <i class="fas fa-search fa-sm"></i>
-              </button>
+      <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+      <li class="nav-item dropdown no-arrow d-sm-none">
+        <a class="nav-link dropdown-toggle btn btn-block" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-search fa-fw"></i> Recherche rapide
+        </a>
+        <!-- Dropdown - Messages -->
+        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+          <form class="form-inline mr-auto w-100 navbar-search">
+            <div class="input-group">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div>
             </div>
-          </div>
-        </form>
-      </div>
-    </li>
-
-
-    <?php
-    if (!isset($_SESSION['pseudo'])) { ?>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <button class="btn text-uppercase" data-toggle="modal" data-target=".bd-inscription-modal-lg" type="submit">Inscription</button>
-        </a>
-
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <button class="btn btn-primary text-uppercase" data-toggle="modal" data-target=".bd-example-modal-lg">Connexion</button>
-        </a>
+          </form>
+        </div>
       </li>
 
-    <?php } else { ?>
-      <!-- Nav Item - Alerts -->
-      <li class="nav-item dropdown no-arrow mx-1">
-        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-bell fa-fw"></i>
-          <!-- Counter - Alerts -->
-          <span class="badge badge-danger badge-counter">3+</span>
-        </a>
-        <!-- Dropdown - Alerts -->
-        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
 
-          <h6 class="dropdown-header">
-            Alerts Center
-          </h6>
-          <div style="overflow: auto; height:500px;">
-            <?php
-            getHistorique($_SESSION['id']);
-            ?>
-          </div>
-          <!-- 
+      <?php
+      if (!isset($_SESSION['pseudo'])) { ?>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <button class="btn btn-block text-uppercase" data-toggle="modal" data-target=".bd-example-modal-lg">Connexion</button>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <button class="btn btn-block btn-primary text-uppercase" data-toggle="modal" data-target=".bd-inscription-modal-lg" type="submit">Inscription</button>
+          </a>
+        </li>
+
+      <?php } else { ?>
+        <!-- Nav Item - Alerts -->
+        <li class="nav-item dropdown no-arrow mx-1">
+          <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-bell fa-fw"></i>
+            <!-- Counter - Alerts -->
+            <span class="badge badge-danger badge-counter">3+</span>
+          </a>
+          <!-- Dropdown - Alerts -->
+          <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+
+            <h6 class="dropdown-header">
+              Alerts Center
+            </h6>
+            <div style="overflow: auto; height:500px;">
+              <?php
+              getHistorique($_SESSION['id']);
+              ?>
+            </div>
+            <!-- 
           <a class="dropdown-item d-flex align-items-center" href="#">
             <div class="mr-3">
               <div class="icon-circle bg-success">
@@ -156,10 +163,10 @@ include "TRAITEMENT/fonctions.php";
             </div>
           </a> 
           <a class="dropdown-item text-center small text-gray-500" href="#">voir plus</a>-->
-        </div>
-      </li>
+          </div>
+        </li>
 
-      <!-- Nav Item - Messages 
+        <!-- Nav Item - Messages 
       <li class="nav-item dropdown no-arrow mx-1">
         <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-envelope fa-fw"></i>
@@ -216,42 +223,44 @@ include "TRAITEMENT/fonctions.php";
       <div class="topbar-divider d-none d-sm-block"></div>
       -->
 
-      <!-- Nav Item - User Information -->
-      <li class="nav-item dropdown no-arrow">
+        <!-- Nav Item - User Information -->
+        <li class="nav-item dropdown no-arrow">
 
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="mr-2 d-none d-lg-inline small blue-primary">Bienvenue, <strong><?php echo $_SESSION['pseudo']; ?></strong></span>
-          <?php if ($_SESSION['image']) { ?>
-            <img class="img-profile rounded-circle" src="IMAGES/PROFILS/<?php echo $_SESSION['image']; ?>">
-          <?php } else { ?>
-            <img class="img-profile rounded-circle" src="IMAGES/PROFILS/STAND.jpg">
-          <?php } ?>
-        </a>
-        <!-- Dropdown - User Information -->
-        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="profil.php">
-            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-            Mon Profil
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="mr-2 d-none d-lg-inline small blue-primary">Bienvenue, <strong><?php echo $_SESSION['pseudo']; ?></strong></span>
+            <?php if ($_SESSION['image']) { ?>
+              <img class="img-profile rounded-circle" src="IMAGES/PROFILS/<?php echo $_SESSION['image']; ?>">
+            <?php } else { ?>
+              <img class="img-profile rounded-circle" src="IMAGES/PROFILS/STAND.jpg">
+            <?php } ?>
           </a>
-          <a class="dropdown-item" href="atelier.php">
-            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-            Mon atelier
-          </a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="TRAITEMENT/systeme.php">
-            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-            Deconnexion
-          </a>
-        </div>
-      </li>
+          <!-- Dropdown - User Information -->
+          <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+            <a class="dropdown-item" href="profil.php">
+              <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+              Mon Profil
+            </a>
+            <a class="dropdown-item" href="atelier.php">
+              <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+              Mon atelier
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="TRAITEMENT/systeme.php">
+              <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+              Deconnexion
+            </a>
+          </div>
+        </li>
 
-    <?php
-    } ?>
+      <?php
+      } ?>
 
-  </ul>
+    </ul>
+  </div>
 
 </nav>
 <!-- End of Topbar -->
+
 
 <br><br>
 

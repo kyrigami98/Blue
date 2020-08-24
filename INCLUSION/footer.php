@@ -40,7 +40,7 @@
 
 <!-- Footer -->
 
-<footer class="sticky-footer bg-white">
+<footer id="footer" class="sticky-footer bg-white" style="">
 	<div class="container my-auto">
 		<div class="copyright text-center my-auto">
 			<span>Copyright &copy; Blue 2020</span>
@@ -493,26 +493,58 @@
 		$('#recherche').keyup(function() {
 			formulaire = "recherche";
 			recherche = $(this).find('input[name=recherche]').val();
-			$.ajax({
-				url: 'TRAITEMENT/systeme.php',
-				type: 'POST',
-				dataType: 'JSON',
-				data: {
-					formulaire: formulaire,
-					recherche: recherche
-				},
-				success: function(data) {
-					if (data.success == true && data.url != "") {
-						$('#reception').html(data.message).fadeIn(500);
-					} else {
-						$('#reception').html(data.message).fadeIn(500);
+			if (recherche.length !== 0 && recherche.length >= 3) {
+
+				$.ajax({
+					url: 'TRAITEMENT/systeme.php',
+					type: 'POST',
+					dataType: 'JSON',
+					data: {
+						formulaire: formulaire,
+						recherche: recherche
+					},
+					success: function(data) {
+						if (data.success == true && data.url != "") {
+							$('#reception').html(data.message).fadeIn(500);
+						} else {
+							$('#reception').html(data.message).fadeIn(500);
+						}
+					},
+					error: function(data) {
+						$('#reception').text('Une erreur est survenue lors de l\'execution... contactez les administrateurs').fadeIn(500);
 					}
-				},
-				error: function(data) {
-					$('#reception').text('Une erreur est survenue lors de l\'execution... contactez les administrateurs').fadeIn(500);
-				}
-			})
+				})
+
+			} else {
+				$('#reception').fadeOut(500);
+			}
 		});
+
+		responsiveMobile()
+
+		$(window).resize(function() {
+			responsiveMobile()
+		});
+
+		function responsiveMobile() {
+			if (isMobileDevice()) {
+				//sur mobile
+				$(".imageCarousel").removeClass("d-block w-100");
+				$(".card-central").css("position", "relative");
+				$(".card-central").removeClass("container-fluid");
+				$("#manavbar").css("cssText", 'background-color:#4E73DF !important;color:white !important;');
+				$(".navbar-brand").css("cssText", 'color:white !important;');
+				$(".mini-menu-icon").css("cssText", 'color:white !important;');
+				$(".carousel-caption").css("cssText", 'font-size:5px !important;');
+			} else {
+				//sur PC
+				$(".imageCarousel").addClass("d-block w-100");
+				$(".card-central").css("top", "65%");
+				$(".card-central").css("position", "absolute");
+				$(".card-central").css("margin-bottom", "10%");
+				$(".card-central").addClass("container-fluid");
+			}
+		}
 
 	});
 

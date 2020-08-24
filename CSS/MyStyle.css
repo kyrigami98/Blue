@@ -1,6 +1,3 @@
-body {
-  background-color: powderblue;
-}
 
 h1 {
   color: blue;
@@ -136,6 +133,10 @@ p {
 body {
   background: #007bff;
   background: linear-gradient(to right, #0062E6, #33AEFF);
+  width: 100%; 
+  margin: 0px; 
+  height: 100%;
+  padding: 0px;
 }
 
 .card-signin {

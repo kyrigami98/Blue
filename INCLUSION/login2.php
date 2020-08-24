@@ -2,8 +2,6 @@
 include("TRAITEMENT/connexion.php");
 ?>
 
-
-
 <header>
 
     <!--Carousel Wrapper-->
@@ -107,7 +105,7 @@ include("TRAITEMENT/connexion.php");
 <div class="container-fluid card-central" style="position:absolute; top:55%;z-index:50;">
 
 
-    <div class="card border-0 shadow my-5">
+    <div class="card border-0 shadow">
         <div class="profile-head">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
@@ -214,10 +212,10 @@ include("TRAITEMENT/connexion.php");
 
                                 <div class="card flex-row flex-wrap shadow">
                                     <div class="card-header border-0 col-3">
-                                    <span class="badge badge-danger" style="position: absolute;">Nouveauté</span>
-                                    <h5 class="text-gray-600 badge badge-light" style="position: absolute;bottom:0px;"><?php echo $donnee['titre_projet']; ?></h5>
-                                    <a href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>" class=""><img class="rounded zoomer" width="250px" src="IMAGES/PROJETS/<?php echo $donnee['image_projet'] ?>" alt=""></a>
-                            
+                                        <span class="badge badge-danger" style="position: absolute;">Nouveauté</span>
+                                        <h5 class="text-gray-600 badge badge-light" style="position: absolute;bottom:0px;"><?php echo $donnee['titre_projet']; ?></h5>
+                                        <a href="voirprojet.php?id=<?php echo $donnee['id_projet']; ?>" class=""><img class="rounded zoomer" width="250px" src="IMAGES/PROJETS/<?php echo $donnee['image_projet'] ?>" alt=""></a>
+
                                     </div>
                                     <div class="card-block col-9 px-2">
                                         <h4 class="card-title"><?php echo $donnee['titre_projet']; ?></h4>
@@ -225,7 +223,7 @@ include("TRAITEMENT/connexion.php");
                                         <a href="#" class="btn btn-primary">BUTTON</a>
                                     </div>
                                     <div class="w-100"></div>
-                                  
+
                                 </div>
 
                             <?php } ?>
@@ -245,26 +243,9 @@ include("TRAITEMENT/connexion.php");
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function() {
 
-        responsiveMobile()
+$(document).ready(function() {
+    $("#footer").hide();
+});
 
-        $(window).resize(function() {
-            responsiveMobile()
-        });
-
-        function responsiveMobile() {
-            if (isMobileDevice()) {
-                //sur mobile
-                $(".imageCarousel").removeClass("d-block w-100");
-                $(".card-central").css("position", "relative");
-            } else {
-                //sur PC
-                $(".imageCarousel").addClass("d-block w-100");
-                $(".card-central").css("top", "55%");
-                $(".card-central").css("position", "absolute");
-            }
-        }
-
-    })
 </script>
