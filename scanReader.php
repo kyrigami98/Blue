@@ -62,9 +62,9 @@
                 </div>
                 <div class="tab-pane fade" id="scans" role="tabpanel" aria-labelledby="scans-tab">
                     <br />
-                    <div class="card">
+                    <div class="card container-fluid">
                         <div class="d-flex justify-content-center">
-                            <div id="scan" class=" col-7" >
+                            <div id="scan" class=" col-12" >
                                 
                             </div>
                         </div>

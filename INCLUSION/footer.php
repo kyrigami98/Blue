@@ -536,6 +536,7 @@
 				$(".navbar-brand").css("cssText", 'color:white !important;');
 				$(".mini-menu-icon").css("cssText", 'color:white !important;');
 				$(".carousel-caption").css("cssText", 'font-size:5px !important;');
+				$(".card-columns").css("cssText", 'column-count: 1 !important;');
 			} else {
 				//sur PC
 				$(".imageCarousel").addClass("d-block w-100");

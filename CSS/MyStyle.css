@@ -390,7 +390,7 @@ body {
 
 .item {
   display: inline-block;
-  margin: 2em 1em;
+  margin: 5px;
   border-radius: 10px;
 }
 

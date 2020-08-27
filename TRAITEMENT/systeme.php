@@ -164,7 +164,7 @@ if (isset($_POST['formulaire']))
 		}
 		if($existe == false)
 		{
-			$retour = "Il n'y a aucun planche pour l'instant";
+			$retour = "Il n'y a aucune planche pour l'instant";
 		}
 
 		returnJson(true, "", $retour);
