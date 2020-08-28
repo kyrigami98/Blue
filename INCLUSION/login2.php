@@ -107,18 +107,46 @@ include("TRAITEMENT/connexion.php");
 
     <div class="card border-0 shadow">
         <div class="profile-head">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="projets_edites-tab" data-toggle="tab" href="#projets_edites" role="tab" aria-controls="projets_edites" aria-selected="false">
-                        <b>PROJETS EDITES </b>
+            <nav class="navbar navbar-expand-sm">
+                <!-- Toggler/collapsibe Button -->
+                <button class="navbar-toggler btn-block" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                    <a class="nav-link btn btn-block btn-primary" id="" data-toggle="tab" href="#filtre" role="tab" aria-controls="filtre" aria-selected="true">
+                        <b><i class="fa fa-bars"></i> LISTE ET RECHERCHE </b>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " id="nouveaute-tab" data-toggle="tab" href="#nouveaute" role="tab" aria-controls="nouveaute" aria-selected="true">
-                        <b> NOUVEAUTES </b>
-                    </a>
-                </li>
-            </ul>
+                </button>
+
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="projets_edites-tab" data-toggle="tab" href="#projets_edites" role="tab" aria-controls="projets_edites" aria-selected="false">
+                                <b><i class="fas fa-bookmark"></i> LES PROJETS EDITES </b>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="nouveaute-tab" data-toggle="tab" href="#nouveaute" role="tab" aria-controls="nouveaute" aria-selected="true">
+                                <b><i class="far fa-bookmark"></i> AUTRES PROJETS </b>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="nouveaute-tab" data-toggle="tab" href="#nouveaute" role="tab" aria-controls="nouveaute" aria-selected="true">
+                                <b><i class="fas fa-star"></i> LES PLUS POPULAIRES </b>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="nouveaute-tab" data-toggle="tab" href="#nouveaute" role="tab" aria-controls="nouveaute" aria-selected="true">
+                                <b><i class="fas fa-flag"></i> LES NOUVEAUTES </b>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" id="filtre-tab" data-toggle="tab" href="#filtre" role="tab" aria-controls="filtre" aria-selected="true">
+                                <b><i class="fa fa-search"></i> RECHERCHE RAPIDE </b>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </nav>
         </div>
 
         <div class="card-body">
@@ -287,6 +315,21 @@ include("TRAITEMENT/connexion.php");
                         </div>
                     </div>
 
+                    <div class="tab-pane fade show" id="filtre" role="tabpanel" aria-labelledby="filtre-tab">
+                        <div class="">
+                            <form class="form-inline">
+                                <div class="form-group mb-2">
+                                    <label for="staticEmail2" class="sr-only">Email</label>
+                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
+                                </div>
+                                <div class="form-group mx-sm-3 mb-2">
+                                    <label for="inputPassword2" class="sr-only">Password</label>
+                                    <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
+                            </form>
+                        </div>
+                    </div>
 
 
                 </div>
